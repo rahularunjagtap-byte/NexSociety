@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexSociety | Smart Community &amp; Security Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="login-universe">
+
+        <!-- Glowing Ambient Lighting Orbs -->
+        <div class="ambient-glow-orb orb-1"></div>
+        <div class="ambient-glow-orb orb-2"></div>
+
+        <!-- Floating Glassmorphic Login Canvas -->
+        <div class="login-canvas">
+
+            <!-- ==============================================
+                 LEFT SHOWCASE PANE
+                 ============================================== -->
+            <section class="showcase-pane">
+                <div class="brand-head">
+                    <div class="brand-crest">🛡️</div>
+                    <div class="brand-title-box">
+                        <h1>NexSociety</h1>
+                        <span>SMART COMMUNITY CLOUD</span>
+                    </div>
+                </div>
+
+                <div class="showcase-copy">
+                    <div class="futuristic-tag">
+                        <span class="radar-dot"></span>
+                        <span>GATEKEEPER 2.0 PROTOCOL ONLINE</span>
+                    </div>
+
+                    <h2>
+                        Next-Gen Security &amp;<br>
+                        <span>Resident Community</span>
+                    </h2>
+
+                    <p>
+                        A unified real-time ecosystem connecting society gate security, resident mobile approvals,
+                        parking automation, and executive management on a single intelligent platform.
+                    </p>
+
+                    <div class="highlight-grid">
+                        <div class="highlight-card">
+                            <div class="highlight-card-top">
+                                <span>⚡</span>
+                                <strong>1-Tap Fast Pass</strong>
+                            </div>
+                            <small>Instant access for Swiggy, Zomato &amp; Cabs</small>
+                        </div>
+
+                        <div class="highlight-card">
+                            <div class="highlight-card-top">
+                                <span>🔑</span>
+                                <strong>6-Digit Passcode</strong>
+                            </div>
+                            <small>Automated boom barrier authorization</small>
+                        </div>
+
+                        <div class="highlight-card">
+                            <div class="highlight-card-top">
+                                <span>🅿️</span>
+                                <strong>Smart Parking</strong>
+                            </div>
+                            <small>Automated guest slot allocation</small>
+                        </div>
+
+                        <div class="highlight-card">
+                            <div class="highlight-card-top">
+                                <span>📊</span>
+                                <strong>Executive Desk</strong>
+                            </div>
+                            <small>Real-time dues, tickets &amp; gate audit</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showcase-footer">
+                    <span>&copy; 2026 NexSociety Cloud Systems</span>
+                    <div class="security-seal">
+                        <span>●</span> 256-Bit Encrypted Link
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 RIGHT AUTH FORM PANE
+                 ============================================== -->
+            <main class="auth-pane">
+
+                <div class="auth-header">
+                    <h3>Sign In to Dashboard</h3>
+                    <p>Select your portal role to access your authorized workspace.</p>
+                </div>
+
+                <!-- 3-Role Switcher Tabs -->
+                <div class="portal-selector">
+                    <span class="selector-label">Select Access Role</span>
+                    <div class="role-switch-bar">
+                        <button type="button" class="role-tab-btn active" data-role="security">
+                            <span class="tab-icon">🛡️</span>
+                            <span>Security</span>
+                        </button>
+                        <button type="button" class="role-tab-btn" data-role="resident">
+                            <span class="tab-icon">🏠</span>
+                            <span>Resident</span>
+                        </button>
+                        <button type="button" class="role-tab-btn" data-role="admin">
+                            <span class="tab-icon">⚙️</span>
+                            <span>Admin</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 1-Click Demo Accounts Bar -->
+                <div class="demo-quickbar">
+                    <div class="demo-title-row">
+                        <span><span>💡</span> 1-Click Demo Accounts</span>
+                        <small style="color: var(--cyan-glow); font-size: 10px; font-weight: 700;">LIVE DEMO</small>
+                    </div>
+                    <div class="demo-pills">
+                        <button type="button" class="demo-btn-pill" onclick="quickFill('security')">
+                            🛡️ Guard Demo
+                        </button>
+                        <button type="button" class="demo-btn-pill" onclick="quickFill('resident')">
+                            🏠 Resident Demo
+                        </button>
+                        <button type="button" class="demo-btn-pill" onclick="quickFill('admin')">
+                            ⚙️ Admin Demo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <form class="auth-form" id="loginForm">
+                    <input type="hidden" id="selectedRole" value="security">
+
+                    <div class="field-group">
+                        <div class="field-label-row">
+                            <label for="email">User ID / Official Email</label>
+                        </div>
+                        <div class="input-box">
+                            <span class="prefix-icon">✉️</span>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                class="auth-input" 
+                                placeholder="name@nexsociety.in" 
+                                value="guard@nexsociety.in" 
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <div class="field-label-row">
+                            <label for="password">Password</label>
+                            <a href="#" class="forgot-link-btn" id="forgotPassword">Forgot Password?</a>
+                        </div>
+                        <div class="input-box">
+                            <span class="prefix-icon">🔒</span>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                class="auth-input" 
+                                placeholder="••••••••" 
+                                value="password123" 
+                                required
+                            >
+                            <button type="button" class="eye-toggle-btn" id="showPassword">Show</button>
+                        </div>
+                    </div>
+
+                    <div class="remember-container">
+                        <input type="checkbox" id="rememberMe" checked>
+                        <label for="rememberMe">Remember my login credentials on this terminal</label>
+                    </div>
+
+                    <button type="submit" class="btn-auth-submit" id="submitBtn">
+                        <span>Authenticate &amp; Enter Dashboard →</span>
+                    </button>
+                </form>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- Floating Toast Notification -->
+    <div class="floating-toast" id="toast">
+        <span id="toastIcon">ℹ️</span>
+        <span id="toastMessage">Welcome to NexSociety</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

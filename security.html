@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexSociety | Security Gatekeeper Terminal</title>
+    <link rel="stylesheet" href="security.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- ==============================================
+             SIDEBAR NAVIGATION
+             ============================================== -->
+        <aside class="sidebar">
+            <a href="security.html" class="sidebar-brand">
+                <div class="brand-icon">🛡️</div>
+                <div class="brand-info">
+                    <h2>NexSociety</h2>
+                    <span>Gatekeeper Pro</span>
+                </div>
+            </a>
+
+            <div class="gate-badge">
+                <span class="live-dot"></span>
+                <span>Gate 1 • Live Terminal</span>
+            </div>
+
+            <nav class="sidebar-menu">
+                <span class="menu-category">Operations</span>
+                <a href="#gate-log" class="nav-link active">
+                    <span>☷</span> Gate Activity Log
+                    <b class="nav-badge" id="activeVisitorCount">24</b>
+                </a>
+                <a href="#preapproved" class="nav-link">
+                    <span>✓</span> Pre-Approvals
+                    <b class="nav-badge" id="preapprovedBadge">3</b>
+                </a>
+                <a href="#deliveries" class="nav-link" onclick="setTabFilter('delivery')">
+                    <span>📦</span> Fast Deliveries
+                </a>
+                <a href="#vehicles" class="nav-link" onclick="openModal('vehicleModal')">
+                    <span>🅿️</span> Vehicle Parking
+                </a>
+
+                <span class="menu-category">Desk &amp; Incident</span>
+                <a href="#incidents" class="nav-link" onclick="openModal('incidentModal')">
+                    <span>⚠️</span> Log Incident
+                    <b class="nav-badge" id="incidentCountBadge" style="background: var(--danger);">0</b>
+                </a>
+                <a href="resident.html" class="nav-link" target="_blank">
+                    <span>🏠</span> Resident Portal ↗
+                </a>
+                <a href="admin.html" class="nav-link" target="_blank">
+                    <span>⚙️</span> Admin Command ↗
+                </a>
+                <a href="index.html" class="nav-link logout">
+                    <span>↪</span> Sign Out Terminal
+                </a>
+            </nav>
+
+            <div class="sidebar-sos" onclick="triggerSosModal()">
+                <div class="sos-icon">!</div>
+                <div class="sos-text">
+                    <strong>Emergency SOS</strong>
+                    <small>Trigger gate panic alert</small>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ==============================================
+             MAIN WRAPPER & TOPBAR
+             ============================================== -->
+        <div class="main-wrapper">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1>Security Gate Terminal</h1>
+                    <select class="gate-select" id="gateSwitcher" title="Switch Gate">
+                        <option value="gate1" selected>Gate 1 • Main Entrance</option>
+                        <option value="gate2">Gate 2 • Service &amp; Delivery</option>
+                        <option value="gate3">Gate 3 • Resident RFID</option>
+                    </select>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="live-clock-card">
+                        <span>🕒</span>
+                        <span id="liveClock">10:00:00 AM</span>
+                    </div>
+
+                    <div class="guard-profile">
+                        <div class="guard-avatar">VS</div>
+                        <div class="guard-info">
+                            <strong>Vikram Singh</strong>
+                            <small>Lead Guard (#S-104)</small>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+
+                <!-- 1. STAT CARDS -->
+                <section class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon green">♙</div>
+                            <span class="stat-tag green">ACTIVE NOW</span>
+                        </div>
+                        <p>Visitors Inside Society</p>
+                        <h3 id="statInside">24</h3>
+                        <small>Currently in campus</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon blue">☷</div>
+                            <span class="stat-tag blue">TODAY</span>
+                        </div>
+                        <p>Total Entries Logged</p>
+                        <h3 id="statTotal">148</h3>
+                        <small>Since 06:00 AM shift</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon orange">✓</div>
+                            <span class="stat-tag orange">PENDING</span>
+                        </div>
+                        <p>Pre-Approved Passes</p>
+                        <h3 id="statPreapproved">03</h3>
+                        <small>Expected guests today</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon purple">📦</div>
+                            <span class="stat-tag purple">FAST PASS</span>
+                        </div>
+                        <p>Deliveries &amp; Cabs</p>
+                        <h3 id="statDeliveries">62</h3>
+                        <small>Average stop: 8 mins</small>
+                    </div>
+                </section>
+
+                <!-- 2. QUICK DELIVERY 1-TAP BAR -->
+                <section class="quick-delivery-bar" id="deliveries">
+                    <div class="delivery-label">
+                        <span class="delivery-icon">⚡</span>
+                        <div>
+                            <strong>1-Tap Quick Delivery Passes</strong>
+                            <span>Fast gate pass allocation for verified delivery partners</span>
+                        </div>
+                    </div>
+                    <div class="delivery-chips">
+                        <button type="button" class="chip-btn" onclick="quickDeliveryCheckin('Zomato')">
+                            🍕 Zomato
+                        </button>
+                        <button type="button" class="chip-btn" onclick="quickDeliveryCheckin('Swiggy')">
+                            🍔 Swiggy
+                        </button>
+                        <button type="button" class="chip-btn" onclick="quickDeliveryCheckin('Blinkit')">
+                            ⚡ Blinkit / Zepto
+                        </button>
+                        <button type="button" class="chip-btn" onclick="quickDeliveryCheckin('Amazon')">
+                            📦 Amazon
+                        </button>
+                        <button type="button" class="chip-btn" onclick="quickDeliveryCheckin('Uber / Cab')">
+                            🚖 Uber / Ola
+                        </button>
+                    </div>
+                </section>
+
+                <!-- 3. TWO-COLUMN DASHBOARD GRID -->
+                <div class="dashboard-grid">
+
+                    <!-- LEFT COLUMN -->
+                    <div class="left-column">
+
+                        <!-- Quick Actions Grid -->
+                        <div class="quick-actions-grid">
+                            <button type="button" class="action-card" onclick="openModal('newVisitorModal')">
+                                <div class="action-card-icon blue">♙</div>
+                                <div class="action-card-text">
+                                    <strong>Log Visitor</strong>
+                                    <span>Guest, friend or family</span>
+                                </div>
+                            </button>
+
+                            <button type="button" class="action-card" onclick="openModal('otpModal')">
+                                <div class="action-card-icon purple">🔑</div>
+                                <div class="action-card-text">
+                                    <strong>Verify Passcode</strong>
+                                    <span>6-digit resident PIN</span>
+                                </div>
+                            </button>
+
+                            <button type="button" class="action-card" onclick="openModal('vehicleModal')">
+                                <div class="action-card-icon green">🅿️</div>
+                                <div class="action-card-text">
+                                    <strong>Vehicle Parking</strong>
+                                    <span>Assign guest bay slot</span>
+                                </div>
+                            </button>
+
+                            <button type="button" class="action-card" onclick="openModal('incidentModal')">
+                                <div class="action-card-icon red">⚠️</div>
+                                <div class="action-card-text">
+                                    <strong>Report Incident</strong>
+                                    <span>Blockage, violation</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- Gate Activity Log Table -->
+                        <section class="section-card" id="gate-log">
+                            <div class="section-header">
+                                <div>
+                                    <h2>Live Gate Activity Log</h2>
+                                    <p>Real-time incoming and outgoing entries</p>
+                                </div>
+                                <div class="header-actions">
+                                    <span class="localstore-pill">
+                                        <span>●</span> LocalStore Synced
+                                    </span>
+                                    <button type="button" class="btn-secondary" onclick="exportGateLog()">
+                                        Export CSV ↓
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table Filters & Search -->
+                            <div class="table-toolbar">
+                                <div class="search-box">
+                                    <span>🔍</span>
+                                    <input 
+                                        type="text" 
+                                        id="searchInput" 
+                                        class="search-input" 
+                                        placeholder="Search by visitor name, flat (e.g. A-204) or vehicle plate..."
+                                    >
+                                </div>
+
+                                <div class="filter-group">
+                                    <button type="button" class="filter-tab active" data-filter="all">All</button>
+                                    <button type="button" class="filter-tab" data-filter="inside">Inside Now</button>
+                                    <button type="button" class="filter-tab" data-filter="delivery">Deliveries</button>
+                                    <button type="button" class="filter-tab" data-filter="cab">Cabs</button>
+                                    <button type="button" class="filter-tab" data-filter="checked-out">Checked Out</button>
+                                </div>
+                            </div>
+
+                            <!-- Table Rows -->
+                            <div class="table-responsive">
+                                <table class="gate-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Visitor Details</th>
+                                            <th>Flat &amp; Resident</th>
+                                            <th>Purpose</th>
+                                            <th>Vehicle No.</th>
+                                            <th>Entry Time</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="gateTableBody">
+                                        <!-- Rendered dynamically by security.js from LocalStorage -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="table-footer">
+                                <span id="showingEntriesText">Showing entries from LocalStorage</span>
+                                <button type="button" class="btn-secondary" onclick="showToast('All today\\'s entries loaded from storage.', '✓')">
+                                    Refresh Entries
+                                </button>
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <!-- RIGHT COLUMN -->
+                    <aside class="right-column">
+
+                        <!-- 6-Digit Passcode Widget -->
+                        <section class="passcode-card">
+                            <div class="passcode-header">
+                                <h3>Quick Passcode Check</h3>
+                                <span class="passcode-tag">FAST ENTRY</span>
+                            </div>
+                            <p>Enter the 6-digit entry code provided by the resident in their NexSociety app:</p>
+
+                            <div class="otp-box-row" id="quickOtpInputs">
+                                <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                                <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                                <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                                <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                                <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                                <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                            </div>
+
+                            <button type="button" class="btn-verify" id="verifyOtpBtn">
+                                Verify &amp; Open Barrier →
+                            </button>
+                        </section>
+
+                        <!-- Expected Pre-Approvals -->
+                        <section class="preapproved-card" id="preapproved">
+                            <div class="preapproved-header">
+                                <h3>Expected Pre-Approvals</h3>
+                                <span class="badge-count" id="preapprovedCount">3</span>
+                            </div>
+
+                            <div class="preapproved-list" id="preapprovedListContainer">
+                                <!-- Populated dynamically by security.js from LocalStorage -->
+                            </div>
+                        </section>
+
+                        <!-- Lead Guard On Duty -->
+                        <section class="guard-card">
+                            <div class="guard-pic">VS</div>
+                            <div class="guard-details">
+                                <strong>Vikram Singh</strong>
+                                <span>Chief Security Officer • Gate 1</span>
+                                <small style="color: var(--success); font-weight: 600;">Shift: 06:00 AM - 02:00 PM</small>
+                            </div>
+                        </section>
+
+                    </aside>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ==============================================
+         MODALS (INTERACTIVE POPUPS)
+         ============================================== -->
+
+    <!-- Modal 1: Log New Visitor -->
+    <div class="modal" id="newVisitorModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('newVisitorModal')">✕</span>
+            <h2>Log New Visitor Entry</h2>
+            <p>Record guest details and authorize gate entry.</p>
+
+            <form class="modal-form" id="newVisitorForm" onsubmit="handleNewVisitor(event)">
+                <div class="form-group">
+                    <label>Visitor Full Name *</label>
+                    <input type="text" id="visitorName" class="modal-input" placeholder="e.g. Ramesh Patel" required>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label>Contact Phone</label>
+                        <input type="tel" id="visitorPhone" class="modal-input" placeholder="+91 98765 43210">
+                    </div>
+                    <div>
+                        <label>Destination Flat *</label>
+                        <input type="text" id="visitorFlat" class="modal-input" placeholder="e.g. A-204" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label>Visit Purpose</label>
+                        <select id="visitorPurposeSelect" class="modal-select">
+                            <option value="guest">Guest / Personal</option>
+                            <option value="delivery">Delivery / Courier</option>
+                            <option value="cab">Cab / Taxi</option>
+                            <option value="service">Home Service / Maintenance</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Vehicle Plate No.</label>
+                        <input type="text" id="visitorVehicle" class="modal-input" placeholder="e.g. MH-02-AB-1234">
+                    </div>
+                </div>
+
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="closeModal('newVisitorModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Allow In &amp; Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Passcode Verification -->
+    <div class="modal" id="otpModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('otpModal')">✕</span>
+            <h2>Verify Resident Passcode</h2>
+            <p>Enter the 6-digit visitor invitation passcode from the resident's app.</p>
+
+            <form class="modal-form" onsubmit="handleModalOtp(event)">
+                <div class="form-group">
+                    <label>Enter 6-Digit Code</label>
+                    <input 
+                        type="text" 
+                        id="modalOtpInput" 
+                        class="modal-input" 
+                        maxlength="6" 
+                        placeholder="e.g. 582194" 
+                        style="text-align: center; font-size: 20px; letter-spacing: 4px; font-weight: 700;" 
+                        required
+                    >
+                </div>
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="closeModal('otpModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Verify Code</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 3: Vehicle Log & Parking Slot -->
+    <div class="modal" id="vehicleModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('vehicleModal')">✕</span>
+            <h2>Vehicle Parking Allocation</h2>
+            <p>Record vehicle license plate and allocate temporary guest parking bay.</p>
+
+            <form class="modal-form" onsubmit="handleVehicleLog(event)">
+                <div class="form-group">
+                    <label>Vehicle Number Plate *</label>
+                    <input type="text" id="vehiclePlateInput" class="modal-input" placeholder="e.g. MH 02 CD 4421" required>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label>Vehicle Type</label>
+                        <select id="vehicleTypeSelect" class="modal-select">
+                            <option value="4-Wheeler Car">4-Wheeler Car</option>
+                            <option value="2-Wheeler Bike">2-Wheeler Bike</option>
+                            <option value="Commercial Van">Commercial Van</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Destination Flat *</label>
+                        <input type="text" id="vehicleFlatInput" class="modal-input" placeholder="e.g. B-102" required>
+                    </div>
+                </div>
+
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="closeModal('vehicleModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Allocate Bay &amp; Allow</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 4: Security Incident Report -->
+    <div class="modal" id="incidentModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('incidentModal')">✕</span>
+            <h2>Report Security Incident</h2>
+            <p>Log parking violations, unauthorized entry, or property damages.</p>
+
+            <form class="modal-form" onsubmit="handleIncidentReport(event)">
+                <div class="form-group">
+                    <label>Incident Type *</label>
+                    <select id="incidentType" class="modal-select">
+                        <option value="Unauthorized Parking">Unauthorized Parking</option>
+                        <option value="Gate Blockage">Gate / Driveway Blockage</option>
+                        <option value="Unregistered Entry">Forced / Unregistered Entry</option>
+                        <option value="Property Damage">Property / Barrier Damage</option>
+                        <option value="Other">Other Security Disturbance</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Incident Location</label>
+                    <input type="text" id="incidentLocation" class="modal-input" placeholder="e.g. Visitor Bay 4, Gate 1">
+                </div>
+
+                <div class="form-group">
+                    <label>Details &amp; Notes *</label>
+                    <textarea id="incidentDetails" class="modal-textarea" placeholder="Explain what occurred..." required></textarea>
+                </div>
+
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="closeModal('incidentModal')">Cancel</button>
+                    <button type="submit" class="btn-danger">Save Incident Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastIcon">✓</span>
+        <span id="toastMessage">Action completed</span>
+    </div>
+
+    <script src="security.js"></script>
+</body>
+</html>

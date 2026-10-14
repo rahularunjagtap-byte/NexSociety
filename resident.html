@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexSociety | Resident Portal - Flat A-204</title>
+    <link rel="stylesheet" href="resident.css">
+    <!-- Also reuse global design variables and modal styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="resident-layout">
+
+        <!-- ==============================================
+             SIDEBAR NAVIGATION
+             ============================================== -->
+        <aside class="resident-sidebar">
+            <div>
+                <div class="brand-row">
+                    <div class="brand-icon">🏠</div>
+                    <div>
+                        <h2>NexSociety</h2>
+                        <span>Smart Community</span>
+                    </div>
+                </div>
+
+                <div class="resident-badge">
+                    <span>🏢</span> Flat A-204 • Tower A
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="resident.html" class="nav-item active">
+                        <span>⌂</span> Dashboard
+                    </a>
+                    <a href="#visitors" class="nav-item">
+                        <span>♙</span> Expected Guests
+                    </a>
+                    <a href="#maintenance" class="nav-item" onclick="openModal('parkingModal')">
+                        <span>₹</span> Maintenance &amp; Parking
+                    </a>
+                    <a href="#complaints" class="nav-item" onclick="openModal('complaintModal')">
+                        <span>☷</span> Helpdesk Complaints
+                    </a>
+                    <a href="#events" class="nav-item">
+                        <span>🎉</span> Society Events
+                    </a>
+                    <a href="security.html" class="nav-item" target="_blank" style="margin-top: 10px; border-top: 1px solid var(--border-dark); padding-top: 12px;">
+                        <span>🛡️</span> Security Gate ↗
+                    </a>
+                    <a href="admin.html" class="nav-item" target="_blank">
+                        <span>⚙️</span> Admin Command ↗
+                    </a>
+                </nav>
+            </div>
+
+            <a href="index.html" class="nav-item logout">
+                <span>↪</span> Sign Out Portal
+            </a>
+        </aside>
+
+        <!-- ==============================================
+             MAIN WRAPPER & TOPBAR
+             ============================================== -->
+        <div class="main-content">
+
+            <header class="resident-topbar">
+                <div class="topbar-info">
+                    <h1 id="residentGreeting">Good morning, Aryan 👋</h1>
+                    <small id="residentTodayDate">Wednesday, October 14, 2026</small>
+                </div>
+
+                <div class="topbar-user">
+                    <div class="user-avatar">A</div>
+                    <div class="user-details">
+                        <strong>Aryan Sharma</strong>
+                        <span>Resident • Flat A-204</span>
+                    </div>
+                </div>
+            </header>
+
+            <main class="resident-body">
+
+                <!-- 1. SOCIETY NOTICE BANNER -->
+                <section class="notice-banner" id="noticeBanner">
+                    <div class="notice-text">
+                        <h3>⚠️ Scheduled Water Supply Maintenance Tomorrow</h3>
+                        <p>Water supply will remain unavailable tomorrow from 10:00 AM to 1:00 PM due to pipeline servicing in Tower A.</p>
+                    </div>
+                    <button type="button" class="btn-notice" onclick="document.getElementById('noticeBanner').style.display='none'">
+                        Got It &amp; Dismiss
+                    </button>
+                </section>
+
+                <!-- 2. STATS OVERVIEW -->
+                <section class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-head">
+                            <div class="stat-icon green">₹</div>
+                            <span class="stat-tag paid">PAID</span>
+                        </div>
+                        <p>Maintenance (Oct)</p>
+                        <h3>₹4,250</h3>
+                        <small>No dues pending</small>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-head">
+                            <div class="stat-icon blue">♙</div>
+                            <span class="stat-tag active">ACTIVE</span>
+                        </div>
+                        <p>Expected Visitors</p>
+                        <h3 id="statVisitorCount">02</h3>
+                        <small>Invited for today</small>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-head">
+                            <div class="stat-icon orange">☷</div>
+                            <span class="stat-tag review">IN REVIEW</span>
+                        </div>
+                        <p>Helpdesk Complaints</p>
+                        <h3 id="statComplaintCount">01</h3>
+                        <small>Water pressure check</small>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-head">
+                            <div class="stat-icon purple">🎉</div>
+                            <span class="stat-tag events">UPCOMING</span>
+                        </div>
+                        <p>Society Events</p>
+                        <h3>03</h3>
+                        <small>Diwali &amp; AGM this month</small>
+                    </div>
+                </section>
+
+                <!-- 3. QUICK ACTIONS -->
+                <section class="quick-cards-grid">
+                    <button type="button" class="resident-action-card" onclick="openModal('preapproveModal')">
+                        <div class="action-icon-box blue">♙</div>
+                        <div class="action-info">
+                            <strong>Pre-Approve Guest</strong>
+                            <span>Generate 6-digit entry PIN</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="resident-action-card" onclick="openModal('complaintModal')">
+                        <div class="action-icon-box orange">☷</div>
+                        <div class="action-info">
+                            <strong>Raise Complaint</strong>
+                            <span>Report plumbing, electrics</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="resident-action-card" onclick="openModal('parkingModal')">
+                        <div class="action-icon-box green">🅿️</div>
+                        <div class="action-info">
+                            <strong>My Parking Bay</strong>
+                            <span>Slot B-12 (Tower A)</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="resident-action-card" onclick="showToast('Maintenance is already paid for October 2026!', '✓')">
+                        <div class="action-icon-box purple">₹</div>
+                        <div class="action-info">
+                            <strong>Pay Maintenance</strong>
+                            <span>View paid receipt</span>
+                        </div>
+                    </button>
+                </section>
+
+                <!-- 4. TWO-COLUMN DASHBOARD GRID -->
+                <div class="resident-grid">
+
+                    <!-- Left Column -->
+                    <div class="left-col">
+
+                        <!-- Expected Visitors Section -->
+                        <section class="card-section" id="visitors">
+                            <div class="card-header">
+                                <h2>Expected Guests &amp; Pre-Approvals (Flat A-204)</h2>
+                                <button type="button" class="btn-text" onclick="openModal('preapproveModal')">
+                                    + Invite New Guest
+                                </button>
+                            </div>
+
+                            <div class="visitor-list" id="expectedVisitorsContainer">
+                                <!-- Populated dynamically from LocalStorage via resident.js -->
+                            </div>
+                        </section>
+
+                        <!-- Upcoming Events Section -->
+                        <section class="card-section" id="events">
+                            <div class="card-header">
+                                <h2>Upcoming Society Events</h2>
+                                <span style="font-size: 11px; color: var(--text-muted);">Community Calendar</span>
+                            </div>
+
+                            <div class="events-column">
+                                <div class="event-item">
+                                    <div class="event-date-box">
+                                        <strong>20</strong>
+                                        <span>OCT</span>
+                                    </div>
+                                    <div class="event-details">
+                                        <strong>Grand Diwali Celebration &amp; Rangoli Fest</strong>
+                                        <small>Clubhouse Lawn • 07:00 PM onwards</small>
+                                    </div>
+                                </div>
+
+                                <div class="event-item">
+                                    <div class="event-date-box">
+                                        <strong>25</strong>
+                                        <span>OCT</span>
+                                    </div>
+                                    <div class="event-details">
+                                        <strong>Annual Residents General Body Meeting (AGM)</strong>
+                                        <small>Community Hall • 06:30 PM</small>
+                                    </div>
+                                </div>
+
+                                <div class="event-item">
+                                    <div class="event-date-box">
+                                        <strong>12</strong>
+                                        <span>NOV</span>
+                                    </div>
+                                    <div class="event-details">
+                                        <strong>Children's Sports &amp; Badminton Tournament</strong>
+                                        <small>Sports Complex • 09:00 AM</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <!-- Right Column -->
+                    <aside class="right-col">
+
+                        <!-- Flat Profile Card -->
+                        <div class="flat-profile-card">
+                            <div class="flat-avatar-big">AS</div>
+                            <h3>Aryan Sharma</h3>
+                            <p>Primary Resident • Flat A-204</p>
+
+                            <div class="flat-specs">
+                                <div>
+                                    <span>Building</span>
+                                    <strong>Tower A</strong>
+                                </div>
+                                <div>
+                                    <span>Floor</span>
+                                    <strong>2nd Floor</strong>
+                                </div>
+                                <div>
+                                    <span>Parking</span>
+                                    <strong>Bay B-12</strong>
+                                </div>
+                                <div>
+                                    <span>Intercom</span>
+                                    <strong>#1204</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Speed Dial -->
+                        <div class="speed-dial-card">
+                            <div class="card-header">
+                                <h2>Society Speed Dial</h2>
+                            </div>
+                            <div class="dial-list">
+                                <div class="dial-row">
+                                    <span>Security Gate 1</span>
+                                    <strong>+91 98200 11001</strong>
+                                </div>
+                                <div class="dial-row">
+                                    <span>Estate Manager</span>
+                                    <strong>+91 98200 11005</strong>
+                                </div>
+                                <div class="dial-row">
+                                    <span>Electrician On-Duty</span>
+                                    <strong>+91 98200 11022</strong>
+                                </div>
+                                <div class="dial-row">
+                                    <span>Ambulance / Emergency</span>
+                                    <strong>108 / 112</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ==============================================
+         MODALS
+         ============================================== -->
+
+    <!-- Modal 1: Pre-Approve Visitor -->
+    <div class="modal" id="preapproveModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('preapproveModal')">✕</span>
+            <h2>Pre-Approve a Guest</h2>
+            <p>Generate a 6-digit entry PIN for your guest to show at Gate 1.</p>
+
+            <form class="modal-form" id="preapproveForm" onsubmit="handlePreapproveVisitor(event)">
+                <div class="form-group">
+                    <label>Guest Full Name *</label>
+                    <input type="text" id="preName" class="modal-input" placeholder="e.g. Sameer Verma" required>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label>Contact Phone</label>
+                        <input type="tel" id="prePhone" class="modal-input" placeholder="+91 98765 00000">
+                    </div>
+                    <div>
+                        <label>Vehicle Plate (Optional)</label>
+                        <input type="text" id="preVehicle" class="modal-input" placeholder="e.g. MH-02-ZZ-9999">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Purpose of Visit</label>
+                    <select id="prePurpose" class="modal-select">
+                        <option value="guest">Family / Friend Guest</option>
+                        <option value="service">Home Repair / Service</option>
+                        <option value="delivery">Personal Delivery</option>
+                    </select>
+                </div>
+
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="closeModal('preapproveModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Generate Pass &amp; Notify Gate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Raise Helpdesk Complaint -->
+    <div class="modal" id="complaintModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('complaintModal')">✕</span>
+            <h2>Lodge Maintenance Complaint</h2>
+            <p>Directly dispatches your request to the facility maintenance supervisor.</p>
+
+            <form class="modal-form" onsubmit="handleRaiseComplaint(event)">
+                <div class="form-group">
+                    <label>Complaint Category *</label>
+                    <select id="complaintCategory" class="modal-select">
+                        <option value="Plumbing">Plumbing &amp; Water Leakage</option>
+                        <option value="Electrical">Electrical / Power Trip</option>
+                        <option value="Elevator">Tower Elevator Issue</option>
+                        <option value="Carpentry">Carpentry / Common Door</option>
+                        <option value="Noise">Noise / Neighborhood Disturbance</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Issue Description *</label>
+                    <textarea id="complaintDetails" class="modal-textarea" placeholder="Describe the issue in your flat..." required></textarea>
+                </div>
+
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="closeModal('complaintModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Submit Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 3: My Parking Slot Info -->
+    <div class="modal" id="parkingModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('parkingModal')">✕</span>
+            <h2>Resident Parking Allocation</h2>
+            <p>Official allocated parking slot for Flat A-204.</p>
+
+            <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 13px; color: var(--text-muted);">Allocated Bay:</span>
+                    <strong style="font-size: 14px; color: var(--primary);">Tower A - Bay B-12</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 13px; color: var(--text-muted);">Vehicle Type:</span>
+                    <strong style="font-size: 13px;">4-Wheeler (Car) + 2-Wheeler</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="font-size: 13px; color: var(--text-muted);">RFID Sticker:</span>
+                    <strong style="font-size: 13px; color: var(--success);">ACTIVE (#RF-98214)</strong>
+                </div>
+            </div>
+
+            <div class="modal-btn-row">
+                <button type="button" class="btn-primary" onclick="closeModal('parkingModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastIcon">✓</span>
+        <span id="toastMessage">Action completed</span>
+    </div>
+
+    <script src="resident.js"></script>
+</body>
+</html>

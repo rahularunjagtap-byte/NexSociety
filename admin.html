@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexSociety | Society Secretary &amp; Admin Command Center</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="admin-layout">
+
+        <!-- ==============================================
+             ADMIN SIDEBAR
+             ============================================== -->
+        <aside class="admin-sidebar">
+            <div>
+                <div class="brand-section">
+                    <div class="brand-logo">⚙️</div>
+                    <div class="brand-text">
+                        <h2>NexSociety</h2>
+                        <span>Admin &amp; Management</span>
+                    </div>
+                </div>
+
+                <div class="society-badge">
+                    <strong>Green Meadows Heights</strong>
+                    <span>120 Flats • Towers A, B &amp; C</span>
+                </div>
+
+                <nav class="admin-menu">
+                    <span class="menu-label">Society Operations</span>
+                    <a href="admin.html" class="admin-nav-item active">
+                        <span>📊</span> Executive Dashboard
+                    </a>
+                    <a href="#directory" class="admin-nav-item">
+                        <span>👥</span> Residents Directory
+                        <span class="nav-pill-badge blue">120 Units</span>
+                    </a>
+                    <a href="#complaints" class="admin-nav-item">
+                        <span>☷</span> Helpdesk Resolution
+                        <span class="nav-pill-badge red" id="complaintsBadge">4</span>
+                    </a>
+                    <a href="#broadcast" class="admin-nav-item">
+                        <span>📢</span> Broadcast Notice
+                    </a>
+                    <a href="security.html" class="admin-nav-item" target="_blank">
+                        <span>🛡️</span> Security Gate Pro ↗
+                    </a>
+                    <a href="resident.html" class="admin-nav-item" target="_blank">
+                        <span>🏠</span> Resident Portal ↗
+                    </a>
+                </nav>
+            </div>
+
+            <a href="index.html" class="admin-nav-item logout">
+                <span>↪</span> Sign Out Admin
+            </a>
+        </aside>
+
+        <!-- ==============================================
+             MAIN WRAPPER
+             ============================================== -->
+        <div class="admin-main">
+
+            <header class="admin-topbar">
+                <div class="topbar-header">
+                    <h1>Society Executive Command Center</h1>
+                    <small id="adminDate">Wednesday, October 14, 2026 • Term 2026-2028</small>
+                </div>
+
+                <div class="topbar-right-box">
+                    <div class="live-clock-card">
+                        <span>🕒</span>
+                        <span id="adminClock">10:00:00 AM</span>
+                    </div>
+
+                    <div class="admin-user-profile">
+                        <div class="secretary-avatar">SR</div>
+                        <div class="secretary-info">
+                            <strong>Dr. S. Rao</strong>
+                            <small>Hon. Society Secretary</small>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="admin-body">
+
+                <!-- 1. KPI EXECUTIVE STAT CARDS -->
+                <section class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-top">
+                            <div class="kpi-icon blue">🏢</div>
+                            <span class="kpi-badge blue">80% OCCUPIED</span>
+                        </div>
+                        <p>Total Society Flats</p>
+                        <h3>96 / 120</h3>
+                        <small>24 vacant • 18 on lease</small>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-top">
+                            <div class="kpi-icon green">₹</div>
+                            <span class="kpi-badge green">+8% VS SEP</span>
+                        </div>
+                        <p>October Maintenance Dues</p>
+                        <h3>₹4,08,000</h3>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 80%;"></div>
+                        </div>
+                        <small style="margin-top: 4px; display: block;">₹1,02,000 pending collection</small>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-top">
+                            <div class="kpi-icon purple">🛡️</div>
+                            <span class="kpi-badge green">ALL ONLINE</span>
+                        </div>
+                        <p>Gate Security Terminals</p>
+                        <h3>3 Gates</h3>
+                        <small>6 guards on duty • 0 breaches</small>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-top">
+                            <div class="kpi-icon orange">⚠️</div>
+                            <span class="kpi-badge orange" id="openTicketsBadge">4 OPEN</span>
+                        </div>
+                        <p>Helpdesk Complaints</p>
+                        <h3 id="complaintsCountText">04</h3>
+                        <small>Average turnaround: 4.2 hours</small>
+                    </div>
+                </section>
+
+                <!-- 2. TWO-COLUMN DASHBOARD GRID -->
+                <div class="admin-grid">
+
+                    <!-- LEFT COLUMN -->
+                    <div class="left-admin-col">
+
+                        <!-- Flats & Residents Directory -->
+                        <section class="admin-card" id="directory">
+                            <div class="card-topbar">
+                                <div>
+                                    <h2>Flats &amp; Residents Directory</h2>
+                                    <p>Comprehensive roster of all units, residents and dues status</p>
+                                </div>
+                                <button type="button" class="btn-secondary" onclick="exportFlatsDirectory()">
+                                    Export Directory CSV ↓
+                                </button>
+                            </div>
+
+                            <div class="directory-toolbar">
+                                <div class="dir-search">
+                                    <span>🔍</span>
+                                    <input 
+                                        type="text" 
+                                        id="dirSearchInput" 
+                                        placeholder="Search by flat (e.g. A-204), resident name or phone..."
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Flat &amp; Tower</th>
+                                            <th>Resident Name</th>
+                                            <th>Contact Phone</th>
+                                            <th>Parking Bay</th>
+                                            <th>Oct Maintenance</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="directoryTableBody">
+                                        <!-- Dynamically populated via admin.js from LocalStorage -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <!-- Complaints Resolution Command Desk -->
+                        <section class="admin-card" id="complaints">
+                            <div class="card-topbar">
+                                <div>
+                                    <h2>Helpdesk Complaints Resolution Desk</h2>
+                                    <p>Manage and resolve maintenance requests lodged by residents</p>
+                                </div>
+                                <span class="localstore-pill">
+                                    <span>●</span> LocalStore Synced
+                                </span>
+                            </div>
+
+                            <div class="complaints-list" id="adminComplaintsList">
+                                <!-- Populated dynamically from LocalStorage -->
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <!-- RIGHT COLUMN -->
+                    <aside class="right-admin-col">
+
+                        <!-- Broadcast Announcement Form -->
+                        <section class="admin-card" id="broadcast">
+                            <div class="card-topbar">
+                                <div>
+                                    <h2>Broadcast Society Notice</h2>
+                                    <p>Publish updates to all residents &amp; gate</p>
+                                </div>
+                            </div>
+
+                            <form class="notice-form" onsubmit="handlePublishNotice(event)">
+                                <div class="form-group-admin">
+                                    <label>Notice Headline *</label>
+                                    <input type="text" id="noticeHeadline" class="form-input-admin" placeholder="e.g. Elevator Servicing Tower B" required>
+                                </div>
+
+                                <div class="form-group-admin">
+                                    <label>Category</label>
+                                    <select id="noticeCategory" class="form-select-admin">
+                                        <option value="Maintenance">Maintenance &amp; Utilities</option>
+                                        <option value="Security">Security &amp; Gate Alert</option>
+                                        <option value="Celebration">Community Event / Festival</option>
+                                        <option value="AGM">General Body Meeting (AGM)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group-admin">
+                                    <label>Detailed Announcement *</label>
+                                    <textarea id="noticeContent" class="form-textarea-admin" placeholder="Write society announcement details..." required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-publish">
+                                    📢 Publish &amp; Notify Society
+                                </button>
+                            </form>
+                        </section>
+
+                        <!-- Gate Security Status Oversight -->
+                        <section class="admin-card">
+                            <div class="card-topbar">
+                                <h2>Security Gate Status</h2>
+                                <span style="font-size: 11px; color: var(--success); font-weight: 700;">ALL NORMAL</span>
+                            </div>
+
+                            <div class="security-status-card">
+                                <div class="gate-status-row">
+                                    <div>
+                                        <span class="status-dot-green"></span>
+                                        <strong>Gate 1 (Main Entrance)</strong>
+                                        <div style="font-size: 11px; color: var(--text-muted);">Lead Guard Vikram Singh</div>
+                                    </div>
+                                    <span class="status-chip paid">Boom Barrier Active</span>
+                                </div>
+
+                                <div class="gate-status-row">
+                                    <div>
+                                        <span class="status-dot-green"></span>
+                                        <strong>Gate 2 (Service &amp; Delivery)</strong>
+                                        <div style="font-size: 11px; color: var(--text-muted);">Guard Rajesh Yadav</div>
+                                    </div>
+                                    <span class="status-chip paid">Delivery Scanner ON</span>
+                                </div>
+
+                                <div class="gate-status-row">
+                                    <div>
+                                        <span class="status-dot-green"></span>
+                                        <strong>Gate 3 (Resident RFID Barrier)</strong>
+                                        <div style="font-size: 11px; color: var(--text-muted);">Automated Sensor</div>
+                                    </div>
+                                    <span class="status-chip paid">RFID FastLane ON</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Monthly Budget Breakdown -->
+                        <section class="admin-card">
+                            <div class="card-topbar">
+                                <h2>Monthly Expense Allocation</h2>
+                            </div>
+
+                            <div class="finance-breakdown">
+                                <div class="finance-bar-row">
+                                    <div class="finance-bar-head">
+                                        <span>Security &amp; Gatekeeping</span>
+                                        <strong>₹1,80,000 (35%)</strong>
+                                    </div>
+                                    <div class="finance-track">
+                                        <div class="finance-fill" style="width: 35%; background: var(--primary);"></div>
+                                    </div>
+                                </div>
+
+                                <div class="finance-bar-row">
+                                    <div class="finance-bar-head">
+                                        <span>Electricity &amp; Lift AMCs</span>
+                                        <strong>₹1,44,000 (28%)</strong>
+                                    </div>
+                                    <div class="finance-track">
+                                        <div class="finance-fill" style="width: 28%; background: var(--purple);"></div>
+                                    </div>
+                                </div>
+
+                                <div class="finance-bar-row">
+                                    <div class="finance-bar-head">
+                                        <span>Water Supply &amp; Housekeeping</span>
+                                        <strong>₹92,000 (18%)</strong>
+                                    </div>
+                                    <div class="finance-track">
+                                        <div class="finance-fill" style="width: 18%; background: var(--warning);"></div>
+                                    </div>
+                                </div>
+
+                                <div class="finance-bar-row">
+                                    <div class="finance-bar-head">
+                                        <span>Sinking &amp; Reserve Fund</span>
+                                        <strong>₹94,000 (19%)</strong>
+                                    </div>
+                                    <div class="finance-track">
+                                        <div class="finance-fill" style="width: 19%; background: var(--success);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </aside>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastIcon">✓</span>
+        <span id="toastMessage">Action completed</span>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
