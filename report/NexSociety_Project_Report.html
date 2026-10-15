@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexSociety Project Report - Parth Style Black Book</title>
-    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <title>NEXSOCIETY PROJECT REPORT - ARYAN JAGTAP &amp; SHARVARI PORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #3e444c;
+            background-color: #2b2f36;
             font-family: "Times New Roman", Times, serif;
             color: #000;
             line-height: 1.6;
@@ -26,7 +26,7 @@
             z-index: 10000;
             background: #0f172a;
             color: #fff;
-            padding: 14px 28px;
+            padding: 12px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -35,82 +35,80 @@
         }
 
         .no-print-bar .title {
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .print-btn {
             background: #2563eb;
             color: #fff;
             border: none;
-            padding: 9px 22px;
-            font-size: 14px;
+            padding: 8px 20px;
+            font-size: 13.5px;
             font-weight: 700;
             border-radius: 6px;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(37,99,235,0.4);
             transition: all 0.2s;
         }
 
         .print-btn:hover {
             background: #1d4ed8;
-            transform: translateY(-1px);
         }
 
-        /* Printable A4 Book Page Container */
+        /* Exact A4 Standard Sheet Dimensions */
         .page {
             width: 210mm;
-            min-height: 297mm;
+            height: 297mm;
+            max-height: 297mm;
             margin: 25px auto;
             background: #fff;
             padding: 24mm 24mm;
-            box-shadow: 0 0 18px rgba(0,0,0,0.4);
+            box-shadow: 0 0 16px rgba(0,0,0,0.4);
             position: relative;
+            overflow: hidden;
+            page-break-after: always;
+            break-after: page;
         }
 
-        /* Inner Document Border (Exact GPM Diploma Black Book Style) */
-        .page-border {
-            border: 1.5px solid #000;
-            min-height: 249mm;
-            padding: 16mm 16mm;
+        /* Parth Format: NO outer border on cover page, just clean college layout */
+        .page-content {
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
         }
 
-        .page-border.free-flow {
+        .page-content.free-flow {
             justify-content: flex-start;
         }
 
-        /* Page Numbering */
-        .page-number {
+        /* Page Numbering - bottom center/right as per Parth template */
+        .page-num {
             position: absolute;
-            bottom: 8mm;
-            right: 12mm;
+            bottom: 0;
+            right: 0;
             font-size: 11pt;
             font-family: "Times New Roman", Times, serif;
         }
 
-        /* Headings & Typography matching Parth's PDF */
+        /* Parth Style Typography */
         h1.main-title {
-            font-size: 20pt;
+            font-size: 19pt;
             font-weight: bold;
             text-align: center;
-            letter-spacing: 0.5px;
             line-height: 1.35;
             margin-bottom: 6px;
             text-transform: uppercase;
         }
 
         h2.sub-title {
-            font-size: 15pt;
+            font-size: 14pt;
             font-weight: bold;
             text-align: center;
-            letter-spacing: 0.5px;
             line-height: 1.3;
             margin-bottom: 12px;
             text-transform: uppercase;
@@ -121,7 +119,7 @@
             font-weight: normal;
             text-align: center;
             line-height: 1.5;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .chapter-title {
@@ -129,52 +127,40 @@
             font-weight: bold;
             text-decoration: underline;
             text-align: center;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .section-heading {
-            font-size: 12.5pt;
+            font-size: 12pt;
             font-weight: bold;
             text-decoration: underline;
-            margin-top: 18px;
-            margin-bottom: 10px;
+            margin-top: 14px;
+            margin-bottom: 8px;
         }
 
         p {
-            font-size: 11.5pt;
+            font-size: 11pt;
             text-align: justify;
-            margin-bottom: 12px;
+            margin-bottom: 11px;
             text-justify: inter-word;
-            line-height: 1.6;
+            line-height: 1.55;
         }
 
         ul {
             margin-left: 24px;
-            margin-bottom: 12px;
-            font-size: 11.5pt;
+            margin-bottom: 11px;
+            font-size: 11pt;
         }
 
         li {
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             text-align: justify;
             line-height: 1.5;
         }
 
-        /* College Crest / Emblem SVG */
-        .logo-container {
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .college-emblem {
-            width: 140px;
-            height: 140px;
-            display: inline-block;
-        }
-
-        /* Submission Block */
+        /* Submission Box */
         .submitted-box {
             text-align: center;
             font-size: 12pt;
@@ -184,12 +170,12 @@
 
         .student-name {
             font-weight: bold;
-            font-size: 12.5pt;
+            font-size: 12pt;
         }
 
         .dept-footer {
             text-align: center;
-            font-size: 12.5pt;
+            font-size: 12pt;
             font-weight: bold;
             line-height: 1.4;
         }
@@ -198,115 +184,83 @@
         .sign-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 35px;
-            margin-top: 35px;
+            gap: 30px;
+            margin-top: 25px;
             text-align: center;
-            font-size: 11.5pt;
+            font-size: 11pt;
         }
 
         .sign-line {
             border-top: 1.2px solid #000;
             width: 80%;
-            margin: 40px auto 6px auto;
+            margin: 35px auto 6px auto;
         }
 
         /* Tables */
         table.report-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 14px 0;
+            margin: 12px 0;
             font-size: 10.5pt;
         }
 
         table.report-table th, table.report-table td {
             border: 1px solid #000;
-            padding: 6px 9px;
+            padding: 6px 8px;
             vertical-align: middle;
         }
 
         table.report-table th {
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
             font-weight: bold;
             text-align: left;
         }
 
-        /* High-Definition CSS UI Mockup Snapshots for Chapters */
-        .ui-snapshot-box {
+        /* Actual Screenshots */
+        .snapshot-container {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .snapshot-img {
+            max-width: 100%;
+            max-height: 175mm;
+            width: auto;
             border: 1px solid #334155;
-            background: #090d16;
-            color: #f8fafc;
-            border-radius: 8px;
-            padding: 12px;
-            margin: 14px 0;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-        }
-
-        .ui-snapshot-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #1e293b;
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-        }
-
-        .ui-kpi-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .ui-kpi-item {
-            background: #111827;
-            border: 1px solid #1f2937;
-            padding: 8px 10px;
-            border-radius: 6px;
-        }
-
-        .ui-kpi-val {
-            font-size: 16px;
-            font-weight: 800;
-            color: #38bdf8;
-        }
-
-        .ui-tag {
-            display: inline-block;
-            font-size: 9px;
-            padding: 2px 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
             border-radius: 4px;
-            font-weight: 700;
+            display: block;
+            margin: 0 auto;
         }
-        .tag-blue { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
-        .tag-green { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
-        .tag-orange { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
 
         .figure-caption {
             text-align: center;
             font-style: italic;
-            font-size: 10.5pt;
+            font-size: 10pt;
             margin-top: 6px;
-            margin-bottom: 14px;
         }
 
-        /* Print Media Styles */
+        /* Print Media Styles: Zero margins on paper, exactly 1 page per .page div */
         @media print {
             body {
-                background: none;
+                background: none !important;
             }
             .no-print-bar {
                 display: none !important;
             }
             .page {
-                margin: 0;
-                box-shadow: none;
-                page-break-after: always;
-                min-height: 297mm;
-                padding: 16mm 18mm;
+                margin: 0 !important;
+                box-shadow: none !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                max-height: 297mm !important;
+                padding: 22mm 22mm !important;
             }
-            .page-border {
-                min-height: 265mm;
+            @page {
+                size: A4;
+                margin: 0;
             }
         }
     </style>
@@ -316,82 +270,64 @@
     <!-- Top Action bar with direct Print button -->
     <div class="no-print-bar">
         <div class="title">
-            <span>📘</span> <strong>NexSociety - Diploma Project Black Book Report</strong> (Aryan Jagtap &amp; Sharvari Pore)
+            <span>📘</span> <strong>NexSociety Black Book Report (Exact Parth Format &amp; Real Snapshots)</strong>
         </div>
         <button class="print-btn" onclick="window.print()">🖨️ Print to PDF (Ctrl + P)</button>
     </div>
 
     <!-- ================= PAGE 1: TITLE / COVER PAGE ================= -->
     <div class="page">
-        <div class="page-border">
+        <div class="page-content" style="justify-content: space-between; text-align: center;">
+            <div style="margin-top: 40px;">
+                <h1 class="main-title">NEXSOCIETY WEBSITE</h1>
+                <h2 class="sub-title">SMART RESIDENTIAL &amp; COMMUNITY MANAGEMENT PLATFORM</h2>
+            </div>
+
             <div>
-                <h1 class="main-title">NEXSOCIETY</h1>
-                <h2 class="sub-title">SMART COMMUNITY &amp; RESIDENTIAL SOCIETY MANAGEMENT PLATFORM</h2>
-                <h2 class="sub-title" style="margin-top: 14px;">A PROJECT REPORT</h2>
+                <h2 class="sub-title" style="font-size: 13pt; margin-bottom: 8px;">A PROJECT REPORT</h2>
                 <h3 class="report-meta">
                     In the partial fulfilment for the award of<br>
                     <strong>DIPLOMA IN INFORMATION TECHNOLOGY</strong>
                 </h3>
             </div>
 
-            <!-- Emblem Badge -->
-            <div class="logo-container">
-                <svg class="college-emblem" viewBox="0 0 200 200">
-                    <circle cx="100" cy="100" r="94" fill="#fff" stroke="#111" stroke-width="5"/>
-                    <circle cx="100" cy="100" r="82" fill="none" stroke="#111" stroke-width="2"/>
-                    <circle cx="100" cy="100" r="62" fill="#f8fafc" stroke="#111" stroke-width="2"/>
-                    <path id="curveTop" d="M 30 100 A 70 70 0 0 1 170 100" fill="none"/>
-                    <text font-size="11" font-weight="bold" fill="#111" letter-spacing="1.8">
-                        <textPath href="#curveTop" startOffset="50%" text-anchor="middle">GOVERNMENT POLYTECHNIC MUMBAI</textPath>
-                    </text>
-                    <text x="100" y="98" font-family="'Inter', sans-serif" font-size="28" font-weight="900" text-anchor="middle" fill="#0f172a">GPM</text>
-                    <text x="100" y="118" font-size="10" font-weight="bold" text-anchor="middle" fill="#333">ESTD. 1960</text>
-                    <path id="curveBottom" d="M 35 110 A 70 70 0 0 0 165 110" fill="none"/>
-                    <text font-size="8.5" font-weight="bold" fill="#111" letter-spacing="1.5">
-                        <textPath href="#curveBottom" startOffset="50%" text-anchor="middle">TRANSFORM KNOWLEDGE INTO WORK</textPath>
-                    </text>
-                </svg>
+            <div class="submitted-box" style="margin-top: 40px;">
+                Submitted By:<br><br>
+                <span class="student-name">Aryan Jagtap (FH24IF001)</span><br>
+                <span class="student-name">Sharvari Pore (FS24IF048)</span>
             </div>
 
-            <div>
-                <div class="submitted-box">
-                    Submitted By:<br><br>
-                    <span class="student-name">Aryan Jagtap (FH24IF001)</span><br>
-                    <span class="student-name">Sharvari Pore (FS24IF048)</span>
-                </div>
-
-                <div class="dept-footer">
-                    Department of Information Technology<br>
-                    GOVERNMENT POLYTECHNIC MUMBAI<br>
-                    Academic Year 2025-26
-                </div>
+            <div class="dept-footer" style="margin-bottom: 40px;">
+                Department of Information Technology<br>
+                GOVERNMENT POLYTECHNIC MUMBAI<br>
+                Academic Year 2025-26
             </div>
         </div>
     </div>
 
     <!-- ================= PAGE 2: CERTIFICATE ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <div style="text-align: center; margin-top: 15px; margin-bottom: 20px;">
+        <div class="page-content free-flow">
+            <div style="text-align: center; margin-top: 25px; margin-bottom: 25px;">
                 <h3 style="font-size: 13pt; font-weight: bold;">DEPARTMENT OF INFORMATION TECHNOLOGY</h3>
                 <h3 style="font-size: 13pt; font-weight: bold;">GOVERNMENT POLYTECHNIC MUMBAI</h3>
-                <p style="font-size: 12pt; text-align: center; margin: 4px 0 16px 0;">MUMBAI - 400051</p>
-                <h2 style="font-size: 15pt; font-weight: bold; text-decoration: underline; letter-spacing: 1px;">CERTIFICATE</h2>
+                <p style="font-size: 11pt; text-align: center; margin: 4px 0 18px 0;">MUMBAI - 400051</p>
+                <h2 style="font-size: 14pt; font-weight: bold; text-decoration: underline; letter-spacing: 1px;">CERTIFICATE</h2>
             </div>
 
             <p style="line-height: 1.8; font-size: 11.5pt;">
                 This is to certify that the following students have successfully and satisfactorily completed the project on 
-                <strong>"NEXSOCIETY - SMART COMMUNITY &amp; RESIDENTIAL SOCIETY MANAGEMENT PLATFORM"</strong> and presented their report in partial 
-                fulfilment of the requirement for a <strong>Diploma in Information Technology</strong> from <strong>Government Polytechnic, Mumbai</strong> 
-                under the guidance of <strong>Prof. [Project Guide Name]</strong> in the academic year <strong>2025-26</strong>.
+                <strong>"NEXSOCIETY WEBSITE"</strong> and presented their report in partial fulfilment of the requirement for a 
+                <strong>Diploma in Information Technology</strong> from <strong>Government Polytechnic, Mumbai</strong> under the guidance of 
+                <strong>Prof. [Project Guide Name]</strong> in the academic year <strong>2025-26</strong>.
             </p>
 
-            <div style="text-align: center; margin: 25px 0; font-size: 12.5pt; line-height: 1.9;">
+            <div style="text-align: center; margin: 30px 0; font-size: 12pt; line-height: 2;">
                 <strong>Aryan Jagtap (FH24IF001)</strong><br>
                 <strong>Sharvari Pore (FS24IF048)</strong>
             </div>
 
-            <div class="sign-grid" style="margin-top: 40px;">
+            <div class="sign-grid" style="margin-top: 45px;">
                 <div>
                     <div class="sign-line"></div>
                     <strong>Head of Department</strong><br>
@@ -404,7 +340,7 @@
                 </div>
             </div>
 
-            <div class="sign-grid" style="margin-top: 30px;">
+            <div class="sign-grid" style="margin-top: 35px;">
                 <div>
                     <div class="sign-line"></div>
                     <strong>Project Guide</strong><br>
@@ -421,13 +357,13 @@
 
     <!-- ================= PAGE 3: DECLARATION ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <h2 class="chapter-title" style="margin-top: 20px;">DECLARATION</h2>
+        <div class="page-content free-flow">
+            <h2 class="chapter-title" style="margin-top: 25px;">DECLARATION</h2>
 
-            <p style="line-height: 1.8; margin-top: 15px;">
+            <p style="line-height: 1.8; margin-top: 20px;">
                 We, the undersigned students of the Diploma in Information Technology at Government Polytechnic Mumbai, 
-                hereby declare that the project report titled <strong>"NEXSOCIETY"</strong>, submitted in partial fulfillment of 
-                the requirements for the completion of our diploma, is our original work.
+                hereby declare that the project report titled <strong>"NEXSOCIETY WEBSITE"</strong>, submitted in partial fulfillment 
+                of the requirements for the completion of our diploma, is our original work.
             </p>
 
             <p style="line-height: 1.8;">
@@ -440,7 +376,7 @@
                 We take full responsibility for the authenticity and originality of the contents presented in this report.
             </p>
 
-            <div style="margin-top: 35px; font-size: 12pt;">
+            <div style="margin-top: 35px; font-size: 11pt;">
                 <strong>DATE:</strong> ____________________<br>
                 <strong>PLACE:</strong> Mumbai
             </div>
@@ -471,12 +407,12 @@
 
     <!-- ================= PAGE 4: ACKNOWLEDGEMENT ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <h2 class="chapter-title" style="margin-top: 20px;">ACKNOWLEDGEMENT</h2>
+        <div class="page-content free-flow">
+            <h2 class="chapter-title" style="margin-top: 25px;">ACKNOWLEDGEMENT</h2>
 
             <p style="line-height: 1.8; margin-top: 15px;">
                 We take this opportunity to express our sincere gratitude and indebtedness to all those who have guided, inspired, 
-                and supported us throughout the journey of completing our project entitled <strong>"NEXSOCIETY"</strong>.
+                and supported us throughout the journey of completing our project entitled <strong>"NEXSOCIETY WEBSITE"</strong>.
             </p>
 
             <p style="line-height: 1.8;">
@@ -486,9 +422,9 @@
             </p>
 
             <p style="line-height: 1.8;">
-                We express our deep appreciation to <strong>Dr. Sachin Bharatkar Sir</strong>, Head of the Department of 
-                Information Technology, Government Polytechnic Mumbai, for providing exceptional academic infrastructure, 
-                laboratory facilities, and administrative encouragement that facilitated the smooth execution of our project work.
+                We express our deep appreciation to <strong>Dr. Sachin Bharatkar Sir</strong>, Head of the Department of Information Technology, 
+                Government Polytechnic Mumbai, for providing exceptional academic infrastructure, laboratory facilities, and administrative encouragement 
+                that facilitated the smooth execution of our project work.
             </p>
 
             <p style="line-height: 1.8;">
@@ -506,11 +442,11 @@
                 motivation, and understanding that enabled us to complete this project successfully.
             </p>
 
-            <div style="margin-top: 30px; font-weight: bold; font-size: 13pt;">
+            <div style="margin-top: 30px; font-weight: bold; font-size: 12pt;">
                 THANK YOU!
             </div>
 
-            <div style="text-align: right; margin-top: 35px; font-size: 12pt; line-height: 1.8;">
+            <div style="text-align: right; margin-top: 35px; font-size: 11.5pt; line-height: 1.8;">
                 <strong>Aryan Jagtap (FH24IF001)</strong><br>
                 <strong>Sharvari Pore (FS24IF048)</strong>
             </div>
@@ -519,18 +455,18 @@
 
     <!-- ================= PAGE 5: ABSTRACT ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <h2 class="chapter-title" style="margin-top: 20px;">ABSTRACT</h2>
+        <div class="page-content free-flow">
+            <h2 class="chapter-title" style="margin-top: 25px;">ABSTRACT</h2>
 
-            <p style="line-height: 1.8; margin-top: 15px;">
-                The <strong>NexSociety Smart Community &amp; Residential Society Management Platform</strong> is a modern, responsive, 
+            <p style="line-height: 1.75; margin-top: 15px;">
+                The <strong>NexSociety Residential &amp; Community Management Web Platform</strong> is a modern, responsive, 
                 and full-featured digital society operations system engineered to connect residents, gatekeepers, and executive committee 
-                administrators under a unified, real-time web portal. Tailored for gated apartment townships (such as Green Meadows Heights, 
-                spanning 120 residential flats across Towers A, B, and C), the platform eliminates paper registers, unverified gate entries, 
+                administrators under a unified, real-time web portal. Tailored for gated apartment complexes such as <em>Green Meadows Heights</em> 
+                (spanning 120 residential units across Towers A, B, and C), the platform eliminates paper registers, unverified gate entries, 
                 and delayed maintenance resolution.
             </p>
 
-            <p style="line-height: 1.8;">
+            <p style="line-height: 1.75;">
                 Traditional housing societies frequently grapple with manual paper visitor logbooks, illegible visitor signatures, intercom 
                 phone downtime, unrecorded delivery personnel entries, and chaotic maintenance complaint management. NexSociety directly solves 
                 these vulnerabilities by delivering three interconnected operational cockpits:
@@ -545,7 +481,7 @@
                 comprehensive 120-flat directory with instant CSV export, complaint resolution desk, and society-wide broadcast notices.</li>
             </ul>
 
-            <p style="line-height: 1.8;">
+            <p style="line-height: 1.75;">
                 Engineered using standard modern web technologies—HTML5 semantic structure, CSS3 with responsive glassmorphism, 
                 Vanilla JavaScript (ES6+), Web Audio API synthesis, and resilient browser LocalStorage synchronization—the platform operates with 
                 zero cloud server hosting lag, maximum privacy, and instant sub-second response times.
@@ -555,7 +491,7 @@
 
     <!-- ================= PAGE 6: INDEX ================= -->
     <div class="page">
-        <div class="page-border free-flow">
+        <div class="page-content free-flow">
             <h2 class="chapter-title" style="margin-top: 15px;">INDEX</h2>
 
             <table class="report-table">
@@ -577,7 +513,7 @@
                                 <li>1.3 Objectives</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">8</td>
+                        <td style="text-align: center;">7</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;"><strong>2</strong></td>
@@ -586,22 +522,22 @@
                             <ul style="margin-top: 3px; margin-bottom: 0;">
                                 <li>2.1 Overview of Housing Society Systems</li>
                                 <li>2.2 Modern Web Stack Justification</li>
-                                <li>2.3 Comparative Analysis Matrix</li>
+                                <li>2.3 Comparative Analysis</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">11</td>
+                        <td style="text-align: center;">10</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;"><strong>3</strong></td>
                         <td>
                             <strong>Chapter 3: Technical Specifications</strong>
                             <ul style="margin-top: 3px; margin-bottom: 0;">
-                                <li>3.1 Technologies Used (HTML5, CSS3, JS, Web Audio)</li>
+                                <li>3.1 Technologies Used</li>
                                 <li>3.2 Hardware Requirements</li>
                                 <li>3.3 Software Requirements</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">13</td>
+                        <td style="text-align: center;">12</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;"><strong>4</strong></td>
@@ -613,7 +549,7 @@
                                 <li>4.3 Implementation Across Phases</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">16</td>
+                        <td style="text-align: center;">15</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;"><strong>5</strong></td>
@@ -621,13 +557,12 @@
                             <strong>Chapter 5: Planning Phase</strong>
                             <ul style="margin-top: 3px; margin-bottom: 0;">
                                 <li>5.1 Purpose of the Planning Phase</li>
-                                <li>5.2 Requirement Gathering &amp; Analysis</li>
+                                <li>5.2 Requirement Gathering and Analysis</li>
                                 <li>5.3 Feasibility Study</li>
-                                <li>5.4 Defining Objectives &amp; Timeline</li>
-                                <li>5.5 Outcome of Planning Phase</li>
+                                <li>5.4 Outcome of Planning Phase</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">18</td>
+                        <td style="text-align: center;">17</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;"><strong>6</strong></td>
@@ -635,11 +570,11 @@
                             <strong>Chapter 6: System Design</strong>
                             <ul style="margin-top: 3px; margin-bottom: 0;">
                                 <li>6.1 What Is System Design</li>
-                                <li>6.2 Modules of NexSociety Website</li>
-                                <li>6.3 Folder Structure</li>
+                                <li>6.2 Modules Of Website</li>
+                                <li>6.3 Folder Structure of Project</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">20</td>
+                        <td style="text-align: center;">19</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;"><strong>7</strong></td>
@@ -648,35 +583,35 @@
                             <ul style="margin-top: 3px; margin-bottom: 0;">
                                 <li>7.1 What Is Testing</li>
                                 <li>7.2 Implementation &amp; Test Types</li>
-                                <li>7.3 Test Cases (TC01 to TC20)</li>
+                                <li>7.3 Test Cases (TC01 to TC10)</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">23</td>
+                        <td style="text-align: center;">22</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;"><strong>8</strong></td>
                         <td>
                             <strong>Chapter 8: Diagrams</strong>
                             <ul style="margin-top: 3px; margin-bottom: 0;">
-                                <li>8.1 Flowchart of Main Portal</li>
+                                <li>8.1 Flowchart of Main Website</li>
                                 <li>8.2 Flowchart of Security Gate Terminal</li>
                                 <li>8.3 Flowchart of Admin Command Center</li>
-                                <li>8.4 System Architecture &amp; Data Flow Diagram</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">26</td>
+                        <td style="text-align: center;">25</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;"><strong>9</strong></td>
                         <td>
                             <strong>Chapter 9: Snapshots</strong>
                             <ul style="margin-top: 3px; margin-bottom: 0;">
-                                <li>9.1 Society Executive Command Center</li>
-                                <li>9.2 Security Gate Terminal &amp; Fast Delivery Passes</li>
-                                <li>9.3 Resident Dashboard &amp; Community Events</li>
+                                <li>9.1 Project Explorer &amp; Architecture Structure</li>
+                                <li>9.2 Society Executive Command Center</li>
+                                <li>9.3 Security Gate Terminal &amp; Fast Delivery Passes</li>
+                                <li>9.4 Resident Events &amp; Community Calendar</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">29</td>
+                        <td style="text-align: center;">27</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;"><strong>10</strong></td>
@@ -688,7 +623,7 @@
                                 <li>10.3 References</li>
                             </ul>
                         </td>
-                        <td style="text-align: center;">32</td>
+                        <td style="text-align: center;">31</td>
                     </tr>
                 </tbody>
             </table>
@@ -697,14 +632,14 @@
 
     <!-- ================= PAGE 7: CHAPTER 1 - INTRODUCTION ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">8</span>
+        <div class="page-content free-flow">
+            <span class="page-num">7</span>
             <h2 class="chapter-title">CHAPTER 1: INTRODUCTION</h2>
 
             <div class="section-heading">1.1] INTRODUCTION:</div>
             <p>
                 In today's urban residential landscape, modern housing societies and high-rise apartments accommodate hundreds of families 
-                across multiple towers. In such large residential communities, the day-to-day operations—ranging from gatekeeper visitor logging, 
+                across multiple towers. In such residential townships, day-to-day operations—ranging from gatekeeper visitor logging, 
                 courier delivery handling, vehicle parking allocation, and maintenance complaint management—involve intense physical and communication 
                 touchpoints.
             </p>
@@ -729,8 +664,8 @@
 
     <!-- ================= PAGE 8: CHAPTER 1 - NEED & OBJECTIVES ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">9</span>
+        <div class="page-content free-flow">
+            <span class="page-num">8</span>
             <div class="section-heading" style="margin-top: 0;">1.2] NEED / MOTIVATION:</div>
             <p>
                 The primary need for developing the NexSociety platform arises from critical security and operational deficiencies observed in gated complexes:
@@ -743,28 +678,41 @@
             </ul>
 
             <div class="section-heading">1.3] OBJECTIVES:</div>
-            <p>
-                The project focuses on achieving the following ten specific objectives:
-            </p>
+            <p>The project focuses on achieving the following specific objectives:</p>
             <ul>
                 <li><strong>1. Digital Gate Terminal:</strong> To provide a streamlined, high-contrast interface for security guards with 15-second visitor check-in speeds.</li>
                 <li><strong>2. 1-Tap Delivery Clearance:</strong> To allow immediate, standardized gate passes for verified courier partners (Zomato, Swiggy, Blinkit, Amazon, Uber).</li>
                 <li><strong>3. 4-Digit Passcode Verification:</strong> To implement guest pre-approval verification eliminating intercom phone confirmation delays.</li>
                 <li><strong>4. Real-Time Active Visitor Roster:</strong> To maintain an on-campus active visitor count with one-click departure checkout.</li>
                 <li><strong>5. Resident Helpdesk Desk:</strong> To allow residents to log categorized complaints with live status tracking (Pending, In Progress, Resolved).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 9: CHAPTER 1 - OBJECTIVES (CONT) ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">9</span>
+            <div class="section-heading" style="margin-top: 0;">1.3] OBJECTIVES (CONTINUED):</div>
+            <ul>
                 <li><strong>6. Executive KPI Dashboard:</strong> To deliver real-time metric cards summarizing occupancy, October dues collection, gate barrier status, and open complaints.</li>
                 <li><strong>7. 120-Unit Resident Directory:</strong> To build a searchable directory filterable by flat number, resident name, or phone number with CSV export.</li>
                 <li><strong>8. Digital Notice Broadcast:</strong> To allow the society secretary to instantly broadcast community notices and emergency alerts.</li>
                 <li><strong>9. Audio-Visual Feedback:</strong> To leverage the native browser Web Audio API for sound alerts during check-ins and alarm broadcasts.</li>
                 <li><strong>10. Zero Cloud Lag / Local-First Storage:</strong> To guarantee persistent cross-tab data synchronization via HTML5 LocalStorage without recurring cloud subscription costs.</li>
             </ul>
+
+            <div class="section-heading">1.4] SCOPE OF THE PROJECT:</div>
+            <p>
+                The platform is designed specifically for cooperative housing societies and gated residential townships. It requires no specialized hardware or servers; any modern desktop, laptop, or mobile tablet connected to a browser can function as a terminal. The system provides local-first reliability ensuring uninterrupted functionality even during network outages.
+            </p>
         </div>
     </div>
 
-    <!-- ================= PAGE 9: CHAPTER 2 - LITERATURE REVIEW ================= -->
+    <!-- ================= PAGE 10: CHAPTER 2 - LITERATURE REVIEW ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">11</span>
+        <div class="page-content free-flow">
+            <span class="page-num">10</span>
             <h2 class="chapter-title">CHAPTER 2: LITERATURE REVIEW</h2>
 
             <div class="section-heading">2.1] OVERVIEW OF HOUSING SOCIETY SYSTEMS:</div>
@@ -784,8 +732,18 @@
                 <li><strong>Web Audio API Audio Synthesis:</strong> Utilizing the browser's native audio synthesizer allows gate entry beeps and warning alarms without fetching external MP3 audio files over slow network connections.</li>
                 <li><strong>Zero-Cost Offline Persistence:</strong> Leveraging HTML5 LocalStorage with <code>window.addEventListener('storage')</code> enables real-time synchronization between the Gate terminal, Admin desk, and Resident portals across multiple browser tabs and windows without spinning up paid cloud servers.</li>
             </ul>
+        </div>
+    </div>
 
-            <div class="section-heading">2.3] COMPARATIVE ANALYSIS:</div>
+    <!-- ================= PAGE 11: CHAPTER 2 - COMPARATIVE ANALYSIS ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">11</span>
+            <div class="section-heading" style="margin-top: 0;">2.3] COMPARATIVE ANALYSIS:</div>
+            <p>
+                To evaluate the architectural and operational superiority of the NexSociety platform, a systematic comparison was conducted against traditional paper registers and commercial third-party platforms:
+            </p>
+
             <table class="report-table">
                 <thead>
                     <tr>
@@ -798,8 +756,8 @@
                 <tbody>
                     <tr>
                         <td><strong>Setup &amp; Running Cost</strong></td>
-                        <td>Low initial, high paper cost</td>
-                        <td>High monthly per-flat subscription</td>
+                        <td>Low initial, high ongoing paper cost</td>
+                        <td>High monthly per-flat subscription fee</td>
                         <td>Zero recurring cost (Free static hosting)</td>
                     </tr>
                     <tr>
@@ -820,15 +778,21 @@
                         <td>Requires heavy mobile app install</td>
                         <td>Universal web access (PC, Tablet, Mobile)</td>
                     </tr>
+                    <tr>
+                        <td><strong>Audio-Visual Alerts</strong></td>
+                        <td>None</td>
+                        <td>Mobile push notification only</td>
+                        <td>Synthesized Web Audio chimes &amp; sirens</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- ================= PAGE 10: CHAPTER 3 - TECHNICAL SPECIFICATIONS ================= -->
+    <!-- ================= PAGE 12: CHAPTER 3 - TECHNICAL SPECIFICATIONS ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">13</span>
+        <div class="page-content free-flow">
+            <span class="page-num">12</span>
             <h2 class="chapter-title">CHAPTER 3: TECHNICAL SPECIFICATIONS</h2>
 
             <div class="section-heading">3.1] TECHNOLOGIES USED:</div>
@@ -850,8 +814,18 @@
 
             <p><strong>5. Web Storage API (LocalStorage Database Engine):</strong><br>
             Acts as the persistent local relational store under keys such as <code>NEX_VISITORS</code>, <code>NEX_COMPLAINTS</code>, <code>NEX_DIRECTORY</code>, and <code>NEX_NOTICES</code>, automatically broadcasting data changes across active browser windows.</p>
+        </div>
+    </div>
 
-            <div class="section-heading">3.2] HARDWARE REQUIREMENTS:</div>
+    <!-- ================= PAGE 13: CHAPTER 3 - HARDWARE & SOFTWARE REQS ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">13</span>
+            <div class="section-heading" style="margin-top: 0;">3.2] HARDWARE REQUIREMENTS:</div>
+            <p>
+                To develop, test, and deploy the NexSociety platform efficiently, the following minimum and recommended hardware specifications are required:
+            </p>
+
             <table class="report-table">
                 <thead>
                     <tr>
@@ -924,199 +898,242 @@
         </div>
     </div>
 
-    <!-- ================= PAGE 11: CHAPTER 4 - DEVELOPMENT PROCESS ================= -->
+    <!-- ================= PAGE 14: CHAPTER 4 - DEVELOPMENT PROCESS ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">16</span>
+        <div class="page-content free-flow">
+            <span class="page-num">15</span>
             <h2 class="chapter-title">CHAPTER 4: DEVELOPMENT PROCESS</h2>
 
             <div class="section-heading">4.1] SOFTWARE DEVELOPMENT PROCESS:</div>
             <p>
-                The Software Development Life Cycle (SDLC) is a systematic methodology that guides software engineers through the stages 
-                of requirement analysis, architectural planning, interface design, coding, testing, and deployment.
+                The Software Development Life Cycle (SDLC) is a structured framework that guides engineering teams through the conception, 
+                design, coding, verification, and deployment of reliable software applications. By adhering to an organized SDLC process, 
+                the team minimizes procedural oversights, mitigates design risks, maintains code quality, and ensures that the final deliverable 
+                faithfully meets stakeholder expectations.
             </p>
+
+            <div class="section-heading">4.2] WATERFALL MODEL:</div>
             <p>
-                For the NexSociety project, the classical <strong>Waterfall Model</strong> was adopted. Because the workflows of housing 
-                society gates (check-in, check-out, passcodes) and administration (directories, dues, complaints) follow rigid, established rules, 
-                a sequential progression ensured thorough verification at each step.
+                The Waterfall Model is a linear sequential model where development progresses systematically downward through discrete phases. 
+                For the NexSociety project, the Waterfall Model was selected as it provides a clear, disciplined, sequential progression ideally suited 
+                for academic evaluation and structured residential web projects.
+            </p>
+            <ul>
+                <li><strong>Phase 1 - Requirement Analysis:</strong> Gathering society operational rules, delivery tracking needs, and administrative requirements.</li>
+                <li><strong>Phase 2 - System Design:</strong> Establishing wireframes, high-contrast dark themes, and LocalStorage data schemas.</li>
+                <li><strong>Phase 3 - Implementation (Coding):</strong> Programming the modular HTML5 templates, responsive CSS3 sheets, and ES6 JavaScript controllers.</li>
+                <li><strong>Phase 4 - Testing:</strong> Rigorous functional and cross-browser testing across test cases TC01 to TC10.</li>
+                <li><strong>Phase 5 - Deployment:</strong> Versioning through Git and hosting static bundles.</li>
+                <li><strong>Phase 6 - Maintenance:</strong> Continuous code cleanup, removing unused styles, and performance optimization.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 15: CHAPTER 4 - IMPLEMENTATION TIMELINE ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">16</span>
+            <div class="section-heading" style="margin-top: 0;">4.3] IMPLEMENTATION ACROSS PHASES (6-WEEK ROADMAP):</div>
+            <p>
+                The 6 phases of the Waterfall Model were mapped across an intensive 6-week milestone timeline:
             </p>
 
-            <div class="section-heading">4.2] WATERFALL MODEL PHASES:</div>
-            <ul>
-                <li><strong>1. Requirement Analysis:</strong> Analyzing society gate workflows, delivery pass requirements, and secretary administrative responsibilities.</li>
-                <li><strong>2. System Design:</strong> Formulating color schemes (Obsidian Slate), high-contrast security terminal wireframes, and LocalStorage data schemas.</li>
-                <li><strong>3. Implementation (Coding):</strong> Programming the modular HTML5 templates, responsive CSS3 sheets, and ES6 JavaScript controllers.</li>
-                <li><strong>4. Testing &amp; Verification:</strong> Executing comprehensive test cases (TC01-TC20) covering form validation, sound synthesis, and real-time search.</li>
-                <li><strong>5. Deployment:</strong> Packaging the code repository for local and static web deployment via GitHub Pages.</li>
-                <li><strong>6. Maintenance &amp; Updates:</strong> Code refactoring, removing redundant lines, and optimizing performance.</li>
-            </ul>
-
-            <div class="section-heading">4.3] IMPLEMENTATION TIMELINE (6-WEEK ROADMAP):</div>
             <table class="report-table">
                 <thead>
                     <tr>
-                        <th style="width: 20%;">Week</th>
-                        <th style="width: 80%;">Deliverables &amp; Milestones Achieved</th>
+                        <th style="width: 20%;">Phase / Week</th>
+                        <th style="width: 80%;">Deliverables &amp; Outcomes</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Week 1</strong></td>
-                        <td>Society management problem analysis, user stories definition, and SRS documentation.</td>
+                        <td><strong>Week 1: Analysis</strong></td>
+                        <td>Gated society operations study, user persona definition (Guard, Resident, Secretary), and SRS creation.</td>
                     </tr>
                     <tr>
-                        <td><strong>Week 2</strong></td>
-                        <td>UI wireframing, color palette selection (executive slate-blue), and CSS variable architecture.</td>
+                        <td><strong>Week 2: Design</strong></td>
+                        <td>Wireframing dark-mode layout tokens, font pairings (Plus Jakarta Sans &amp; Inter), and UI component design.</td>
                     </tr>
                     <tr>
-                        <td><strong>Week 3</strong></td>
-                        <td>Security Gatekeeper Pro Terminal implementation (`security.html`, `security.css`, `security.js`).</td>
+                        <td><strong>Week 3: Gate Terminal</strong></td>
+                        <td>Coding `security.html`, `security.css`, `security.js`, 1-tap delivery buttons, and Web Audio API synthesis.</td>
                     </tr>
                     <tr>
-                        <td><strong>Week 4</strong></td>
-                        <td>Resident Self-Service Portal (`resident.html`, `resident.js`) and Helpdesk Complaint Logger.</td>
+                        <td><strong>Week 4: Resident Desk</strong></td>
+                        <td>Developing `resident.html`, `resident.css`, `resident.js`, guest pre-approval generator, and complaint logger.</td>
                     </tr>
                     <tr>
-                        <td><strong>Week 5</strong></td>
-                        <td>Society Executive Command Center (`admin.html`, `admin.js`) and CSV directory export engine.</td>
+                        <td><strong>Week 5: Admin Desk</strong></td>
+                        <td>Engineering `admin.html`, `admin.css`, `admin.js`, 120-unit directory search, KPI cards, and CSV export.</td>
                     </tr>
                     <tr>
-                        <td><strong>Week 6</strong></td>
-                        <td>End-to-end testing (TC01-TC20), Web Audio chime tuning, code cleanup, and report authoring.</td>
+                        <td><strong>Week 6: Testing &amp; Polish</strong></td>
+                        <td>Executing test cases TC01-TC10, cleaning redundant lines, finalizing Git commits, and authoring project report.</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- ================= PAGE 12: CHAPTER 5 - PLANNING PHASE ================= -->
+    <!-- ================= PAGE 16: CHAPTER 5 - PLANNING PHASE ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">18</span>
+        <div class="page-content free-flow">
+            <span class="page-num">17</span>
             <h2 class="chapter-title">CHAPTER 5: PLANNING PHASE</h2>
 
             <div class="section-heading">5.1] PURPOSE OF THE PLANNING PHASE:</div>
             <p>
-                The Planning Phase lays the foundational groundwork for the software development life cycle. It clearly defines the scope, 
-                resource requirements, target end-users, and operational boundaries of NexSociety:
+                The Planning Phase establishes the scope, technical boundaries, resource requirements, and milestone deadlines for the project. 
+                In the context of the NexSociety platform, this phase resolved key foundational questions:
             </p>
             <ul>
-                <li><strong>Core Mission:</strong> To replace unreliable paper visitor logbooks and unstructured society communications with an automated, role-based digital command platform.</li>
-                <li><strong>Target End-Users:</strong> On-duty security guards, residential flat owners/tenants, and society managing committee executives.</li>
-                <li><strong>Risk Mitigation:</strong> Preventing internet outage lockouts by ensuring offline local browser persistence and zero external API dependencies.</li>
+                <li><strong>What is the primary mission of the portal?</strong> To create a centralized, modern web portal connecting residents with gate security and streamlining society administrative operations.</li>
+                <li><strong>Who are the target end-users?</strong> Security guards at gates, residents of apartment flats, and the Society Secretary/Managing Committee.</li>
+                <li><strong>What technologies best balance performance and cost?</strong> Modern vanilla web technologies (HTML5, CSS3, ES6 JavaScript, Web Audio API, LocalStorage) to ensure zero hosting overhead and zero server fees.</li>
             </ul>
 
             <div class="section-heading">5.2] REQUIREMENT GATHERING &amp; ANALYSIS:</div>
-            <p>Requirements were gathered through operational observations of gated apartment complexes:</p>
             <ul>
-                <li><strong>Gate Security Requirements:</strong> Rapid visitor check-in form, 1-tap delivery buttons for quick couriers (Zomato, Swiggy, Blinkit, etc.), numeric keypad for 4-digit guest code verification, active campus visitor roster, and vehicle bay logger.</li>
-                <li><strong>Resident Requirements:</strong> Simple flat interface for Flat A-204 to generate 4-digit pre-approved guest codes, log maintenance complaints, and view society circulars.</li>
-                <li><strong>Executive Admin Requirements:</strong> Real-time KPI summary (Flats occupied, maintenance dues collected, gate status, open tickets), searchable 120-flat directory with CSV export, complaint resolution desk, and notice broadcast tool.</li>
-            </ul>
-
-            <div class="section-heading">5.3] FEASIBILITY STUDY:</div>
-            <ul>
-                <li><strong>Technical Feasibility:</strong> Standard HTML5, CSS3, ES6 JavaScript, and LocalStorage are universally supported across 100% of modern web browsers with zero installation requirements.</li>
-                <li><strong>Economic Feasibility:</strong> The project relies exclusively on open-source technologies and static hosting (GitHub Pages), resulting in <strong>₹0 (Zero) recurring software licensing or cloud costs</strong>.</li>
-                <li><strong>Operational Feasibility:</strong> Designed with clean high-contrast buttons, readable typography, and instant feedback, enabling non-technical security guards to operate the terminal effortlessly.</li>
+                <li><strong>Gatekeeper Functional Requirements:</strong> High-contrast interface, 15-second visitor entry log, fast 1-tap delivery allocation, 4-digit guest passcode verify, and emergency alarm sound.</li>
+                <li><strong>Resident Functional Requirements:</strong> Generate guest 4-digit codes, log maintenance complaints, and view society notices.</li>
+                <li><strong>Admin Functional Requirements:</strong> Executive KPI cards, 120-flat directory search with CSV export, complaint resolution desk, and notice publisher.</li>
             </ul>
         </div>
     </div>
 
-    <!-- ================= PAGE 13: CHAPTER 6 - SYSTEM DESIGN ================= -->
+    <!-- ================= PAGE 17: CHAPTER 5 - FEASIBILITY STUDY ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">20</span>
+        <div class="page-content free-flow">
+            <span class="page-num">18</span>
+            <div class="section-heading" style="margin-top: 0;">5.3] FEASIBILITY STUDY:</div>
+            <p>
+                A multi-dimensional feasibility study confirmed the technical and practical viability of the project:
+            </p>
+            <ul>
+                <li><strong>Technical Feasibility:</strong> The stack (HTML5, CSS3, JavaScript, LocalStorage) is modern, mature, well-documented, and supported across 100% of web browsers. Browser-native Web Audio API allows real-time audio generation without external sound files.</li>
+                <li><strong>Economic Feasibility:</strong> The project utilizes open-source development tools (VS Code, Git) and static hosting, resulting in <strong>zero financial expenditure</strong> for server infrastructure or database licensing.</li>
+                <li><strong>Operational Feasibility:</strong> The user interface features intuitive, touch-friendly layouts requiring no prior technical training for either security guards or busy committee members.</li>
+            </ul>
+
+            <div class="section-heading">5.4] OUTCOME OF PLANNING PHASE:</div>
+            <p>
+                The planning phase successfully established an unambiguous roadmap, verified that vanilla web technologies satisfied all functional requirements, and provided a rock-solid design foundation for the System Design Phase.
+            </p>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 18: CHAPTER 6 - SYSTEM DESIGN ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">19</span>
             <h2 class="chapter-title">CHAPTER 6: SYSTEM DESIGN</h2>
 
             <div class="section-heading">6.1] WHAT IS SYSTEM DESIGN:</div>
             <p>
-                System Design represents the blueprint phase where functional requirements are translated into modular architectural structures, 
-                data schemas, user navigation paths, and component hierarchies.
+                System Design is the systematic process of defining the architecture, modules, interfaces, and data schemas of a software application 
+                to satisfy specified functional and technical requirements. It bridges the gap between abstract requirements and executable code, 
+                acting as the architectural blueprint for developers.
             </p>
 
-            <div class="section-heading">6.2] MODULES OF NEXSOCIETY PLATFORM:</div>
-            <p>NexSociety is structured into four cohesive operational modules:</p>
+            <div class="section-heading">6.2] MODULES OF WEBSITE:</div>
+            <p>The NexSociety web application is organized into four cohesive modules:</p>
 
             <p><strong>Module 1: Authentication Hub &amp; Role Switcher (index.html, script.js):</strong><br>
-            The central login portal featuring society branding, encrypted link badges, and direct role-based entry cards for Residents, Gatekeepers, and Society Executives.</p>
+            The main portal welcoming users, verifying access credentials, and directing guards, residents, and admins to their respective interfaces.</p>
 
             <p><strong>Module 2: Security Gatekeeper Terminal (security.html, security.css, security.js):</strong><br>
-            Equipped with:
+            A high-contrast security terminal providing:
             </p>
             <ul>
-                <li><strong>Live Metrics Bar:</strong> Visitors Inside (4), Total Entries Today (6), Pre-Approved Passes (03), Deliveries &amp; Cabs (3).</li>
-                <li><strong>1-Tap Quick Delivery Passes:</strong> Fast allocation for Zomato, Swiggy, Blinkit, Zepto, Amazon, Uber/Ola.</li>
-                <li><strong>Passcode Verification Modal:</strong> Validates 4-digit resident codes with instant chime and visual guest identification.</li>
-                <li><strong>Active Visitors Roster:</strong> Shows visitor name, contact, flat number, vehicle number, entry timestamp, and one-click 'Check Out' action.</li>
+                <li>Live Operational Counters: Active Visitors, Total Entries, Pre-Approvals, Deliveries.</li>
+                <li>1-Tap Quick Delivery Passes: Zomato, Swiggy, Blinkit, Zepto, Amazon, Uber/Ola.</li>
+                <li>Digital Passcode Verification Box for 4-digit guest entry validation.</li>
+                <li>Active Visitors On-Premises Roster with one-click Departure Check-Out.</li>
+                <li>Web Audio API Synthesizer for entry beeps and security alarm tones.</li>
             </ul>
+        </div>
+    </div>
 
+    <!-- ================= PAGE 19: CHAPTER 6 - MODULES (CONT) ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">20</span>
             <p><strong>Module 3: Resident Self-Service Portal (resident.html, resident.css, resident.js):</strong><br>
-            Dedicated to Flat A-204, offering:
+            Customized for Unit Flat A-204, allowing residents to:
             </p>
             <ul>
-                <li><strong>Guest Pre-Approval Generator:</strong> Issues 4-digit access codes to guests.</li>
-                <li><strong>Maintenance Helpdesk Logger:</strong> Logs issues (Plumbing, Electrical, Elevator) with urgency flags.</li>
-                <li><strong>Community Event Calendar:</strong> Displays upcoming events like Diwali celebrations, AGMs, and sports tournaments.</li>
+                <li>Generate 4-digit visitor pre-approval passcodes.</li>
+                <li>Log maintenance complaints (Plumbing, Electrical, Lift) with status tracking.</li>
+                <li>View society notices and community event calendars (Diwali, AGM, Sports).</li>
             </ul>
 
             <p><strong>Module 4: Society Executive Command Center (admin.html, admin.css, admin.js):</strong><br>
-            Provides Dr. S. Rao (Hon. Secretary) with:
+            Dedicated to the Society Secretary (Dr. S. Rao) and committee:
             </p>
             <ul>
-                <li><strong>KPI Executive Stat Cards:</strong> 96/120 Flats (80% Occupied), ₹4,08,000 Dues Collected, 3 Gate Barriers Online, 3 Open Complaints.</li>
-                <li><strong>120-Unit Directory Table:</strong> Real-time searchable directory with instant CSV export.</li>
-                <li><strong>Broadcast Announcement Desk:</strong> Publishes society notices directly to residents and gates.</li>
+                <li>Executive KPI Stat Cards: 96/120 Flats (80% Occupied), ₹4,08,000 Dues, 3 Gate Barriers Online, 3 Open Complaints.</li>
+                <li>120-Unit Flats &amp; Residents Directory Table with real-time search.</li>
+                <li>One-Click Directory CSV Export button downloading all unit records.</li>
+                <li>Helpdesk Complaints Resolution Desk with status toggle controls.</li>
+                <li>Broadcast Notice Publisher for society-wide alerts.</li>
             </ul>
 
-            <div class="section-heading">6.3] FOLDER STRUCTURE:</div>
+            <div class="section-heading">6.3] FOLDER STRUCTURE OF PROJECT:</div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5pt; background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 4px; line-height: 1.45;">
                 NexSociety/<br>
-                ├── index.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Central Authentication &amp; Role Selector]<br>
+                ├── index.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Central Portal &amp; Role Selector]<br>
                 ├── script.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Portal Authentication &amp; Role Switcher Logic]<br>
-                ├── style.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Core Design System &amp; Portal Theme]<br>
+                ├── style.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Global Portal Core Design System]<br>
                 ├── security.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Gatekeeper Pro Security Terminal]<br>
-                ├── security.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Gatekeeper Terminal UI &amp; High-Contrast Styles]<br>
-                ├── security.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Gate Check-in, Web Audio Chimes &amp; Storage Sync]<br>
-                ├── resident.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Resident Flat Portal - Flat A-204]<br>
+                ├── security.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Gate Security UI &amp; High-Contrast Styling]<br>
+                ├── security.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Gate Check-in, Web Audio &amp; Verification]<br>
+                ├── resident.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Resident Flat Portal - Unit A-204]<br>
                 ├── resident.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Resident Dashboard Styles &amp; Glassmorphism]<br>
                 ├── resident.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Pre-Approvals &amp; Helpdesk Complaint Logger]<br>
-                ├── admin.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Society Executive Command Center]<br>
+                ├── admin.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Society Secretary Executive Command Center]<br>
                 ├── admin.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Executive Slate-Blue Design System]<br>
-                ├── admin.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Directory Search, Notice Board &amp; CSV Export]<br>
-                └── report/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Diploma Project Black Book Report Template]
+                └── admin.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Directory Search, Notice Board &amp; CSV Export]
             </div>
         </div>
     </div>
 
-    <!-- ================= PAGE 14: CHAPTER 7 - TESTING ================= -->
+    <!-- ================= PAGE 20: CHAPTER 7 - TESTING ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">23</span>
+        <div class="page-content free-flow">
+            <span class="page-num">22</span>
             <h2 class="chapter-title">CHAPTER 7: TESTING</h2>
 
             <div class="section-heading">7.1] WHAT IS TESTING:</div>
             <p>
-                Software Testing is the systematic discipline of verifying and evaluating an application against specified technical, 
-                functional, and ergonomic requirements to ensure reliability, fault tolerance, and bug-free performance prior to deployment.
+                Software Testing is the systematic discipline of evaluating an application against specified technical and functional requirements 
+                to ensure that it operates reliably, handles edge conditions gracefully, and is free of defects before deployment to end-users. 
+                In a residential management system where gate access security and accurate dues accounting are paramount, rigorous testing is indispensable.
             </p>
 
             <div class="section-heading">7.2] IMPLEMENTATION &amp; TEST TYPES PERFORMED:</div>
             <ul>
-                <li><strong>1. Functional Testing:</strong> Verified visitor check-in submission, 1-tap delivery buttons, passcode verification, and CSV exporting.</li>
-                <li><strong>2. Web Audio Synthesis Testing:</strong> Checked that entry chimes and alarm sirens generate proper sound waves without runtime exceptions.</li>
-                <li><strong>3. Cross-Tab LocalStorage Testing:</strong> Validated that logging a complaint or new visitor immediately reflects across active admin and security tabs.</li>
-                <li><strong>4. Responsive &amp; Usability Testing:</strong> Verified proper rendering across mobile devices (375px), tablets (768px), and desktop monitors (1920px).</li>
+                <li><strong>1. Functional Testing:</strong> Verified visitor check-in form validation, 1-tap delivery pass allocation, passcode checking, and directory search filtering.</li>
+                <li><strong>2. Integration Testing:</strong> Tested the real-time synchronization between portals via LocalStorage and window storage events.</li>
+                <li><strong>3. Web Audio Synthesis Testing:</strong> Verified that browser-generated sine wave chimes and sawtooth warning sirens trigger without audio context blockages.</li>
+                <li><strong>4. Responsive &amp; Usability Testing:</strong> Verified seamless layout adaptation across desktop monitors (1920x1080), laptops, tablets, and smartphones.</li>
             </ul>
+        </div>
+    </div>
 
-            <div class="section-heading">7.3] TEST CASES MATRIX (TC01 - TC10):</div>
-            <table class="report-table" style="font-size: 9.5pt;">
+    <!-- ================= PAGE 21: CHAPTER 7 - TEST CASES ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">23</span>
+            <div class="section-heading" style="margin-top: 0;">7.3] TEST CASES MATRIX:</div>
+            <p>The following table details comprehensive test cases executed against the NexSociety platform:</p>
+
+            <table class="report-table" style="font-size: 9pt;">
                 <thead>
                     <tr>
-                        <th style="width: 8%;">ID</th>
-                        <th style="width: 24%;">Description</th>
+                        <th style="width: 8%;">TC ID</th>
+                        <th style="width: 22%;">Description</th>
                         <th style="width: 25%;">Test Steps</th>
-                        <th style="width: 31%;">Expected Result</th>
+                        <th style="width: 33%;">Expected Result</th>
                         <th style="width: 12%; text-align: center;">Status</th>
                     </tr>
                 </thead>
@@ -1124,69 +1141,69 @@
                     <tr>
                         <td><strong>TC01</strong></td>
                         <td>Gate Visitor Check-In</td>
-                        <td>Enter Name, Phone, Flat A-204, Click 'Allow Entry'</td>
-                        <td>Visitor added to Active Table, counter increments, chime plays</td>
+                        <td>Enter Name, Phone, Flat A-204, Click Allow Entry</td>
+                        <td>Visitor logged into Active Table; success chime sounds; badge increments</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
                     </tr>
                     <tr>
                         <td><strong>TC02</strong></td>
                         <td>1-Tap Delivery Pass</td>
-                        <td>Click 'Zomato' fast pass button</td>
-                        <td>Delivery pass allocated with 20-min timer, badge updates</td>
+                        <td>Click 'Zomato' quick pass button</td>
+                        <td>Delivery pass allocated with 20-min validity; delivery counter increments</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
                     </tr>
                     <tr>
                         <td><strong>TC03</strong></td>
                         <td>Passcode Verification</td>
                         <td>Enter valid 4-digit code (4821)</td>
-                        <td>Displays guest name, flat number, and confirms entry</td>
+                        <td>Displays guest name &amp; flat; confirms entry with chime</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
                     </tr>
                     <tr>
                         <td><strong>TC04</strong></td>
                         <td>Invalid Passcode</td>
                         <td>Enter invalid code (9999)</td>
-                        <td>Displays error toast and triggers warning tone</td>
+                        <td>Displays error toast and plays rejection tone</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
                     </tr>
                     <tr>
                         <td><strong>TC05</strong></td>
                         <td>Visitor Departure</td>
                         <td>Click 'Check Out' on active visitor row</td>
-                        <td>Status updates to Departed; active count decreases</td>
+                        <td>Status updates to 'Departed'; row removed from active list</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
                     </tr>
                     <tr>
                         <td><strong>TC06</strong></td>
                         <td>Complaint Filing</td>
                         <td>Resident logs 'Elevator B jerking'</td>
-                        <td>Complaint stored; admin helpdesk badge increments</td>
+                        <td>Complaint stored in LocalStorage; Admin desk badge increments</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
                     </tr>
                     <tr>
                         <td><strong>TC07</strong></td>
-                        <td>Directory Search</td>
+                        <td>Directory Search Filter</td>
                         <td>Type 'Ramesh' or 'A-101' in search box</td>
-                        <td>Table filters in real time to matching rows only</td>
+                        <td>Table filters in real-time showing matching residents only</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
                     </tr>
                     <tr>
                         <td><strong>TC08</strong></td>
-                        <td>CSV Directory Export</td>
-                        <td>Click 'Export Directory CSV'</td>
-                        <td>Browser downloads 120-unit formatted CSV roster</td>
+                        <td>Export Directory CSV</td>
+                        <td>Click 'Export Directory CSV' on Admin screen</td>
+                        <td>CSV file downloaded containing all 120 society flat records</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
                     </tr>
                     <tr>
                         <td><strong>TC09</strong></td>
-                        <td>Notice Broadcast</td>
+                        <td>Broadcast Notice</td>
                         <td>Admin submits 'Diwali Festival Timings'</td>
-                        <td>Notice persists in storage and shows on resident portal</td>
+                        <td>Notice persists in storage and displays on resident portal</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
                     </tr>
                     <tr>
                         <td><strong>TC10</strong></td>
-                        <td>Security Alarm</td>
+                        <td>Security Alarm Trigger</td>
                         <td>Click 'Alarm Trigger' at Gate Terminal</td>
                         <td>Synthesizes sawtooth siren audio tone continuously</td>
                         <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
@@ -1196,230 +1213,220 @@
         </div>
     </div>
 
-    <!-- ================= PAGE 15: CHAPTER 8 - DIAGRAMS ================= -->
+    <!-- ================= PAGE 22: CHAPTER 8 - DIAGRAMS ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">26</span>
-            <h2 class="chapter-title">CHAPTER 8: DIAGRAMS &amp; ARCHITECTURE</h2>
+        <div class="page-content free-flow">
+            <span class="page-num">25</span>
+            <h2 class="chapter-title">CHAPTER 8: DIAGRAMS</h2>
 
-            <div class="section-heading">8.1] FUNCTIONAL FLOWCHART OF MAIN SYSTEM:</div>
+            <div class="section-heading">8.1] FLOWCHART OF MAIN WEBSITE:</div>
             <p>
-                The following diagram depicts the operational workflow connecting Residents, Gate Security, and the Society Executive Desk:
+                The following diagram illustrates the functional workflow connecting all three portals of the NexSociety platform:
             </p>
 
             <div style="text-align: center; margin: 15px 0;">
-                <svg viewBox="0 0 600 320" style="width: 100%; max-width: 520px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
+                <svg viewBox="0 0 600 280" style="width: 100%; max-width: 500px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
                     <!-- Central Hub -->
-                    <rect x="220" y="15" width="160" height="42" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
-                    <text x="300" y="41" fill="#fff" font-family="'Inter', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">NexSociety Portal Hub</text>
+                    <rect x="220" y="10" width="160" height="38" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+                    <text x="300" y="34" fill="#fff" font-family="'Inter', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">NexSociety Portal Hub</text>
 
                     <!-- Arrows to Roles -->
-                    <line x1="240" y1="57" x2="110" y2="105" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
-                    <line x1="300" y1="57" x2="300" y2="105" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
-                    <line x1="360" y1="57" x2="490" y2="105" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+                    <line x1="240" y1="48" x2="110" y2="95" stroke="#334155" stroke-width="1.5"/>
+                    <line x1="300" y1="48" x2="300" y2="95" stroke="#334155" stroke-width="1.5"/>
+                    <line x1="360" y1="48" x2="490" y2="95" stroke="#334155" stroke-width="1.5"/>
 
                     <!-- Role Boxes -->
-                    <!-- Security Terminal -->
-                    <rect x="30" y="105" width="160" height="60" rx="6" fill="#0284c7" stroke="#0369a1"/>
-                    <text x="110" y="130" fill="#fff" font-family="'Inter', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Security Gate Terminal</text>
-                    <text x="110" y="148" fill="#e0f2fe" font-family="'Inter', sans-serif" font-size="9" text-anchor="middle">Check-In • Deliveries • Chime</text>
+                    <rect x="30" y="95" width="160" height="55" rx="6" fill="#0284c7" stroke="#0369a1"/>
+                    <text x="110" y="118" fill="#fff" font-family="'Inter', sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle">Security Gate Terminal</text>
+                    <text x="110" y="136" fill="#e0f2fe" font-family="'Inter', sans-serif" font-size="8.5" text-anchor="middle">Check-In • Deliveries • Chime</text>
 
-                    <!-- Resident Portal -->
-                    <rect x="220" y="105" width="160" height="60" rx="6" fill="#10b981" stroke="#059669"/>
-                    <text x="300" y="130" fill="#fff" font-family="'Inter', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Resident Dashboard</text>
-                    <text x="300" y="148" fill="#d1fae5" font-family="'Inter', sans-serif" font-size="9" text-anchor="middle">Pre-Approvals • Complaints</text>
+                    <rect x="220" y="95" width="160" height="55" rx="6" fill="#10b981" stroke="#059669"/>
+                    <text x="300" y="118" fill="#fff" font-family="'Inter', sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle">Resident Dashboard</text>
+                    <text x="300" y="136" fill="#d1fae5" font-family="'Inter', sans-serif" font-size="8.5" text-anchor="middle">Pre-Approvals • Complaints</text>
 
-                    <!-- Admin Desk -->
-                    <rect x="410" y="105" width="160" height="60" rx="6" fill="#8b5cf6" stroke="#7c3aed"/>
-                    <text x="490" y="130" fill="#fff" font-family="'Inter', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Executive Command</text>
-                    <text x="490" y="148" fill="#ede9fe" font-family="'Inter', sans-serif" font-size="9" text-anchor="middle">Directory • Dues • Notice</text>
+                    <rect x="410" y="95" width="160" height="55" rx="6" fill="#8b5cf6" stroke="#7c3aed"/>
+                    <text x="490" y="118" fill="#fff" font-family="'Inter', sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle">Executive Command</text>
+                    <text x="490" y="136" fill="#ede9fe" font-family="'Inter', sans-serif" font-size="8.5" text-anchor="middle">Directory • Dues • Notice</text>
 
                     <!-- Storage Sync Layer -->
-                    <rect x="100" y="215" width="400" height="55" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-dasharray="4"/>
-                    <text x="300" y="240" fill="#0f172a" font-family="'Inter', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">LocalStorage &amp; Web Audio Sync Layer</text>
-                    <text x="300" y="256" fill="#64748b" font-family="'Inter', sans-serif" font-size="9" text-anchor="middle">Real-time Cross-Window Data Binding &amp; Sound Wave Generator</text>
+                    <rect x="100" y="195" width="400" height="48" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-dasharray="4"/>
+                    <text x="300" y="217" fill="#0f172a" font-family="'Inter', sans-serif" font-size="10" font-weight="bold" text-anchor="middle">LocalStorage &amp; Web Audio Sync Layer</text>
+                    <text x="300" y="233" fill="#64748b" font-family="'Inter', sans-serif" font-size="8.5" text-anchor="middle">Real-time Cross-Window Data Binding &amp; Sound Wave Generator</text>
 
-                    <!-- Connectors to storage -->
-                    <line x1="110" y1="165" x2="160" y2="215" stroke="#94a3b8" stroke-width="1.5"/>
-                    <line x1="300" y1="165" x2="300" y2="215" stroke="#94a3b8" stroke-width="1.5"/>
-                    <line x1="490" y1="165" x2="440" y2="215" stroke="#94a3b8" stroke-width="1.5"/>
+                    <line x1="110" y1="150" x2="160" y2="195" stroke="#94a3b8" stroke-width="1.5"/>
+                    <line x1="300" y1="150" x2="300" y2="195" stroke="#94a3b8" stroke-width="1.5"/>
+                    <line x1="490" y1="150" x2="440" y2="195" stroke="#94a3b8" stroke-width="1.5"/>
                 </svg>
             </div>
-            <div class="figure-caption">Figure 8.1: Functional Flowchart &amp; System Interaction Architecture</div>
-
-            <div class="section-heading">8.2] GATEKEEPER VERIFICATION FLOW:</div>
-            <p>
-                When a guest arrives at the security boom barrier, the guard can immediately choose between two clearance tracks:
-                <strong>Track A:</strong> Instant 4-digit numeric code entered by the visitor, verified against resident pre-approvals.
-                <strong>Track B:</strong> Standard check-in form with full name, mobile number, vehicle number, and flat destination.
-            </p>
+            <div class="figure-caption">Figure 8.1: Functional Flowchart of Main Website</div>
         </div>
     </div>
 
-    <!-- ================= PAGE 16: CHAPTER 9 - SNAPSHOTS ================= -->
+    <!-- ================= PAGE 23: CHAPTER 8 - FLOWCHARTS (CONT) ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">29</span>
+        <div class="page-content free-flow">
+            <span class="page-num">26</span>
+            <div class="section-heading" style="margin-top: 0;">8.2] FLOWCHART OF SECURITY GATE TERMINAL:</div>
+            <p>
+                The security workflow at Gate 1 operates on a split-verification track ensuring zero queue delays for expected guests and couriers:
+            </p>
+
+            <div style="text-align: center; margin: 15px 0;">
+                <svg viewBox="0 0 500 240" style="width: 100%; max-width: 440px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
+                    <rect x="170" y="10" width="160" height="34" rx="4" fill="#0284c7"/>
+                    <text x="250" y="32" fill="#fff" font-family="'Inter', sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Visitor Arrives at Gate</text>
+
+                    <line x1="250" y1="44" x2="250" y2="70" stroke="#334155" stroke-width="1.5"/>
+
+                    <polygon points="250,70 330,105 250,140 170,105" fill="#fef08a" stroke="#ca8a04"/>
+                    <text x="250" y="102" fill="#854d0e" font-family="'Inter', sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle">Has 4-Digit</text>
+                    <text x="250" y="114" fill="#854d0e" font-family="'Inter', sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle">Passcode?</text>
+
+                    <!-- Yes Track -->
+                    <line x1="330" y1="105" x2="410" y2="105" stroke="#334155" stroke-width="1.5"/>
+                    <text x="360" y="98" font-size="8.5" font-weight="bold">YES</text>
+                    <rect x="360" y="125" width="120" height="36" rx="4" fill="#10b981"/>
+                    <text x="420" y="142" fill="#fff" font-family="'Inter', sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle">Instant Passcode Match</text>
+                    <text x="420" y="153" fill="#d1fae5" font-family="'Inter', sans-serif" font-size="7.5" text-anchor="middle">&amp; Web Audio Chime</text>
+
+                    <!-- No Track -->
+                    <line x1="170" y1="105" x2="90" y2="105" stroke="#334155" stroke-width="1.5"/>
+                    <text x="125" y="98" font-size="8.5" font-weight="bold">NO</text>
+                    <rect x="20" y="125" width="130" height="36" rx="4" fill="#f97316"/>
+                    <text x="85" y="142" fill="#fff" font-family="'Inter', sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle">Quick Log Form</text>
+                    <text x="85" y="153" fill="#ffedd5" font-family="'Inter', sans-serif" font-size="7.5" text-anchor="middle">(Name, Phone, Flat, Vehicle)</text>
+
+                    <!-- Barrier Open -->
+                    <line x1="420" y1="161" x2="300" y2="195" stroke="#334155" stroke-width="1.5"/>
+                    <line x1="85" y1="161" x2="200" y2="195" stroke="#334155" stroke-width="1.5"/>
+                    <rect x="175" y="195" width="150" height="32" rx="4" fill="#0f172a"/>
+                    <text x="250" y="215" fill="#38bdf8" font-family="'Inter', sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Open Barrier &amp; Log Entry</text>
+                </svg>
+            </div>
+            <div class="figure-caption">Figure 8.2: Gatekeeper Fast Clearance Logic Flow</div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 24: CHAPTER 9 - SNAPSHOT 1 (VS CODE PROJECT) ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">27</span>
             <h2 class="chapter-title">CHAPTER 9: SNAPSHOTS</h2>
 
+            <div class="section-heading" style="margin-top: 5px;">9.1] PROJECT EXPLORER &amp; ARCHITECTURE STRUCTURE:</div>
             <p>
-                The following high-fidelity captures present the live user interface components of the NexSociety platform:
+                The following screenshot displays the complete project workspace hierarchy within Visual Studio Code, 
+                showcasing the clean modular decomposition across stylesheets, JavaScript controllers, and dashboard markup:
             </p>
 
-            <div class="section-heading" style="margin-top: 5px;">9.1] EXECUTIVE COMMAND CENTER (ADMIN &amp; SECRETARY):</div>
-            <!-- High fidelity UI Card reproducing the exact screenshot -->
-            <div class="ui-snapshot-box">
-                <div class="ui-snapshot-header">
-                    <div>
-                        <strong style="color: #fff; font-size: 13px;">⚙️ Society Executive Command Center</strong>
-                        <div style="font-size: 10px; color: #94a3b8;">Wednesday, October 14, 2026 • Term 2026-2028</div>
-                    </div>
-                    <div style="text-align: right;">
-                        <span style="font-size: 11px; color: #38bdf8;">🕒 08:20:46 pm</span>
-                        <span style="font-size: 11px; margin-left: 8px; background: #1e293b; padding: 2px 6px; border-radius: 4px;">SR Dr. S. Rao</span>
-                    </div>
-                </div>
-
-                <div class="ui-kpi-row">
-                    <div class="ui-kpi-item">
-                        <div style="font-size: 10px; color: #94a3b8;">Total Society Flats</div>
-                        <div class="ui-kpi-val">96 / 120</div>
-                        <span class="ui-tag tag-blue">80% OCCUPIED</span>
-                    </div>
-                    <div class="ui-kpi-item">
-                        <div style="font-size: 10px; color: #94a3b8;">October Dues</div>
-                        <div class="ui-kpi-val" style="color: #4ade80;">₹4,08,000</div>
-                        <span class="ui-tag tag-green">+8% VS SEP</span>
-                    </div>
-                    <div class="ui-kpi-item">
-                        <div style="font-size: 10px; color: #94a3b8;">Gate Terminals</div>
-                        <div class="ui-kpi-val">3 Gates</div>
-                        <span class="ui-tag tag-green">ALL ONLINE</span>
-                    </div>
-                    <div class="ui-kpi-item">
-                        <div style="font-size: 10px; color: #94a3b8;">Helpdesk Tickets</div>
-                        <div class="ui-kpi-val" style="color: #fb923c;">03 Open</div>
-                        <span class="ui-tag tag-orange">AVERAGE: 4.2h</span>
-                    </div>
-                </div>
-
-                <div style="background: #111827; padding: 8px; border-radius: 6px; font-size: 11px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                        <strong>Flats &amp; Residents Directory (120 Units)</strong>
-                        <span style="color: #38bdf8; font-weight: bold;">Export Directory CSV ↓</span>
-                    </div>
-                    <div style="color: #94a3b8; font-size: 10px;">
-                        • A-101: Ramesh Sharma (+91 98201 11201) - Bay A-01 [PAID]<br>
-                        • A-204: Rajesh Jagtap (+91 98203 44502) - Bay A-14 [PAID]<br>
-                        • B-302: Sunita Deshmukh (+91 98205 77803) - Bay B-08 [PENDING]
-                    </div>
-                </div>
+            <div class="snapshot-container">
+                <img src="snapshots/vscode_project_explorer.png" class="snapshot-img" style="max-height: 160mm;" alt="VS Code Project Explorer">
             </div>
-            <div class="figure-caption">Figure 9.1: Society Executive Command Center &amp; Directory Desk</div>
-
-            <div class="section-heading">9.2] SECURITY GATE TERMINAL (GATEKEEPER PRO):</div>
-            <div class="ui-snapshot-box">
-                <div class="ui-snapshot-header">
-                    <div>
-                        <strong style="color: #fff; font-size: 13px;">🛡️ Security Gate Terminal (Gate 1 - Main Entrance)</strong>
-                        <div style="font-size: 10px; color: #4ade80;">● Gate 1 Live Terminal Active</div>
-                    </div>
-                    <div style="font-size: 11px; color: #94a3b8;">VS Vikram Singh (Lead Guard #S-104)</div>
-                </div>
-
-                <div class="ui-kpi-row">
-                    <div class="ui-kpi-item">
-                        <div style="font-size: 10px; color: #94a3b8;">Inside Campus</div>
-                        <div class="ui-kpi-val">4 Visitors</div>
-                    </div>
-                    <div class="ui-kpi-item">
-                        <div style="font-size: 10px; color: #94a3b8;">Entries Today</div>
-                        <div class="ui-kpi-val">6 Logged</div>
-                    </div>
-                    <div class="ui-kpi-item">
-                        <div style="font-size: 10px; color: #94a3b8;">Pre-Approved</div>
-                        <div class="ui-kpi-val" style="color: #fb923c;">03 Expected</div>
-                    </div>
-                    <div class="ui-kpi-item">
-                        <div style="font-size: 10px; color: #94a3b8;">Deliveries &amp; Cabs</div>
-                        <div class="ui-kpi-val">3 Active</div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 6px; font-size: 10.5px;">
-                    <div style="color: #fb923c; font-weight: bold; margin-bottom: 4px;">⚡ 1-Tap Quick Delivery Passes:</div>
-                    <span style="background: #ef4444; color: #fff; padding: 2px 7px; border-radius: 4px; margin-right: 4px;">🍕 Zomato</span>
-                    <span style="background: #ea580c; color: #fff; padding: 2px 7px; border-radius: 4px; margin-right: 4px;">🍔 Swiggy</span>
-                    <span style="background: #eab308; color: #000; padding: 2px 7px; border-radius: 4px; margin-right: 4px; font-weight: bold;">⚡ Blinkit / Zepto</span>
-                    <span style="background: #2563eb; color: #fff; padding: 2px 7px; border-radius: 4px; margin-right: 4px;">📦 Amazon</span>
-                    <span style="background: #0f172a; border: 1px solid #475569; color: #fff; padding: 2px 7px; border-radius: 4px;">🚖 Uber / Ola</span>
-                </div>
-            </div>
-            <div class="figure-caption">Figure 9.2: Gatekeeper Pro Cockpit &amp; 1-Tap Quick Delivery Passes</div>
+            <div class="figure-caption">Figure 9.1: NexSociety Workspace Project Explorer in VS Code</div>
         </div>
     </div>
 
-    <!-- ================= PAGE 17: CHAPTER 9 (CONT) & CHAPTER 10 - CONCLUSION ================= -->
+    <!-- ================= PAGE 25: CHAPTER 9 - SNAPSHOT 2 (ADMIN DASHBOARD) ================= -->
     <div class="page">
-        <div class="page-border free-flow">
-            <span class="page-number">32</span>
-            <div class="section-heading" style="margin-top: 0;">9.3] RESIDENT PORTAL &amp; COMMUNITY EVENTS:</div>
-            <div class="ui-snapshot-box" style="margin-bottom: 20px;">
-                <div class="ui-snapshot-header">
-                    <div>
-                        <strong style="color: #fff; font-size: 13px;">🏠 Resident Portal - Flat A-204</strong>
-                        <div style="font-size: 10px; color: #94a3b8;">Upcoming Society Events &amp; Notice Board</div>
-                    </div>
-                    <span style="font-size: 11px; color: #4ade80;">Active Resident</span>
-                </div>
-                <div style="background: #111827; padding: 10px; border-radius: 6px; font-size: 11px;">
-                    <div style="margin-bottom: 8px;">
-                        <span style="background: #1e293b; color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-weight: bold;">20 OCT</span>
-                        <strong style="color: #fff; margin-left: 6px;">Grand Diwali Celebration &amp; Rangoli Fest</strong>
-                        <div style="color: #94a3b8; font-size: 10px; margin-left: 55px;">Clubhouse Lawn • 07:00 PM onwards</div>
-                    </div>
-                    <div style="margin-bottom: 8px;">
-                        <span style="background: #1e293b; color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-weight: bold;">25 OCT</span>
-                        <strong style="color: #fff; margin-left: 6px;">Annual Residents General Body Meeting (AGM)</strong>
-                        <div style="color: #94a3b8; font-size: 10px; margin-left: 55px;">Community Hall • 06:30 PM</div>
-                    </div>
-                    <div>
-                        <span style="background: #1e293b; color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-weight: bold;">12 NOV</span>
-                        <strong style="color: #fff; margin-left: 6px;">Children's Sports &amp; Badminton Tournament</strong>
-                        <div style="color: #94a3b8; font-size: 10px; margin-left: 55px;">Sports Complex • 09:00 AM</div>
-                    </div>
-                </div>
-            </div>
-            <div class="figure-caption">Figure 9.3: Resident Community Calendar &amp; Society Circulars</div>
+        <div class="page-content free-flow">
+            <span class="page-num">28</span>
+            <div class="section-heading" style="margin-top: 5px;">9.2] SOCIETY EXECUTIVE COMMAND CENTER (ADMIN &amp; SECRETARY):</div>
+            <p>
+                The executive cockpit utilized by Hon. Society Secretary Dr. S. Rao, highlighting real-time KPI stat cards 
+                (Total Society Flats 96/120, October Maintenance Dues ₹4,08,000, Gate Terminals, Helpdesk Complaints), 
+                the Flats &amp; Residents Directory, and the Broadcast Society Notice form:
+            </p>
 
-            <h2 class="chapter-title" style="margin-top: 15px;">CHAPTER 10: CONCLUSION</h2>
+            <div class="snapshot-container">
+                <img src="snapshots/admin_command_center.png" class="snapshot-img" style="max-height: 160mm;" alt="Society Executive Command Center">
+            </div>
+            <div class="figure-caption">Figure 9.2: Society Executive Command Center &amp; Directory Desk</div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 26: CHAPTER 9 - SNAPSHOT 3 (SECURITY GATE) ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">29</span>
+            <div class="section-heading" style="margin-top: 5px;">9.3] SECURITY GATE TERMINAL &amp; 1-TAP DELIVERY PASSES:</div>
+            <p>
+                The Gatekeeper Pro terminal deployed at Gate 1 Main Entrance, featuring live counters (Visitors Inside Society: 4, 
+                Total Entries Today: 6, Pre-Approved Passes: 03, Deliveries: 3), 1-Tap Quick Delivery Passes (Zomato, Swiggy, 
+                Blinkit/Zepto, Amazon, Uber/Ola), Quick Passcode Check, and Vehicle Parking controls:
+            </p>
+
+            <div class="snapshot-container">
+                <img src="snapshots/security_gate_terminal.png" class="snapshot-img" style="max-height: 160mm;" alt="Security Gate Terminal">
+            </div>
+            <div class="figure-caption">Figure 9.3: Security Gate Terminal Cockpit &amp; Fast Delivery Allocation</div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 27: CHAPTER 9 - SNAPSHOT 4 (RESIDENT DASHBOARD) ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">30</span>
+            <div class="section-heading" style="margin-top: 5px;">9.4] RESIDENT PORTAL &amp; COMMUNITY CALENDAR:</div>
+            <p>
+                The Resident Portal interface displaying upcoming housing society events, including the Grand Diwali Celebration 
+                &amp; Rangoli Fest (20 Oct), Annual Residents General Body Meeting (25 Oct), and Children's Sports Tournament (12 Nov):
+            </p>
+
+            <div class="snapshot-container">
+                <img src="snapshots/resident_events_portal.png" class="snapshot-img" style="max-height: 160mm;" alt="Resident Events Portal">
+            </div>
+            <div class="figure-caption">Figure 9.4: Resident Portal Community Events &amp; Notice Schedule</div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 28: CHAPTER 10 - CONCLUSION ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">31</span>
+            <h2 class="chapter-title">CHAPTER 10: CONCLUSION</h2>
 
             <div class="section-heading">10.1] CONCLUSION:</div>
             <p>
-                The <strong>NexSociety</strong> project demonstrates how modern, zero-dependency web technologies can effectively 
-                solve real-world logistical, security, and administrative challenges in residential housing communities. 
-                By replacing archaic paper registers, unverified phone calls, and manual dues ledgers with an integrated, synchronized 
-                digital web platform, NexSociety elevates society security and fosters transparency between residents and management.
+                The development of the <strong>NexSociety Residential &amp; Community Management Web Platform</strong> represents a significant step 
+                toward digitizing housing society operations and improving coordination between residents, security guards, and managing committees. 
+                The platform successfully replaces vulnerable paper visitor books, unverified gate calls, and scattered communications with an 
+                integrated, role-based digital command platform.
             </p>
             <p>
                 Through this engineering endeavor, the team mastered responsive design, CSS glassmorphism, browser-native Web Audio 
-                synthesis, asynchronous JavaScript event loops, and relational LocalStorage data structures.
+                synthesis, asynchronous JavaScript event loops, and relational LocalStorage data structures. The system delivers sub-second load times, 
+                fluid responsiveness, and zero server hosting expenses.
             </p>
+            <p>
+                In conclusion, the NexSociety platform satisfies all academic and practical objectives, delivering a robust, user-friendly, 
+                and reliable software solution for modern residential communities.
+            </p>
+        </div>
+    </div>
 
-            <div class="section-heading">10.2] FUTURE SCOPE:</div>
+    <!-- ================= PAGE 29: CHAPTER 10 - FUTURE SCOPE & REFERENCES ================= -->
+    <div class="page">
+        <div class="page-content free-flow">
+            <span class="page-num">32</span>
+            <div class="section-heading" style="margin-top: 0;">10.2] FUTURE SCOPE:</div>
+            <p>
+                While the current version of NexSociety fulfills all core operational requirements, the future roadmap includes the following high-impact enhancements:
+            </p>
             <ul>
                 <li><strong>1. Automatic Number Plate Recognition (ANPR):</strong> Direct integration with optical boom barrier cameras to automatically read vehicle plates.</li>
                 <li><strong>2. WhatsApp Cloud API Gate Alerts:</strong> Automated WhatsApp notifications dispatched to residents on guest or delivery arrivals.</li>
-                <li><strong>3. UPI &amp; Payment Gateway Integration:</strong> Online maintenance dues collection via Razorpay or PhonePe.</li>
+                <li><strong>3. Online Payment Gateway Integration:</strong> Online maintenance dues collection via Razorpay, Google Pay, and UPI.</li>
                 <li><strong>4. Biometric Staff Attendance:</strong> Interfacing with fingerprint or RFID card readers for domestic maids and security guards.</li>
+                <li><strong>5. Mobile Application:</strong> Extension into a cross-platform mobile app using React Native for push alerts.</li>
             </ul>
 
             <div class="section-heading">10.3] REFERENCES:</div>
             <ul>
-                <li>MDN Web Docs – <em>Web Audio API &amp; LocalStorage Specification</em></li>
-                <li>W3C HTML5 &amp; CSS3 Semantic Standards</li>
+                <li>MDN Web Docs – <em>Web Audio API &amp; LocalStorage Specification</em>: https://developer.mozilla.org/</li>
+                <li>W3C HTML5 &amp; CSS3 Semantic Standards: https://www.w3.org/</li>
                 <li>Government Polytechnic Mumbai – <em>Department of Information Technology Project Guidelines</em></li>
-                <li>GitHub Open Source – <em>Modern Dashboard UI &amp; State Management Patterns</em></li>
+                <li>Visual Studio Code Official Documentation: https://code.visualstudio.com/</li>
+                <li>GitHub Source Code Repository: https://github.com/</li>
             </ul>
         </div>
     </div>
