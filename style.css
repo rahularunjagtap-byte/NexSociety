@@ -1,8 +1,4 @@
-/* ==========================================================================
-   NexSociety - Ultra-Premium Design System & Login Styles
-   Theme: Midnight Obsidian, Neon Indigo & Electric Cyan Glassmorphism
-   Designed for Viva & Industry-Grade Showcases
-   ========================================================================== */
+
 
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap");
 
@@ -53,9 +49,7 @@
     --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ==========================================================================
-   Base Reset & Core Typography
-   ========================================================================== */
+
 * {
     margin: 0;
     padding: 0;

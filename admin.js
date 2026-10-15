@@ -1,7 +1,4 @@
-/**
- * NexSociety - Admin & Secretary Command Center Logic
- * Clean, human-written JavaScript with LocalStorage synchronization
- */
+
 
 const STORAGE_KEYS = {
     FLATS: "nexSociety_flats",
@@ -9,9 +6,7 @@ const STORAGE_KEYS = {
     NOTICES: "nexSociety_notices"
 };
 
-// ========================================================
-// Seed Data for Flats & Complaints
-// ========================================================
+
 const DEFAULT_FLATS = [
     { flat: "A-101", resident: "Ramesh Patel", phone: "+91 98201 11201", tower: "Tower A", bay: "Bay A-01", status: "paid" },
     { flat: "A-102", resident: "Sunita Deshmukh", phone: "+91 98201 22302", tower: "Tower A", bay: "Bay A-02", status: "paid" },
@@ -83,7 +78,7 @@ let flats = loadFromStorage(STORAGE_KEYS.FLATS, DEFAULT_FLATS);
 let adminComplaints = loadFromStorage(STORAGE_KEYS.COMPLAINTS, DEFAULT_COMPLAINTS);
 let dirSearchQuery = "";
 
-// ========================================================
+
 // DOM Ready Setup
 // ========================================================
 document.addEventListener("DOMContentLoaded", () => {
@@ -112,9 +107,7 @@ function initAdminClock() {
     setInterval(update, 1000);
 }
 
-// ========================================================
-// Flats Directory Table Rendering
-// ========================================================
+
 function renderFlatsDirectory() {
     const tbody = document.getElementById("directoryTableBody");
     if (!tbody) return;
@@ -197,9 +190,7 @@ function sendDuesReminder(flat, resident, phone) {
     showToast(`📩 Automated Dues Reminder SMS dispatched to ${resident} (${flat})`, "✓");
 }
 
-// ========================================================
-// Complaints Resolution Desk
-// ========================================================
+
 function renderAdminComplaints() {
     const container = document.getElementById("adminComplaintsList");
     const countBadge = document.getElementById("complaintsBadge");
@@ -260,9 +251,7 @@ function resolveTicket(ticketId) {
     showToast(`✓ Ticket ${ticket.id || ''} for ${ticket.category} marked as Resolved!`, "✓");
 }
 
-// ========================================================
-// Broadcast Notice Publisher
-// ========================================================
+
 function handlePublishNotice(e) {
     e.preventDefault();
 
@@ -291,9 +280,7 @@ function handlePublishNotice(e) {
     showToast(`📢 Announcement "${headline}" broadcasted to all 120 residents & Gate!`, "📢");
 }
 
-// ========================================================
-// CSV Export for Directory
-// ========================================================
+
 function exportFlatsDirectory() {
     const headers = ["Flat", "Tower", "Resident Name", "Phone", "Parking Bay", "Maintenance Status"];
     const rows = flats.map(f => [
@@ -335,9 +322,7 @@ function playChirp() {
     } catch (e) {}
 }
 
-// ========================================================
-// Toast Notification Utility
-// ========================================================
+
 let toastTimeout = null;
 function showToast(message, icon = "✓") {
     const toast = document.getElementById("toast");

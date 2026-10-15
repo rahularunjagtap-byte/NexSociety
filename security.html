@@ -10,9 +10,7 @@
 
     <div class="dashboard-container">
 
-        <!-- ==============================================
-             SIDEBAR NAVIGATION
-             ============================================== -->
+        <!-- SIDEBAR NAVIGATION -->
         <aside class="sidebar">
             <a href="security.html" class="sidebar-brand">
                 <div class="brand-icon">🛡️</div>
@@ -47,7 +45,7 @@
                 <span class="menu-category">Desk &amp; Incident</span>
                 <a href="#incidents" class="nav-link" onclick="openModal('incidentModal')">
                     <span>⚠️</span> Log Incident
-                    <b class="nav-badge" id="incidentCountBadge" style="background: var(--danger);">0</b>
+                    <b class="nav-badge" id="incidentCountBadge" style="background: var(--rose);">0</b>
                 </a>
                 <a href="resident.html" class="nav-link" target="_blank">
                     <span>🏠</span> Resident Portal ↗
@@ -69,9 +67,7 @@
             </div>
         </aside>
 
-        <!-- ==============================================
-             MAIN WRAPPER & TOPBAR
-             ============================================== -->
+        <!-- MAIN WRAPPER & TOPBAR -->
         <div class="main-wrapper">
 
             <header class="topbar">
@@ -87,7 +83,7 @@
                 <div class="topbar-right">
                     <div class="live-clock-card">
                         <span>🕒</span>
-                        <span id="liveClock">10:00:00 AM</span>
+                        <span id="liveClock">3:00:00 PM</span>
                     </div>
 
                     <div class="guard-profile">
@@ -236,10 +232,10 @@
                             <div class="table-toolbar">
                                 <div class="search-box">
                                     <span>🔍</span>
-                                    <input 
-                                        type="text" 
-                                        id="searchInput" 
-                                        class="search-input" 
+                                    <input
+                                        type="text"
+                                        id="searchInput"
+                                        class="search-input"
                                         placeholder="Search by visitor name, flat (e.g. A-204) or vehicle plate..."
                                     >
                                 </div>
@@ -275,7 +271,7 @@
 
                             <div class="table-footer">
                                 <span id="showingEntriesText">Showing entries from LocalStorage</span>
-                                <button type="button" class="btn-secondary" onclick="showToast('All today\\'s entries loaded from storage.', '✓')">
+                                <button type="button" class="btn-secondary" onclick="showToast('All today\'s entries loaded from storage.', '✓')">
                                     Refresh Entries
                                 </button>
                             </div>
@@ -326,7 +322,7 @@
                             <div class="guard-details">
                                 <strong>Vikram Singh</strong>
                                 <span>Chief Security Officer • Gate 1</span>
-                                <small style="color: var(--success); font-weight: 600;">Shift: 06:00 AM - 02:00 PM</small>
+                                <small style="color: var(--emerald); font-weight: 600;">Shift: 06:00 AM - 02:00 PM</small>
                             </div>
                         </section>
 
@@ -339,10 +335,6 @@
         </div>
 
     </div>
-
-    <!-- ==============================================
-         MODALS (INTERACTIVE POPUPS)
-         ============================================== -->
 
     <!-- Modal 1: Log New Visitor -->
     <div class="modal" id="newVisitorModal">
@@ -402,13 +394,13 @@
             <form class="modal-form" onsubmit="handleModalOtp(event)">
                 <div class="form-group">
                     <label>Enter 6-Digit Code</label>
-                    <input 
-                        type="text" 
-                        id="modalOtpInput" 
-                        class="modal-input" 
-                        maxlength="6" 
-                        placeholder="e.g. 582194" 
-                        style="text-align: center; font-size: 20px; letter-spacing: 4px; font-weight: 700;" 
+                    <input
+                        type="text"
+                        id="modalOtpInput"
+                        class="modal-input"
+                        maxlength="6"
+                        placeholder="e.g. 582194"
+                        style="text-align: center; font-size: 20px; letter-spacing: 4px; font-weight: 700;"
                         required
                     >
                 </div>

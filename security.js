@@ -1,11 +1,4 @@
-/**
- * NexSociety - Security Gatekeeper Pro Dashboard
- * Clean, human-written JavaScript with real HTML5 LocalStorage persistence
- */
 
-// ========================================================
-// Storage Keys Configuration
-// ========================================================
 const STORAGE_KEYS = {
     VISITORS: "nexSociety_visitors",
     PREAPPROVED: "nexSociety_preapproved",
@@ -13,9 +6,7 @@ const STORAGE_KEYS = {
     INCIDENTS: "nexSociety_incidents"
 };
 
-// ========================================================
-// Initial Seed Data (Used on first load if storage is empty)
-// ========================================================
+
 const DEFAULT_VISITORS = [
     {
         id: "VIS-101",
@@ -130,9 +121,7 @@ const DEFAULT_PREAPPROVED = [
     }
 ];
 
-// ========================================================
-// Storage Helper Functions
-// ========================================================
+
 function loadFromStorage(key, fallback) {
     try {
         const item = localStorage.getItem(key);
@@ -163,9 +152,7 @@ let incidents = loadFromStorage(STORAGE_KEYS.INCIDENTS, []);
 let activeTabFilter = "all";
 let searchFilterQuery = "";
 
-// ========================================================
-// DOM Ready Setup
-// ========================================================
+
 document.addEventListener("DOMContentLoaded", () => {
     initLiveClock();
     renderGateTable();
@@ -175,10 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initOtpBoxes();
 });
 
-// ========================================================
-// Live Terminal Digital Clock
-// ========================================================
-function initLiveClock() {
+
     const clockEl = document.getElementById("liveClock");
     if (!clockEl) return;
 
@@ -196,7 +180,6 @@ function initLiveClock() {
     setInterval(tick, 1000);
 }
 
-// ========================================================
 // Table Rendering & Filters
 // ========================================================
 function renderGateTable() {
@@ -333,9 +316,7 @@ function updateTableFooterText(shown, total) {
     }
 }
 
-// ========================================================
-// Pre-Approved Expected Guests Widget
-// ========================================================
+
 function renderPreapprovedList() {
     const container = document.getElementById("preapprovedListContainer");
     const countBadge = document.getElementById("preapprovedCount");
@@ -374,9 +355,7 @@ function renderPreapprovedList() {
     });
 }
 
-// ========================================================
-// Stats Counters
-// ========================================================
+
 function updateStatCounters() {
     const insideCount = visitors.filter(v => v.status === "inside").length;
     const totalCount = visitors.length;
@@ -395,9 +374,7 @@ function updateStatCounters() {
     if (incidentBadge) incidentBadge.textContent = incidents.length;
 }
 
-// ========================================================
-// Search and Filter Events
-// ========================================================
+
 function initSearchAndFilter() {
     const searchInput = document.getElementById("searchInput");
     if (searchInput) {
@@ -423,9 +400,7 @@ function setTabFilter(filterName) {
     if (tab) tab.click();
 }
 
-// ========================================================
-// Action Handlers (Check Out, Delete, Call)
-// ========================================================
+
 function checkoutVisitor(id) {
     const visitor = visitors.find(v => v.id === id);
     if (!visitor) return;
@@ -498,9 +473,7 @@ function callResident(flat, resident) {
     showToast(`📞 Calling resident ${resident || 'Host'} (${flat}) via gate intercom...`, "📞");
 }
 
-// ========================================================
-// 1-Tap Quick Delivery Passes
-// ========================================================
+
 function quickDeliveryCheckin(provider) {
     const flat = prompt(`Enter destination flat number for ${provider}:`, "A-204");
     if (!flat) return;
@@ -541,9 +514,7 @@ function quickDeliveryCheckin(provider) {
     showToast(`⚡ ${provider} pass issued for Flat ${flat.toUpperCase()}`, "✓");
 }
 
-// ========================================================
-// Modal Form Submissions
-// ========================================================
+
 function handleNewVisitor(e) {
     e.preventDefault();
 
@@ -648,9 +619,7 @@ function handleIncidentReport(e) {
     showToast("⚠️ Security incident reported and saved in LocalStorage.", "⚠️");
 }
 
-// ========================================================
-// 6-Digit Passcode Verification
-// ========================================================
+
 function initOtpBoxes() {
     const container = document.getElementById("quickOtpInputs");
     if (!container) return;
@@ -710,9 +679,7 @@ function handleModalOtp(e) {
     document.getElementById("modalOtpInput").value = "";
 }
 
-// ========================================================
-// Modal Open / Close Helpers
-// ========================================================
+
 function openModal(id) {
     const modal = document.getElementById(id);
     if (modal) modal.classList.add("show");
@@ -747,9 +714,7 @@ function triggerSosModal() {
     }
 }
 
-// ========================================================
-// Export Gate Log as CSV from LocalStorage
-// ========================================================
+
 function exportGateLog() {
     if (!visitors || visitors.length === 0) {
         showToast("No entries available to export.", "ℹ️");
@@ -782,9 +747,7 @@ function exportGateLog() {
     showToast("📄 Exported Gate Log CSV successfully from LocalStore!", "✓");
 }
 
-// ========================================================
-// Global Storage API for Custom User Data
-// ========================================================
+
 window.NexSocietyStorage = {
     addVisitor(data) {
         const id = data.id || "VIS-" + Math.floor(100 + Math.random() * 900);
@@ -818,9 +781,7 @@ window.NexSocietyStorage = {
     }
 };
 
-// ========================================================
-// Terminal Audio Feedback (Web Audio API - Offline & Native)
-// ========================================================
+
 function playTerminalSound(type = "success") {
     try {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -855,9 +816,7 @@ function playTerminalSound(type = "success") {
     }
 }
 
-// ========================================================
-// Toast Notification Utility
-// ========================================================
+
 let toastTimeout = null;
 function showToast(message, icon = "✓") {
     const toast = document.getElementById("toast");

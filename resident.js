@@ -1,8 +1,4 @@
-/**
- * NexSociety - Resident Portal Logic
- * Clean, human-written JavaScript with LocalStorage synchronization
- * Synchronizes seamlessly with the Security Gate Terminal
- */
+
 
 const STORAGE_KEYS = {
     VISITORS: "nexSociety_visitors",
@@ -10,9 +6,7 @@ const STORAGE_KEYS = {
     COMPLAINTS: "nexSociety_complaints"
 };
 
-// ========================================================
-// Storage Helper Functions
-// ========================================================
+
 function loadFromStorage(key, fallback) {
     try {
         const item = localStorage.getItem(key);
@@ -63,9 +57,7 @@ let complaints = loadFromStorage(STORAGE_KEYS.COMPLAINTS, [
     }
 ]);
 
-// ========================================================
-// DOM Ready Setup
-// ========================================================
+
 document.addEventListener("DOMContentLoaded", () => {
     initResidentDate();
     initResidentGreeting();
@@ -99,9 +91,7 @@ function initResidentGreeting() {
     }
 }
 
-// ========================================================
-// Render Expected Visitors for Flat A-204
-// ========================================================
+
 function renderExpectedVisitors() {
     const container = document.getElementById("expectedVisitorsContainer");
     if (!container) return;
@@ -141,9 +131,7 @@ function renderExpectedVisitors() {
     });
 }
 
-// ========================================================
-// Update Resident Stat Counters
-// ========================================================
+
 function updateResidentStats() {
     const flatVisitors = preapproved.filter(v => (v.flat || "").toUpperCase().includes("A-204"));
     const visitorCountEl = document.getElementById("statVisitorCount");
@@ -157,9 +145,7 @@ function updateResidentStats() {
     }
 }
 
-// ========================================================
-// Form Handlers
-// ========================================================
+
 function handlePreapproveVisitor(e) {
     e.preventDefault();
 
@@ -223,9 +209,7 @@ function handleRaiseComplaint(e) {
     showToast("✓ Complaint ticket submitted! Maintenance team notified.", "✓");
 }
 
-// ========================================================
-// Modal Open / Close Helpers
-// ========================================================
+
 function openModal(id) {
     const modal = document.getElementById(id);
     if (modal) modal.classList.add("show");
@@ -261,9 +245,7 @@ function playAudioChirp() {
     } catch (e) {}
 }
 
-// ========================================================
-// Toast Notification Utility
-// ========================================================
+
 let toastTimeout = null;
 function showToast(message, icon = "✓") {
     const toast = document.getElementById("toast");

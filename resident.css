@@ -1,8 +1,4 @@
-/* ==========================================================================
-   NexSociety - Resident Portal Styles
-   Theme: Luxury Sapphire & Midnight Obsidian Glassmorphism
-   Designed for High-End Residential Concierge Experience
-   ========================================================================== */
+
 
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap");
 
@@ -53,9 +49,7 @@ body {
     min-height: 100vh;
 }
 
-/* ==========================================================================
-   LAYOUT
-   ========================================================================== */
+
 
 .resident-layout {
     display: flex;
