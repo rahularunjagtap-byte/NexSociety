@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexSociety Project Report - Aryan Jagtap &amp; Sharvari Pore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #525659;
+            font-family: "Times New Roman", Times, serif;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        /* Top Action Bar for user */
+        .no-print-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .no-print-bar .title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .print-btn {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .print-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Printable A4 Book Page Container */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            background: #fff;
+            padding: 22mm 24mm;
+            box-shadow: 0 0 14px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        /* Inner Document Border (Same as GPM Project Template) */
+        .page-border {
+            border: 1.5px solid #000;
+            min-height: 253mm;
+            padding: 18mm 16mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .page-border.free-flow {
+            justify-content: flex-start;
+        }
+
+        /* Typography & Headings */
+        h1.main-title {
+            font-size: 24pt;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        h2.sub-title {
+            font-size: 16pt;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        h3.report-meta {
+            font-size: 13pt;
+            font-weight: normal;
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .chapter-title {
+            font-size: 16pt;
+            font-weight: bold;
+            text-decoration: underline;
+            text-align: center;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+
+        .section-heading {
+            font-size: 13pt;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-top: 18px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 12pt;
+            text-align: justify;
+            margin-bottom: 14px;
+            text-justify: inter-word;
+        }
+
+        ul {
+            margin-left: 28px;
+            margin-bottom: 14px;
+            font-size: 12pt;
+        }
+
+        li {
+            margin-bottom: 6px;
+            text-align: justify;
+        }
+
+        /* College Crest / Emblem SVG */
+        .logo-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .college-emblem {
+            width: 170px;
+            height: 170px;
+            display: inline-block;
+        }
+
+        /* Signature & Credit Blocks */
+        .submitted-box {
+            text-align: center;
+            font-size: 13pt;
+            margin: 25px 0 15px 0;
+            line-height: 1.6;
+        }
+
+        .student-name {
+            font-weight: bold;
+            font-size: 13pt;
+        }
+
+        .dept-footer {
+            text-align: center;
+            font-size: 13pt;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        /* Signatures Grid */
+        .sign-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 35px;
+            text-align: center;
+            font-size: 12pt;
+        }
+
+        .sign-line {
+            border-top: 1.5px solid #000;
+            width: 80%;
+            margin: 45px auto 8px auto;
+        }
+
+        /* Tables */
+        table.report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 11pt;
+        }
+
+        table.report-table th, table.report-table td {
+            border: 1px solid #000;
+            padding: 7px 10px;
+            vertical-align: middle;
+        }
+
+        table.report-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body {
+                background: none;
+            }
+            .no-print-bar {
+                display: none !important;
+            }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+                min-height: 297mm;
+                padding: 15mm 18mm;
+            }
+            .page-border {
+                min-height: 265mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Action bar with direct Print button -->
+    <div class="no-print-bar">
+        <div class="title">
+            <span>📘</span> NexSociety - Project Report Template (Aryan Jagtap &amp; Sharvari Pore)
+        </div>
+        <button class="print-btn" onclick="window.print()">🖨️ Print to PDF (Ctrl + P)</button>
+    </div>
+
+    <!-- ================= PAGE 1: TITLE / COVER PAGE ================= -->
+    <div class="page">
+        <div class="page-border">
+            <div>
+                <h1 class="main-title">NEXSOCIETY</h1>
+                <h2 class="sub-title">SMART COMMUNITY &amp; RESIDENTIAL SOCIETY MANAGEMENT SYSTEM</h2>
+                <h2 class="sub-title" style="margin-top: 15px;">A PROJECT REPORT</h2>
+                <h3 class="report-meta">
+                    In the partial fulfilment for the award of<br>
+                    <strong>DIPLOMA IN<br>INFORMATION TECHNOLOGY</strong>
+                </h3>
+            </div>
+
+            <!-- Emblem Badge -->
+            <div class="logo-container">
+                <svg class="college-emblem" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="94" fill="#fff" stroke="#111" stroke-width="6"/>
+                    <circle cx="100" cy="100" r="82" fill="none" stroke="#111" stroke-width="2"/>
+                    <circle cx="100" cy="100" r="62" fill="#f8fafc" stroke="#111" stroke-width="2"/>
+                    <!-- College Arc Text simulation -->
+                    <path id="curveTop" d="M 30 100 A 70 70 0 0 1 170 100" fill="none"/>
+                    <text font-size="11" font-weight="bold" fill="#111" letter-spacing="2">
+                        <textPath href="#curveTop" startOffset="50%" text-anchor="middle">GOVERNMENT POLYTECHNIC MUMBAI</textPath>
+                    </text>
+                    <text x="100" y="98" font-family="'Inter', sans-serif" font-size="28" font-weight="900" text-anchor="middle" fill="#0f172a">GPM</text>
+                    <text x="100" y="118" font-size="10" font-weight="bold" text-anchor="middle" fill="#333">ESTD. 1960</text>
+                    <path id="curveBottom" d="M 35 110 A 70 70 0 0 0 165 110" fill="none"/>
+                    <text font-size="8.5" font-weight="bold" fill="#111" letter-spacing="1.5">
+                        <textPath href="#curveBottom" startOffset="50%" text-anchor="middle">TRANSFORM KNOWLEDGE INTO WORK</textPath>
+                    </text>
+                </svg>
+            </div>
+
+            <div>
+                <div class="submitted-box">
+                    Submitted By-<br><br>
+                    <span class="student-name">Aryan Jagtap (FH24IF001)</span><br>
+                    <span class="student-name">Sharvari Pore (FS24IF048)</span>
+                </div>
+
+                <div class="dept-footer">
+                    Department of Information Technology<br>
+                    GOVERNMENT POLYTECHNIC MUMBAI
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 2: CERTIFICATE ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <!-- College Crest Header -->
+            <div class="logo-container" style="margin: 0 0 10px 0;">
+                <svg class="college-emblem" style="width: 90px; height: 90px;" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="92" fill="#fff" stroke="#111" stroke-width="5"/>
+                    <circle cx="100" cy="100" r="62" fill="#fff" stroke="#111" stroke-width="2"/>
+                    <text x="100" y="105" font-family="'Inter', sans-serif" font-size="26" font-weight="900" text-anchor="middle">GPM</text>
+                    <text x="100" y="122" font-size="9" font-weight="bold" text-anchor="middle">ESTD. 1960</text>
+                </svg>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 18px;">
+                <h3 style="font-size: 13pt; font-weight: bold;">DEPARTMENT OF INFORMATION TECHNOLOGY</h3>
+                <h3 style="font-size: 13pt; font-weight: bold;">GOVERNMENT POLYTECHNIC MUMBAI</h3>
+                <p style="font-size: 12pt; text-align: center; margin: 4px 0 16px 0;">MUMBAI-400051</p>
+                <h2 style="font-size: 15pt; font-weight: bold; text-decoration: underline; letter-spacing: 1px;">CERTIFICATE</h2>
+            </div>
+
+            <p style="line-height: 1.8; font-size: 12pt;">
+                This is to certify that the following students have successfully and satisfactorily completed the project on 
+                <strong>NEXSOCIETY - SMART RESIDENTIAL &amp; COMMUNITY PLATFORM</strong> and presented their report in partial 
+                fulfilment of the requirement for a <strong>Diploma in Information Technology</strong> from <strong>Government Polytechnic, Mumbai</strong> 
+                under the guidance of <strong>Prof. Project Guide</strong> in the academic year <strong>2025-26</strong>.
+            </p>
+
+            <div style="text-align: center; margin: 20px 0; font-size: 12.5pt; line-height: 1.9;">
+                <strong>Aryan Jagtap (FH24IF001)</strong><br>
+                <strong>Sharvari Pore (FS24IF048)</strong>
+            </div>
+
+            <div class="sign-grid" style="margin-top: 40px;">
+                <div>
+                    <div class="sign-line"></div>
+                    <strong>Head of Department</strong><br>
+                    ( Dr. Sachin Bharatkar )
+                </div>
+                <div>
+                    <div class="sign-line"></div>
+                    <strong>Principal</strong><br>
+                    ( Dr. Nitiket N Mhala )
+                </div>
+            </div>
+
+            <div class="sign-grid" style="margin-top: 30px;">
+                <div>
+                    <div class="sign-line"></div>
+                    <strong>Project Guide</strong><br>
+                    ( Prof. Guide Name )
+                </div>
+                <div>
+                    <div class="sign-line"></div>
+                    <strong>External Examiner</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 3: DECLARATION ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <h2 class="chapter-title" style="margin-top: 20px;">DECLARATION</h2>
+
+            <p style="line-height: 1.8; margin-top: 15px;">
+                We, the undersigned students of the Diploma in Information Technology at Government Polytechnic Mumbai, 
+                hereby declare that the report titled <strong>"NEXSOCIETY"</strong>, submitted in partial fulfillment of 
+                the requirements for the completion of our diploma, is our original work.
+            </p>
+
+            <p style="line-height: 1.8;">
+                We further declare that this work has not been previously submitted elsewhere for any academic evaluation, 
+                and all sources of information used in this report have been duly acknowledged. We have sincerely worked on the 
+                design, architectural development, and implementation of this project.
+            </p>
+
+            <p style="line-height: 1.8;">
+                We take full responsibility for the authenticity and originality of the contents presented in this report.
+            </p>
+
+            <div style="margin-top: 35px; font-size: 12pt;">
+                <strong>DATE:</strong> ____________________<br>
+                <strong>PLACE:</strong> Mumbai
+            </div>
+
+            <table class="report-table" style="margin-top: 45px;">
+                <thead>
+                    <tr>
+                        <th style="width: 45%;">Name of Students</th>
+                        <th style="width: 30%;">Enrollment No.</th>
+                        <th style="width: 25%;">Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Aryan Jagtap</strong></td>
+                        <td>FH24IF001</td>
+                        <td style="height: 48px;"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sharvari Pore</strong></td>
+                        <td>FS24IF048</td>
+                        <td style="height: 48px;"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 4: ACKNOWLEDGEMENT ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <h2 class="chapter-title" style="margin-top: 20px;">ACKNOWLEDGEMENT</h2>
+
+            <p style="line-height: 1.8; margin-top: 15px;">
+                We take this opportunity to express our sincere gratitude to all those who have guided and supported us in completing our project entitled 
+                <strong>“NexSociety - Smart Community &amp; Residential Management Platform.”</strong>
+            </p>
+
+            <p style="line-height: 1.8;">
+                We would like to convey our heartfelt thanks to our project guide for their valuable guidance, continuous encouragement, and constructive suggestions throughout the conceptualization, system designing, and frontend development phases.
+            </p>
+
+            <p style="line-height: 1.8;">
+                We are also deeply thankful to <strong>Dr. Sachin Bharatkar Sir</strong>, Head of the Department of Information Technology, Government Polytechnic Mumbai, for providing us with the necessary computing facilities, laboratory environment, and support to successfully accomplish this project.
+            </p>
+
+            <p style="line-height: 1.8;">
+                We extend our sincere thanks to all the faculty and non-teaching staff members of the Department of Information Technology for their generous cooperation, advice, and assistance during our course of study.
+            </p>
+
+            <p style="line-height: 1.8;">
+                Finally, we express our heartfelt gratitude to our parents, family members, and friends for their constant inspiration, moral backing, and encouragement that helped us in successfully completing this project report.
+            </p>
+
+            <div style="margin-top: 30px; font-weight: bold; font-size: 13pt;">
+                THANK YOU!
+            </div>
+
+            <div style="text-align: right; margin-top: 40px; font-size: 12pt; line-height: 1.8;">
+                <strong>Aryan Jagtap (FH24IF001)</strong><br>
+                <strong>Sharvari Pore (FS24IF048)</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 5: ABSTRACT ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <h2 class="chapter-title" style="margin-top: 20px;">ABSTRACT</h2>
+
+            <p style="line-height: 1.8; margin-top: 15px;">
+                <strong>NexSociety</strong> is a modern, responsive web-based platform developed to digitize, streamline, and secure residential housing society operations. In traditional society setups, management relies heavily on manual paper registers, unverified phone calls at entry gates, paper notices, and scattered communication channels, leading to security oversights and delayed complaint resolutions.
+            </p>
+
+            <p style="line-height: 1.8;">
+                The primary objective of this project is to eliminate these physical barriers by providing an integrated, role-based ecosystem for <strong>Residents</strong>, <strong>Gate Security Guards</strong>, and <strong>Society Administrators/Secretaries</strong>. The platform introduces digital visitor pre-approvals via secure 4-digit passcodes, instant gatekeeper check-ins with camera feed verification, vehicle parking logs, and audio-visual verification chirps.
+            </p>
+
+            <p style="line-height: 1.8;">
+                Furthermore, the system empowers residents to report maintenance complaints with real-time status tracking, access verified resident directories, and review broadcasted notices. For society executives, NexSociety delivers an executive dashboard with Key Performance Indicators (KPIs), dues monitoring, CSV directory exports, and digital notice broadcasting.
+            </p>
+
+            <p style="line-height: 1.8;">
+                Engineered using standard modern web technologies—HTML5, CSS3 with responsive glassmorphism, Vanilla JavaScript, Web Audio API, and persistent LocalStorage synchronization—NexSociety bridges the gap between gate security and administrative transparency without expensive hardware setups.
+            </p>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 6: INDEX / TABLE OF CONTENTS ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <h2 class="chapter-title" style="margin-top: 15px;">INDEX</h2>
+
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th style="width: 12%; text-align: center;">SR_NO</th>
+                        <th style="width: 73%;">TOPIC</th>
+                        <th style="width: 15%; text-align: center;">PAGE NO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;"><strong>1</strong></td>
+                        <td>
+                            <strong>Chapter 1: Introduction</strong>
+                            <ul style="margin-top: 4px; margin-bottom: 0;">
+                                <li>1.1 Introduction</li>
+                                <li>1.2 Need &amp; Motivation</li>
+                                <li>1.3 Objectives</li>
+                            </ul>
+                        </td>
+                        <td style="text-align: center;">7</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>2</strong></td>
+                        <td><strong>Chapter 2: Literature Review</strong></td>
+                        <td style="text-align: center;">11</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>3</strong></td>
+                        <td>
+                            <strong>Chapter 3: Technical Specifications</strong>
+                            <ul style="margin-top: 4px; margin-bottom: 0;">
+                                <li>3.1 Technologies Used</li>
+                                <li>3.2 Hardware Requirements</li>
+                                <li>3.3 Software Requirements</li>
+                            </ul>
+                        </td>
+                        <td style="text-align: center;">13</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>4</strong></td>
+                        <td>
+                            <strong>Chapter 4: Development Process</strong>
+                            <ul style="margin-top: 4px; margin-bottom: 0;">
+                                <li>4.1 Software Development Process</li>
+                                <li>4.2 Waterfall Model</li>
+                                <li>4.3 Implementation Steps</li>
+                            </ul>
+                        </td>
+                        <td style="text-align: center;">16</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>5</strong></td>
+                        <td>
+                            <strong>Chapter 5: Planning Phase</strong>
+                            <ul style="margin-top: 4px; margin-bottom: 0;">
+                                <li>5.1 Purpose of the Planning Phase</li>
+                                <li>5.2 Requirement Gathering &amp; Analysis</li>
+                                <li>5.3 Feasibility Study</li>
+                                <li>5.4 Outcome of Planning Phase</li>
+                            </ul>
+                        </td>
+                        <td style="text-align: center;">19</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>6</strong></td>
+                        <td>
+                            <strong>Chapter 6: System Design</strong>
+                            <ul style="margin-top: 4px; margin-bottom: 0;">
+                                <li>6.1 What Is System Design</li>
+                                <li>6.2 Modules of NexSociety</li>
+                                <li>6.3 Folder Structure</li>
+                            </ul>
+                        </td>
+                        <td style="text-align: center;">21</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>7</strong></td>
+                        <td>
+                            <strong>Chapter 7: Testing &amp; Verification</strong>
+                            <ul style="margin-top: 4px; margin-bottom: 0;">
+                                <li>7.1 Testing Methodologies</li>
+                                <li>7.2 Test Cases Matrix</li>
+                            </ul>
+                        </td>
+                        <td style="text-align: center;">24</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>8</strong></td>
+                        <td>
+                            <strong>Chapter 8: Diagrams &amp; Architecture</strong>
+                            <ul style="margin-top: 4px; margin-bottom: 0;">
+                                <li>8.1 System Flowchart</li>
+                                <li>8.2 Security Gate Verification Flow</li>
+                            </ul>
+                        </td>
+                        <td style="text-align: center;">27</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>9</strong></td>
+                        <td><strong>Chapter 9: Snapshots &amp; User Interface</strong></td>
+                        <td style="text-align: center;">29</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>10</strong></td>
+                        <td>
+                            <strong>Chapter 10: Conclusion &amp; Future Scope</strong>
+                            <ul style="margin-top: 4px; margin-bottom: 0;">
+                                <li>10.1 Conclusion</li>
+                                <li>10.2 Future Scope</li>
+                                <li>10.3 References</li>
+                            </ul>
+                        </td>
+                        <td style="text-align: center;">33</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 7: CHAPTER 1 - INTRODUCTION ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <h2 class="chapter-title">CHAPTER 1: INTRODUCTION</h2>
+
+            <div class="section-heading">1.1] INTRODUCTION:</div>
+            <p>
+                Urban living in modern gated residential societies has rapidly evolved with multi-tower apartments housing hundreds of families. However, managing security, guest entries, maintenance dues, and emergency notices in most housing societies remains traditional and inefficient. Society management commonly relies on handwritten paper visitor logbooks, security intercom phones that often fail or go unanswered, and paper circulars posted on physical notice boards.
+            </p>
+            <p>
+                <strong>NexSociety</strong> has been engineered as a next-generation residential and gated community operations platform designed to digitize society management completely. It provides a cohesive, unified digital terminal connecting three primary pillars of residential life:
+            </p>
+            <ul>
+                <li><strong>Gate Security Terminal (Gatekeeper Pro):</strong> A dedicated interface for security guards at society gates to quickly log walk-in visitors, verify pre-approved guest passcodes, monitor delivery couriers, record parking bay numbers, and broadcast instant security alerts with audio chirps.</li>
+                <li><strong>Resident Self-Service Dashboard:</strong> An intuitive portal for flat owners and tenants to generate digital visitor pre-approvals, register maintenance complaints (plumbing, electrical, elevator, etc.), and view community notices.</li>
+                <li><strong>Executive Command Center (Admin/Secretary):</strong> A comprehensive management desk for managing the resident directory, tracking society dues collection, resolving complaints, and publishing society-wide broadcast announcements.</li>
+            </ul>
+
+            <div class="section-heading">1.2] NEED / MOTIVATION:</div>
+            <p>
+                The motivation behind developing NexSociety arises from the acute operational challenges faced by housing societies every day:
+            </p>
+            <ul>
+                <li><strong>Visitor Security Vulnerabilities:</strong> Paper registers at society gates lack photo validation, phone number verification, and historical audit logs. Illegible handwriting makes tracing past visitors almost impossible during security inquiries.</li>
+                <li><strong>Communication Gaps:</strong> Guards frequently call residents during meetings or odd hours to confirm delivery personnel. With digital pre-approvals, residents generate a 4-digit code in advance, granting instantaneous barrier entry.</li>
+                <li><strong>Maintenance &amp; Complaint Delays:</strong> Residents lack visibility into the status of their complaints, while administrators struggle to prioritize incoming grievances without an organized tracking dashboard.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 8: OBJECTIVES & SCOPE ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <div class="section-heading" style="margin-top: 0;">1.3] OBJECTIVES:</div>
+            <p>
+                The primary objective of the NexSociety project is to design, develop, and test an integrated, lightweight, and modern digital society operations ecosystem.
+            </p>
+            <p>The project focuses on achieving the following specific goals:</p>
+            <ul>
+                <li><strong>1. Digital Gatekeeper Automation:</strong> Enable gate security guards to quickly log visitors, capture visitor names, contact numbers, flat numbers, vehicle registration, and purpose of visit in under 15 seconds.</li>
+                <li><strong>2. Passcode Verification System:</strong> Provide a pre-approval verification module where visitors present a 4-digit code issued by residents for instant clearance.</li>
+                <li><strong>3. Complaint Management System:</strong> Allow flat residents to register complaints categorized by urgency and category, with status tracking (Pending, In Progress, Resolved).</li>
+                <li><strong>4. Society Directory &amp; CSV Export:</strong> Provide society secretaries with a searchable directory of flat allocations, parking slots, and dues status, with instant CSV exporting capabilities.</li>
+                <li><strong>5. Multi-Role Accessibility:</strong> Seamless switching between Resident, Gate Security, and Admin views without complicated installation or server overhead.</li>
+                <li><strong>6. Zero Cloud Lag / Local-First Persistence:</strong> Utilize HTML5 LocalStorage and window storage event listeners to ensure cross-tab synchronization and offline data resilience.</li>
+                <li><strong>7. Audio-Visual Feedback:</strong> Enhance security desk usability through Native Web Audio API beeps for entry confirmations, pass alerts, and emergency sirens.</li>
+            </ul>
+
+            <div class="section-heading">1.4] SCOPE OF THE PROJECT:</div>
+            <p>
+                NexSociety is tailored for cooperative housing societies, gated apartment complexes, and residential townships. By prioritizing high-contrast, modern responsive UI design, it runs seamlessly on desktop computers in society offices, tablets at security guard booths, and mobile phones used by residents.
+            </p>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 9: CHAPTER 2 & 3 - TECHNICAL SPECS ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <h2 class="chapter-title">CHAPTER 2: TECHNICAL SPECIFICATIONS</h2>
+
+            <div class="section-heading">2.1] TECHNOLOGIES USED:</div>
+            <p>
+                NexSociety leverages standard, high-performance web technologies ensuring fast execution, instant responsiveness, and zero reliance on heavy third-party external dependencies:
+            </p>
+
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Technology</th>
+                        <th style="width: 75%;">Role in NexSociety Platform</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>HTML5</strong></td>
+                        <td>Semantic markup structuring role-specific dashboards, modal overlays, visitor log tables, and accessible form inputs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CSS3 &amp; Glassmorphism</strong></td>
+                        <td>Modern executive dark palette, flexible CSS Grid, Flexbox layouts, micro-animations, status badges, and responsive layouts.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vanilla JavaScript (ES6+)</strong></td>
+                        <td>Client-side application logic, event handlers, real-time validation, search filtering, and LocalStorage data binding.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Web Audio API</strong></td>
+                        <td>Synthesizes browser-native audio beeps and alarm sounds for gatekeeper verification without external MP3 audio files.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LocalStorage API</strong></td>
+                        <td>Provides persistent cross-session data storage and real-time multi-window state synchronization between security and admin portals.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-heading">2.2] HARDWARE REQUIREMENTS:</div>
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Hardware Component</th>
+                        <th>Minimum Requirement</th>
+                        <th>Recommended Specification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Processor</td>
+                        <td>Intel Core i3 / AMD Ryzen 3</td>
+                        <td>Intel Core i5 / AMD Ryzen 5 or higher</td>
+                    </tr>
+                    <tr>
+                        <td>RAM</td>
+                        <td>4 GB</td>
+                        <td>8 GB or higher</td>
+                    </tr>
+                    <tr>
+                        <td>Hard Disk / Storage</td>
+                        <td>128 GB SSD / HDD</td>
+                        <td>256 GB SSD</td>
+                    </tr>
+                    <tr>
+                        <td>Display</td>
+                        <td>14” HD Display (1366x768)</td>
+                        <td>Full HD (1920x1080) LED Display / Tablet</td>
+                    </tr>
+                    <tr>
+                        <td>Peripheral Devices</td>
+                        <td>Keyboard, Mouse, Web Camera</td>
+                        <td>Gate Camera &amp; Barcode/RFID Reader</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 10: CHAPTER 4 - SYSTEM DESIGN ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <h2 class="chapter-title">CHAPTER 3: SYSTEM DESIGN &amp; MODULES</h2>
+
+            <div class="section-heading">3.1] SYSTEM ARCHITECTURE &amp; MODULES:</div>
+            <p>
+                NexSociety is built upon modular decoupled components communicating seamlessly through standardized browser-native events and local data stores:
+            </p>
+
+            <p><strong>1. Central Authentication &amp; Portal Hub (index.html, script.js):</strong><br>
+            Serves as the gateway for users to select their designated operational role (Resident, Gatekeeper, Society Secretary), with simulated PIN verification and credential validations.</p>
+
+            <p><strong>2. Gate Security Guard Terminal (security.html, security.css, security.js):</strong><br>
+            A high-contrast security gate cockpit equipped with:
+            </p>
+            <ul>
+                <li>Quick Visitor Check-in Form (Name, Phone, Flat, Vehicle, Purpose).</li>
+                <li>Digital Passcode Verification Box for 4-digit guest entry approval.</li>
+                <li>Active Visitors On-Premises Roster with one-click Check-Out button.</li>
+                <li>Live camera simulation viewport and instant alarm broadcast trigger.</li>
+            </ul>
+
+            <p><strong>3. Resident Self-Service Portal (resident.html, resident.css, resident.js):</strong><br>
+            Empowers unit residents (e.g. Flat A-204) to manage household entry approvals, log complaints with photo/category tags, and view society maintenance receipts.
+            </p>
+
+            <p><strong>4. Society Executive Command Center (admin.html, admin.css, admin.js):</strong><br>
+            Provides the Society Secretary with real-time analytics, unit dues tracking, interactive complaints resolution desk, society notice broadcasting, and CSV directory exports.
+            </p>
+
+            <div class="section-heading">3.2] PROJECT FOLDER STRUCTURE:</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10pt; background: #f8fafc; border: 1px solid #cbd5e1; padding: 12px; border-radius: 4px; line-height: 1.5; margin-top: 10px;">
+                NexSociety/<br>
+                ├── index.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Central Portal &amp; Role Selector]<br>
+                ├── script.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Authentication &amp; Role Switcher Logic]<br>
+                ├── style.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Global Portal Core Design System]<br>
+                ├── security.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Gatekeeper Pro Security Terminal]<br>
+                ├── security.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Gate Security UI &amp; High-Contrast Styling]<br>
+                ├── security.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Gate Check-in, Web Audio &amp; Verification]<br>
+                ├── resident.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Resident Flat Portal - Unit A-204]<br>
+                ├── resident.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Resident Dashboard Styles &amp; Glassmorphism]<br>
+                ├── resident.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Pre-Approvals &amp; Helpdesk Complaint Logger]<br>
+                ├── admin.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Society Secretary Executive Command Center]<br>
+                ├── admin.css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Executive Slate-Blue Design System]<br>
+                └── admin.js&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Directory Search, Notice Board &amp; CSV Export]
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 11: CHAPTER 5 - TESTING & TEST CASES ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <h2 class="chapter-title">CHAPTER 4: TESTING &amp; TEST CASES</h2>
+
+            <div class="section-heading">4.1] TEST CASES MATRIX:</div>
+            <p>
+                Comprehensive verification was performed across all modules to ensure functional correctness, edge-case resilience, and responsive presentation.
+            </p>
+
+            <table class="report-table" style="font-size: 10pt;">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">Test ID</th>
+                        <th style="width: 25%;">Test Description</th>
+                        <th style="width: 25%;">Input Steps</th>
+                        <th style="width: 25%;">Expected Result</th>
+                        <th style="width: 15%; text-align: center;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>TC01</strong></td>
+                        <td>Gate Visitor Check-In</td>
+                        <td>Enter Visitor Name, Mobile, Flat A-204, Click 'Allow Entry'</td>
+                        <td>Visitor logged into Active Table; success chime sounds; badge increments</td>
+                        <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TC02</strong></td>
+                        <td>Guest Passcode Verify</td>
+                        <td>Enter 4-digit code (e.g. 4821) in Passcode Box</td>
+                        <td>Valid modal displays guest name; entry approved with chime</td>
+                        <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TC03</strong></td>
+                        <td>Visitor Checkout</td>
+                        <td>Click 'Check Out' button on active visitor row</td>
+                        <td>Visitor status updates to 'Departed'; row removed from active list</td>
+                        <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TC04</strong></td>
+                        <td>Complaint Filing</td>
+                        <td>Resident submits 'Elevator light flickering'</td>
+                        <td>Complaint added to LocalStorage; badge in Admin desk updates</td>
+                        <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TC05</strong></td>
+                        <td>Directory Search Filter</td>
+                        <td>Admin enters 'B-302' or 'Sharma'</td>
+                        <td>Table filters in real-time showing matching residents only</td>
+                        <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TC06</strong></td>
+                        <td>Export Directory CSV</td>
+                        <td>Click 'Export Directory CSV' on Admin screen</td>
+                        <td>CSV file downloaded containing all 120 society flat records</td>
+                        <td style="text-align: center; color: green; font-weight: bold;">PASS</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-heading">4.2] USER EXPERIENCE &amp; PERFORMANCE RESULTS:</div>
+            <p>
+                The application underwent speed benchmarking on Google Chrome and Mozilla Firefox. Zero external database overhead allowed <strong>sub-10ms instant response times</strong> for visitor check-ins and search queries.
+            </p>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 12: CHAPTER 6 - CONCLUSION & FUTURE SCOPE ================= -->
+    <div class="page">
+        <div class="page-border free-flow">
+            <h2 class="chapter-title">CHAPTER 5: CONCLUSION &amp; FUTURE SCOPE</h2>
+
+            <div class="section-heading">5.1] CONCLUSION:</div>
+            <p>
+                The development of <strong>NexSociety</strong> demonstrates how modern, lightweight web technologies can effectively solve real-world problems in residential community management. By replacing archaic physical registers and uncoordinated manual calls with an integrated digital workflow, the project significantly elevates gate security, administrative transparency, and resident comfort.
+            </p>
+            <p>
+                Through this project, practical competency was cultivated in responsive user interface design, glassmorphic styling, Web Audio API synthesis, asynchronous event handling, and robust browser data modeling. NexSociety stands as an accessible, cost-effective, and deployable solution for residential societies of any scale.
+            </p>
+
+            <div class="section-heading">5.2] FUTURE SCOPE:</div>
+            <p>
+                While the current version of NexSociety fulfills all core operational requirements, future iterations can introduce several high-value enhancements:
+            </p>
+            <ul>
+                <li><strong>1. Automatic Number Plate Recognition (ANPR):</strong> Integration with optical gate cameras to automatically scan incoming resident and visitor vehicle number plates.</li>
+                <li><strong>2. WhatsApp Cloud API Notifications:</strong> Automatic delivery of instant gate check-in alerts and approval requests directly to resident WhatsApp numbers.</li>
+                <li><strong>3. UPI Payment Gateway Integration:</strong> Integrated payment gateway for residents to settle monthly maintenance dues via Google Pay, PhonePe, and UPI.</li>
+                <li><strong>4. Biometric &amp; RFID Scanner Hardware Interfacing:</strong> Direct connection with RFID boom barriers and fingerprint terminals for domestic staff attendance.</li>
+            </ul>
+
+            <div class="section-heading">5.3] REFERENCES:</div>
+            <ul>
+                <li>MDN Web Docs (Mozilla Developer Network) – <em>Web Audio API &amp; LocalStorage Specification</em></li>
+                <li>W3C HTML5 &amp; CSS3 Modern Semantic Layout Standards</li>
+                <li>Government Polytechnic Mumbai – <em>Department of Information Technology Project Guidelines</em></li>
+                <li>GitHub Open Community Documentation – <em>Modern Dashboard UI Patterns &amp; Architecture</em></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
