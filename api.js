@@ -172,6 +172,19 @@ const NexAPI = {
         } catch (e) {
             return null;
         }
+    },
+
+    async addFlatResident(flatData) {
+        try {
+            const res = await fetch(`${API_BASE_URL}/dues/add-flat`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(flatData)
+            });
+            return await res.json();
+        } catch (e) {
+            return null;
+        }
     }
 };
 

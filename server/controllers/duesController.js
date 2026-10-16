@@ -104,3 +104,53 @@ exports.getFinancialSummary = async (req, res) => {
         res.status(500).json({ success: false, message: err.message });
     }
 };
+
+// Add new flat & resident to database
+exports.addFlatResident = async (req, res) => {
+    try {
+        const { flat_number, resident_name, tower, phone, bay_number, amount, status } = req.body;
+
+        if (!flat_number || !resident_name) {
+            return res.status(400).json({ success: false, message: "Flat number and resident name are required." });
+        }
+
+        const id = "DUE-" + flat_number.replace(/[^a-zA-Z0-9]/g, "");
+        const check = await db.query("SELECT 1 FROM maintenance_dues WHERE UPPER(flat_number) = UPPER($1)", [flat_number.trim()]);
+
+        if (check.rows.length > 0) {
+            const update = await db.query(`
+                UPDATE maintenance_dues
+                SET resident_name = $1, tower = $2, phone = $3, bay_number = $4, status = $5
+                WHERE UPPER(flat_number) = UPPER($6)
+                RETURNING *
+            `, [resident_name.trim(), tower || "Tower A", phone || "", bay_number || "Open Parking", status || "pending", flat_number.trim()]);
+
+            return res.json({ success: true, message: `Updated details for ${flat_number}!`, data: update.rows[0] });
+        }
+
+        const insert = await db.query(`
+            INSERT INTO maintenance_dues (id, flat_number, resident_name, tower, phone, bay_number, amount, month, status)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, 'October 2026', $8)
+            RETURNING *
+        `, [
+            id,
+            flat_number.trim().toUpperCase(),
+            resident_name.trim(),
+            tower || "Tower A",
+            phone || "",
+            bay_number || "Open Parking",
+            amount || 4250.00,
+            status || "pending"
+        ]);
+
+        res.status(201).json({
+            success: true,
+            message: `Resident ${resident_name} added to flat ${flat_number} successfully!`,
+            data: insert.rows[0]
+        });
+    } catch (err) {
+        console.error("Add flat error:", err);
+        res.status(500).json({ success: false, message: "Error adding flat resident to database." });
+    }
+};
+

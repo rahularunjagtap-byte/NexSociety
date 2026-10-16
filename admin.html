@@ -128,9 +128,14 @@
                                     <h2>Flats &amp; Residents Directory</h2>
                                     <p>Comprehensive roster of all units, residents and dues status</p>
                                 </div>
-                                <button type="button" class="btn-secondary" onclick="exportFlatsDirectory()">
-                                    Export Directory CSV ↓
-                                </button>
+                                <div style="display: flex; gap: 8px;">
+                                    <button type="button" class="btn-primary" onclick="openModal('addResidentModal')" style="padding: 8px 14px; font-size: 13px;">
+                                        ➕ Add Resident
+                                    </button>
+                                    <button type="button" class="btn-secondary" onclick="exportFlatsDirectory()">
+                                        Export CSV ↓
+                                    </button>
+                                </div>
                             </div>
                             <div class="directory-toolbar">
                                 <div class="dir-search">
@@ -289,6 +294,56 @@
                     </aside>
                 </div>
             </main>
+        </div>
+    </div>
+    <!-- Add Resident Modal -->
+    <div class="modal" id="addResidentModal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3>➕ Add Resident to Society Roster</h3>
+                <button type="button" class="close-btn" onclick="closeModal('addResidentModal')">✕</button>
+            </div>
+            <form onsubmit="handleAddResident(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Flat Number *</label>
+                        <input type="text" id="resFlatNum" class="modal-input" placeholder="e.g. A-205, B-402" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tower Block *</label>
+                        <select id="resTower" class="modal-select">
+                            <option value="Tower A">Tower A</option>
+                            <option value="Tower B">Tower B</option>
+                            <option value="Tower C">Tower C</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Resident Full Name *</label>
+                    <input type="text" id="resName" class="modal-input" placeholder="e.g. Rahul Sharma" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Contact Phone Number *</label>
+                        <input type="tel" id="resPhone" class="modal-input" placeholder="+91 98765 43210" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Parking Bay Slot</label>
+                        <input type="text" id="resBay" class="modal-input" placeholder="e.g. Bay B-15">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>October Maintenance Status</label>
+                    <select id="resStatus" class="modal-select">
+                        <option value="paid">Paid (₹4,250)</option>
+                        <option value="pending" selected>Pending / Unpaid (₹4,250)</option>
+                    </select>
+                </div>
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="closeModal('addResidentModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Save to PostgreSQL &amp; Directory ✓</button>
+                </div>
+            </form>
         </div>
     </div>
     <!-- Toast Notification -->

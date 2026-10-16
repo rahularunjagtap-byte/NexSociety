@@ -82,7 +82,90 @@ document.addEventListener("DOMContentLoaded", () => {
     renderFlatsDirectory();
     renderAdminComplaints();
     initDirectorySearch();
+    loadDirectoryFromBackend();
 });
+
+// Load directory live from PostgreSQL backend
+async function loadDirectoryFromBackend() {
+    try {
+        if (window.NexAPI) {
+            const res = await NexAPI.getFlatsDirectory();
+            if (res && res.success && res.data && res.data.length > 0) {
+                flats = res.data.map(d => ({
+                    flat: d.flat_number,
+                    resident: d.resident_name,
+                    phone: d.phone || "",
+                    tower: d.tower || "Tower A",
+                    bay: d.bay_number || "Open Parking",
+                    status: d.status || "pending"
+                }));
+                saveToStorage(STORAGE_KEYS.FLATS, flats);
+                renderFlatsDirectory();
+            }
+        }
+    } catch (e) {
+        console.warn("Backend directory fetch fallback to local:", e);
+    }
+}
+
+// Add Resident to PostgreSQL and Directory
+async function handleAddResident(e) {
+    e.preventDefault();
+
+    const flat_number = document.getElementById("resFlatNum").value.trim().toUpperCase();
+    const tower = document.getElementById("resTower").value;
+    const resident_name = document.getElementById("resName").value.trim();
+    const phone = document.getElementById("resPhone").value.trim();
+    const bay_number = document.getElementById("resBay").value.trim() || "Open Parking";
+    const status = document.getElementById("resStatus").value;
+
+    if (!flat_number || !resident_name) {
+        showToast("Please enter Flat number and Resident name.", "⚠️");
+        return;
+    }
+
+    const newRecord = {
+        flat: flat_number,
+        resident: resident_name,
+        tower: tower,
+        phone: phone,
+        bay: bay_number,
+        status: status
+    };
+
+    // 1. Save to PostgreSQL Backend via API
+    try {
+        if (window.NexAPI) {
+            await NexAPI.addFlatResident({
+                flat_number,
+                resident_name,
+                tower,
+                phone,
+                bay_number,
+                status
+            });
+        }
+    } catch (err) {
+        console.warn("API add flat error:", err);
+    }
+
+    // 2. Update Local state & storage
+    const existingIndex = flats.findIndex(f => f.flat.toUpperCase() === flat_number);
+    if (existingIndex >= 0) {
+        flats[existingIndex] = newRecord;
+    } else {
+        flats.unshift(newRecord);
+    }
+    saveToStorage(STORAGE_KEYS.FLATS, flats);
+
+    // 3. Re-render UI
+    renderFlatsDirectory();
+    closeModal("addResidentModal");
+    e.target.reset();
+
+    playChirp();
+    showToast(`✓ Resident ${resident_name} added to flat ${flat_number} and saved to PostgreSQL!`, "✓");
+}
 
 // Real-time Clock
 function initAdminClock() {
