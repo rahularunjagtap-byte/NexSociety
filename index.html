@@ -7,17 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="login-universe">
-
         <!-- Glowing Ambient Lighting Orbs -->
         <div class="ambient-glow-orb orb-1"></div>
         <div class="ambient-glow-orb orb-2"></div>
-
         <!-- Floating Glassmorphic Login Canvas -->
         <div class="login-canvas">
-
-          
             <section class="showcase-pane">
                 <div class="brand-head">
                     <div class="brand-crest">🛡️</div>
@@ -26,23 +21,19 @@
                         <span>SMART COMMUNITY CLOUD</span>
                     </div>
                 </div>
-
                 <div class="showcase-copy">
                     <div class="futuristic-tag">
                         <span class="radar-dot"></span>
                         <span>GATEKEEPER 2.0 PROTOCOL ONLINE</span>
                     </div>
-
                     <h2>
                         Next-Gen Security &amp;<br>
                         <span>Resident Community</span>
                     </h2>
-
                     <p>
                         A unified real-time ecosystem connecting society gate security, resident mobile approvals,
                         parking automation, and executive management on a single intelligent platform.
                     </p>
-
                     <div class="highlight-grid">
                         <div class="highlight-card">
                             <div class="highlight-card-top">
@@ -51,7 +42,6 @@
                             </div>
                             <small>Instant access for Swiggy, Zomato &amp; Cabs</small>
                         </div>
-
                         <div class="highlight-card">
                             <div class="highlight-card-top">
                                 <span>🔑</span>
@@ -59,7 +49,6 @@
                             </div>
                             <small>Automated boom barrier authorization</small>
                         </div>
-
                         <div class="highlight-card">
                             <div class="highlight-card-top">
                                 <span>🅿️</span>
@@ -67,7 +56,6 @@
                             </div>
                             <small>Automated guest slot allocation</small>
                         </div>
-
                         <div class="highlight-card">
                             <div class="highlight-card-top">
                                 <span>📊</span>
@@ -77,7 +65,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="showcase-footer">
                     <span>&copy; 2026 NexSociety Cloud Systems</span>
                     <div class="security-seal">
@@ -85,16 +72,11 @@
                     </div>
                 </div>
             </section>
-
-           
             <main class="auth-pane">
-
                 <div class="auth-header">
                     <h3>Sign In to Dashboard</h3>
                     <p>Select your portal role to access your authorized workspace.</p>
                 </div>
-
-               
                 <div class="portal-selector">
                     <span class="selector-label">Select Access Role</span>
                     <div class="role-switch-bar">
@@ -112,8 +94,6 @@
                         </button>
                     </div>
                 </div>
-
-                
                 <div class="demo-quickbar">
                     <div class="demo-title-row">
                         <span><span>💡</span> 1-Click Demo Accounts</span>
@@ -131,28 +111,25 @@
                         </button>
                     </div>
                 </div>
-
                 <!-- Login Form -->
                 <form class="auth-form" id="loginForm">
                     <input type="hidden" id="selectedRole" value="security">
-
                     <div class="field-group">
                         <div class="field-label-row">
                             <label for="email">User ID / Official Email</label>
                         </div>
                         <div class="input-box">
                             <span class="prefix-icon">✉️</span>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                class="auth-input" 
-                                placeholder="name@nexsociety.in" 
-                                value="guard@nexsociety.in" 
+                            <input
+                                type="email"
+                                id="email"
+                                class="auth-input"
+                                placeholder="name@nexsociety.in"
+                                value="guard@nexsociety.in"
                                 required
                             >
                         </div>
                     </div>
-
                     <div class="field-group">
                         <div class="field-label-row">
                             <label for="password">Password</label>
@@ -160,40 +137,33 @@
                         </div>
                         <div class="input-box">
                             <span class="prefix-icon">🔒</span>
-                            <input 
-                                type="password" 
-                                id="password" 
-                                class="auth-input" 
-                                placeholder="••••••••" 
-                                value="password123" 
+                            <input
+                                type="password"
+                                id="password"
+                                class="auth-input"
+                                placeholder="••••••••"
+                                value="password123"
                                 required
                             >
                             <button type="button" class="eye-toggle-btn" id="showPassword">Show</button>
                         </div>
                     </div>
-
                     <div class="remember-container">
                         <input type="checkbox" id="rememberMe" checked>
                         <label for="rememberMe">Remember my login credentials on this terminal</label>
                     </div>
-
                     <button type="submit" class="btn-auth-submit" id="submitBtn">
                         <span>Authenticate &amp; Enter Dashboard →</span>
                     </button>
                 </form>
-
             </main>
-
         </div>
-
     </div>
-
     <!-- Floating Toast Notification -->
     <div class="floating-toast" id="toast">
         <span id="toastIcon">ℹ️</span>
         <span id="toastMessage">Welcome to NexSociety</span>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

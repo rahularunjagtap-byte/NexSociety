@@ -1,5 +1,3 @@
-
-
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap");
 
 :root {
@@ -9,25 +7,20 @@
     --emerald: #10b981;
     --amber: #f59e0b;
     --rose: #f43f5e;
-
     --bg-main: #070b14;
     --card-bg: rgba(15, 23, 42, 0.75);
     --card-border: rgba(255, 255, 255, 0.08);
     --card-hover: rgba(30, 41, 59, 0.85);
-
     --sidebar-bg: #090e1a;
     --sidebar-border: rgba(255, 255, 255, 0.06);
-
     --text-white: #ffffff;
     --text-main: #f1f5f9;
     --text-muted: #94a3b8;
     --text-sub: #64748b;
-
     --radius-sm: 8px;
     --radius-md: 14px;
     --radius-lg: 20px;
     --radius-full: 9999px;
-
     --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -42,14 +35,12 @@ body {
     background-color: var(--bg-main);
     color: var(--text-main);
     line-height: 1.5;
-    background-image: 
+    background-image:
         radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
         radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 45%);
     background-attachment: fixed;
     min-height: 100vh;
 }
-
-
 
 .resident-layout {
     display: flex;
@@ -325,7 +316,6 @@ body {
 .stat-icon.blue { background: rgba(99, 102, 241, 0.18); color: #818cf8; }
 .stat-icon.orange { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
 .stat-icon.purple { background: rgba(217, 70, 239, 0.18); color: #e879f9; }
-
 .stat-tag {
     font-size: 11px;
     font-weight: 800;
@@ -337,7 +327,6 @@ body {
 .stat-tag.active { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
 .stat-tag.review { background: rgba(245, 158, 11, 0.2); color: #fde047; }
 .stat-tag.events { background: rgba(217, 70, 239, 0.2); color: #f0abfc; }
-
 .stat-box p {
     font-size: 13px;
     color: var(--text-muted);
@@ -405,7 +394,6 @@ body {
 .action-icon-box.orange { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
 .action-icon-box.green { background: rgba(16, 185, 129, 0.2); color: #34d399; }
 .action-icon-box.purple { background: rgba(217, 70, 239, 0.2); color: #e879f9; }
-
 .action-info strong {
     font-size: 13px;
     display: block;
@@ -684,6 +672,612 @@ body {
     font-size: 12px;
 }
 
+/* ==========================================================================
+   RESIDENT PORTAL ENHANCED COMPONENTS & FEATURE STYLES
+   ========================================================================== */
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+/* Clickable Stat Cards */
+.stat-box.clickable {
+    cursor: pointer;
+}
+.stat-box.clickable:hover {
+    border-color: rgba(99, 102, 241, 0.6);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px -5px rgba(99, 102, 241, 0.25);
+}
+
+/* Topbar Notification & Intercom Actions */
+.topbar-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-topbar-intercom {
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    color: #a5b4fc;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.btn-topbar-intercom:hover {
+    background: rgba(99, 102, 241, 0.3);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    transform: translateY(-1px);
+}
+
+.notification-bell-box {
+    position: relative;
+}
+
+.bell-btn {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+.bell-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: scale(1.05);
+}
+
+.bell-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--sidebar-bg);
+}
+
+.notifications-dropdown {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: 320px;
+    background: #0f172a;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 20px rgba(99, 102, 241, 0.2);
+    padding: 16px;
+    display: none;
+    z-index: 100;
+}
+
+.notifications-dropdown.show {
+    display: block;
+    animation: fadeInDropdown 0.2s ease-out;
+}
+
+@keyframes fadeInDropdown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.notif-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 10px;
+}
+
+.notif-header strong {
+    font-size: 13px;
+    color: #ffffff;
+}
+
+.notif-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.notif-item {
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.notif-item strong {
+    display: block;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.notif-item small {
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+/* Visitor Card Action Buttons */
+.visitor-right-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-action-sm {
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: var(--transition);
+}
+
+.btn-copy-pass {
+    background: rgba(6, 182, 212, 0.15);
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    color: #67e8f9;
+}
+.btn-copy-pass:hover {
+    background: rgba(6, 182, 212, 0.3);
+    color: #ffffff;
+}
+
+.btn-whatsapp-share {
+    background: rgba(37, 211, 102, 0.15);
+    border: 1px solid rgba(37, 211, 102, 0.35);
+    color: #4ade80;
+}
+.btn-whatsapp-share:hover {
+    background: rgba(37, 211, 102, 0.3);
+    color: #ffffff;
+}
+
+.btn-revoke-pass {
+    background: rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(244, 63, 94, 0.25);
+    color: #fb7185;
+}
+.btn-revoke-pass:hover {
+    background: rgba(244, 63, 94, 0.28);
+    color: #ffffff;
+}
+
+.purpose-pill {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+    margin-left: 6px;
+}
+
+/* Helpdesk Complaints Section */
+.complaints-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.complaint-filter-tabs {
+    display: flex;
+    gap: 6px;
+    background: rgba(10, 16, 30, 0.6);
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--card-border);
+}
+
+.filter-btn {
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.filter-btn.active {
+    background: rgba(99, 102, 241, 0.25);
+    color: #a5b4fc;
+    border: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+.complaints-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.complaint-card {
+    background: rgba(10, 16, 30, 0.65);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    transition: var(--transition);
+}
+
+.complaint-card:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+    background: rgba(15, 23, 42, 0.75);
+}
+
+.complaint-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.complaint-category-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: #818cf8;
+    background: rgba(99, 102, 241, 0.15);
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.complaint-status-pill {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+}
+
+.complaint-status-pill.review {
+    background: rgba(245, 158, 11, 0.18);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.complaint-status-pill.resolved {
+    background: rgba(16, 185, 129, 0.18);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.complaint-card p {
+    font-size: 13px;
+    color: #e2e8f0;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.complaint-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.complaint-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-resolve-sm {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #34d399;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.btn-resolve-sm:hover {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.btn-withdraw-sm {
+    background: rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(244, 63, 94, 0.25);
+    color: #fb7185;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.btn-withdraw-sm:hover {
+    background: #f43f5e;
+    color: #ffffff;
+}
+
+/* Society Events Interactive RSVP */
+.event-item {
+    position: relative;
+    transition: var(--transition);
+}
+
+.event-item:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    background: rgba(15, 23, 42, 0.8);
+}
+
+.event-right-actions {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.btn-rsvp {
+    background: rgba(99, 102, 241, 0.18);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    color: #a5b4fc;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-rsvp:hover {
+    background: var(--brand-gradient);
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn-rsvp.attending {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: rgba(16, 185, 129, 0.5);
+    color: #34d399;
+}
+
+.btn-rsvp.attending:hover {
+    background: rgba(244, 63, 94, 0.2);
+    border-color: rgba(244, 63, 94, 0.5);
+    color: #fb7185;
+}
+
+.btn-event-cal {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.btn-event-cal:hover {
+    color: var(--cyan);
+}
+
+/* Speed Dial Call Buttons */
+.dial-call-link {
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #38bdf8;
+    padding: 4px 9px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+}
+.dial-call-link:hover {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.btn-intercom-big {
+    width: 100%;
+    margin-top: 14px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(6, 182, 212, 0.25));
+    border: 1px solid rgba(99, 102, 241, 0.5);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.btn-intercom-big:hover {
+    background: var(--brand-gradient);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Digital Pass Modal Preview */
+.digital-pass-card {
+    background: linear-gradient(135deg, #0b1120 0%, #1e1b4b 100%);
+    border: 2px solid rgba(99, 102, 241, 0.4);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(99, 102, 241, 0.3);
+    margin-bottom: 20px;
+}
+
+.pass-qr-sim {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 16px;
+    background: #ffffff;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pass-pin-display {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 6px;
+    color: #67e8f9;
+    margin: 10px 0;
+    text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+/* Maintenance Modal Tabs & Invoice Breakdown */
+.modal-tabs {
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 20px;
+}
+
+.modal-tab-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.modal-tab-btn.active {
+    color: #ffffff;
+    border-bottom-color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.invoice-summary-box {
+    background: rgba(10, 16, 30, 0.7);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.invoice-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+}
+
+.invoice-row.total {
+    border-bottom: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin-top: 8px;
+    padding-top: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.receipt-sheet {
+    background: #ffffff;
+    color: #0f172a;
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.receipt-head {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+}
+
+.receipt-stamp {
+    border: 2px solid #10b981;
+    color: #10b981;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+/* Intercom Call Simulation */
+.intercom-call-box {
+    text-align: center;
+    padding: 24px 0;
+}
+
+.intercom-avatar-pulse {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #6366f1, #3b82f6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #ffffff;
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+    animation: intercomPulse 1.5s infinite;
+}
+
+@keyframes intercomPulse {
+    0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+    70% { box-shadow: 0 0 0 25px rgba(99, 102, 241, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+}
+
+.call-timer {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cyan);
+    margin: 10px 0 20px;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .stats-row { grid-template-columns: repeat(2, 1fr); }
@@ -698,4 +1292,6 @@ body {
     .stats-row { grid-template-columns: 1fr; }
     .quick-cards-grid { grid-template-columns: 1fr; }
     .notice-banner { flex-direction: column; align-items: flex-start; }
+    .visitor-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .visitor-right-actions { width: 100%; justify-content: space-between; }
 }

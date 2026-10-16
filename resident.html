@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexSociety | Resident Portal - Flat A-204</title>
-    <link rel="stylesheet" href="resident.css">
-    <!-- Also reuse global design variables and modal styles -->
+    <!-- Core design system and shared components -->
     <link rel="stylesheet" href="style.css">
+    <!-- Resident portal specific stylesheet -->
+    <link rel="stylesheet" href="resident.css">
 </head>
 <body>
-
     <div class="resident-layout">
 
-      
+        <!-- ==============================================
+             SIDEBAR NAVIGATION
+             ============================================== -->
         <aside class="resident-sidebar">
             <div>
                 <div class="brand-row">
@@ -22,28 +24,36 @@
                         <span>Smart Community</span>
                     </div>
                 </div>
-
                 <div class="resident-badge">
                     <span>🏢</span> Flat A-204 • Tower A
                 </div>
-
                 <nav class="sidebar-nav">
                     <a href="resident.html" class="nav-item active">
                         <span>⌂</span> Dashboard
                     </a>
-                    <a href="#visitors" class="nav-item">
+                    <a href="#visitors" class="nav-item" onclick="scrollToSection('visitors')">
                         <span>♙</span> Expected Guests
                     </a>
-                    <a href="#maintenance" class="nav-item" onclick="openModal('parkingModal')">
-                        <span>₹</span> Maintenance &amp; Parking
+                    <a href="#complaints" class="nav-item" onclick="scrollToSection('complaints')">
+                        <span>☷</span> Helpdesk Tickets
+                        <span id="navComplaintBadge" class="nav-pill-badge" style="margin-left: auto; background: rgba(245, 158, 11, 0.25); color: #fbbf24; font-size: 10px; padding: 2px 7px; border-radius: 99px;">1</span>
                     </a>
-                    <a href="#complaints" class="nav-item" onclick="openModal('complaintModal')">
-                        <span>☷</span> Helpdesk Complaints
+                    <a href="#maintenance" class="nav-item" onclick="openModal('maintenanceModal')">
+                        <span>₹</span> Maintenance &amp; Bills
                     </a>
-                    <a href="#events" class="nav-item">
+                    <a href="#parking" class="nav-item" onclick="openModal('parkingModal')">
+                        <span>🅿️</span> Parking Allocation
+                    </a>
+                    <a href="#events" class="nav-item" onclick="scrollToSection('events')">
                         <span>🎉</span> Society Events
                     </a>
-                    <a href="security.html" class="nav-item" target="_blank" style="margin-top: 10px; border-top: 1px solid var(--border-dark); padding-top: 12px;">
+                    <a href="#notices" class="nav-item" onclick="openModal('noticesModal')">
+                        <span>📢</span> Society Circulars
+                    </a>
+                    <a href="#intercom" class="nav-item" onclick="startIntercomCall()">
+                        <span>📞</span> Gate 1 Intercom
+                    </a>
+                    <a href="security.html" class="nav-item" target="_blank" style="margin-top: 10px; border-top: 1px solid var(--sidebar-border); padding-top: 12px;">
                         <span>🛡️</span> Security Gate ↗
                     </a>
                     <a href="admin.html" class="nav-item" target="_blank">
@@ -51,8 +61,7 @@
                     </a>
                 </nav>
             </div>
-
-            <a href="index.html" class="nav-item logout">
+            <a href="index.html" class="nav-item logout" onclick="handleSignOut(event)">
                 <span>↪</span> Sign Out Portal
             </a>
         </aside>
@@ -61,79 +70,111 @@
              MAIN WRAPPER & TOPBAR
              ============================================== -->
         <div class="main-content">
-
             <header class="resident-topbar">
                 <div class="topbar-info">
                     <h1 id="residentGreeting">Good morning, Aryan 👋</h1>
                     <small id="residentTodayDate">Wednesday, October 14, 2026</small>
                 </div>
-
-                <div class="topbar-user">
-                    <div class="user-avatar">A</div>
-                    <div class="user-details">
-                        <strong>Aryan Sharma</strong>
-                        <span>Resident • Flat A-204</span>
+                <div class="topbar-actions-group">
+                    <!-- Quick Intercom Call Button -->
+                    <button type="button" class="btn-topbar-intercom" onclick="startIntercomCall()" title="Call Gate 1 Guard Intercom">
+                        <span>📞</span> Intercom Gate 1
+                    </button>
+                    <!-- Notifications Bell with Dropdown -->
+                    <div class="notification-bell-box">
+                        <button type="button" class="bell-btn" id="notifBellBtn" onclick="toggleNotificationsDropdown()" title="Recent Notifications">
+                            🔔
+                            <span class="bell-badge" id="notifBadge">2</span>
+                        </button>
+                        <div class="notifications-dropdown" id="notificationsDropdown">
+                            <div class="notif-header">
+                                <strong>Recent Society Updates</strong>
+                                <button type="button" style="font-size: 11px; color: var(--primary);" onclick="clearNotifications()">Clear All</button>
+                            </div>
+                            <div class="notif-list" id="notifListContainer">
+                                <div class="notif-item">
+                                    <span>⚠️</span>
+                                    <div>
+                                        <strong>Water Pipeline Servicing</strong>
+                                        <small>Tower A pipeline maintenance tomorrow 10am-1pm</small>
+                                    </div>
+                                </div>
+                                <div class="notif-item">
+                                    <span>✓</span>
+                                    <div>
+                                        <strong>October Maintenance Paid</strong>
+                                        <small>₹4,250 confirmed. Tax receipt generated.</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- User Profile Badge -->
+                    <div class="topbar-user" onclick="openModal('residentIdModal')" style="cursor: pointer;" title="Click to view Resident ID">
+                        <div class="user-avatar">AS</div>
+                        <div class="user-details">
+                            <strong>Aryan Sharma</strong>
+                            <span>Resident • Flat A-204</span>
+                        </div>
                     </div>
                 </div>
             </header>
-
             <main class="resident-body">
-
-                <!-- 1. SOCIETY NOTICE BANNER -->
+                <!-- 1. DYNAMIC SOCIETY NOTICE BANNER -->
                 <section class="notice-banner" id="noticeBanner">
                     <div class="notice-text">
-                        <h3>⚠️ Scheduled Water Supply Maintenance Tomorrow</h3>
-                        <p>Water supply will remain unavailable tomorrow from 10:00 AM to 1:00 PM due to pipeline servicing in Tower A.</p>
+                        <h3 id="noticeHeadline">⚠️ Scheduled Water Supply Maintenance Tomorrow</h3>
+                        <p id="noticeContent">Water supply will remain unavailable tomorrow from 10:00 AM to 1:00 PM due to pipeline servicing in Tower A.</p>
                     </div>
-                    <button type="button" class="btn-notice" onclick="document.getElementById('noticeBanner').style.display='none'">
-                        Got It &amp; Dismiss
-                    </button>
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <button type="button" class="btn-notice" onclick="openModal('noticesModal')">
+                            View All Circulars (3)
+                        </button>
+                        <button type="button" class="btn-notice" style="background: rgba(255,255,255,0.2);" onclick="dismissNoticeBanner()">
+                            Got It &amp; Dismiss ✕
+                        </button>
+                    </div>
                 </section>
-
-                <!-- 2. STATS OVERVIEW -->
+                <!-- 2. INTERACTIVE KPI STATS OVERVIEW -->
                 <section class="stats-row">
-                    <div class="stat-box">
+                    <div class="stat-box clickable" onclick="openModal('maintenanceModal')" title="Click to view bill & breakdown">
                         <div class="stat-head">
                             <div class="stat-icon green">₹</div>
                             <span class="stat-tag paid">PAID</span>
                         </div>
                         <p>Maintenance (Oct)</p>
-                        <h3>₹4,250</h3>
-                        <small>No dues pending</small>
+                        <h3 id="statMaintenanceAmount">₹4,250</h3>
+                        <small>No dues pending • View Invoice →</small>
                     </div>
-
-                    <div class="stat-box">
+                    <div class="stat-box clickable" onclick="scrollToSection('visitors')" title="Click to view expected guests">
                         <div class="stat-head">
                             <div class="stat-icon blue">♙</div>
                             <span class="stat-tag active">ACTIVE</span>
                         </div>
                         <p>Expected Visitors</p>
                         <h3 id="statVisitorCount">02</h3>
-                        <small>Invited for today</small>
+                        <small>Invited for today • Manage →</small>
                     </div>
-
-                    <div class="stat-box">
+                    <div class="stat-box clickable" onclick="scrollToSection('complaints')" title="Click to view helpdesk complaints">
                         <div class="stat-head">
                             <div class="stat-icon orange">☷</div>
-                            <span class="stat-tag review">IN REVIEW</span>
+                            <span class="stat-tag review" id="statComplaintTag">1 OPEN</span>
                         </div>
                         <p>Helpdesk Complaints</p>
                         <h3 id="statComplaintCount">01</h3>
-                        <small>Water pressure check</small>
+                        <small>Tap pressure • Track ticket →</small>
                     </div>
-
-                    <div class="stat-box">
+                    <div class="stat-box clickable" onclick="scrollToSection('events')" title="Click to view upcoming society events">
                         <div class="stat-head">
                             <div class="stat-icon purple">🎉</div>
                             <span class="stat-tag events">UPCOMING</span>
                         </div>
                         <p>Society Events</p>
-                        <h3>03</h3>
-                        <small>Diwali &amp; AGM this month</small>
+                        <h3 id="statEventsCount">03</h3>
+                        <small>Diwali &amp; AGM • RSVP now →</small>
                     </div>
                 </section>
-
-                <!-- 3. QUICK ACTIONS -->
+                <!-- 3. QUICK ACTIONS GRID -->
                 <section class="quick-cards-grid">
                     <button type="button" class="resident-action-card" onclick="openModal('preapproveModal')">
                         <div class="action-icon-box blue">♙</div>
@@ -142,7 +183,6 @@
                             <span>Generate 6-digit entry PIN</span>
                         </div>
                     </button>
-
                     <button type="button" class="resident-action-card" onclick="openModal('complaintModal')">
                         <div class="action-icon-box orange">☷</div>
                         <div class="action-info">
@@ -150,98 +190,87 @@
                             <span>Report plumbing, electrics</span>
                         </div>
                     </button>
-
                     <button type="button" class="resident-action-card" onclick="openModal('parkingModal')">
                         <div class="action-icon-box green">🅿️</div>
                         <div class="action-info">
                             <strong>My Parking Bay</strong>
-                            <span>Slot B-12 (Tower A)</span>
+                            <span>Bay B-12 • Guest slots</span>
                         </div>
                     </button>
-
-                    <button type="button" class="resident-action-card" onclick="showToast('Maintenance is already paid for October 2026!', '✓')">
+                    <button type="button" class="resident-action-card" onclick="openModal('maintenanceModal')">
                         <div class="action-icon-box purple">₹</div>
                         <div class="action-info">
                             <strong>Pay Maintenance</strong>
-                            <span>View paid receipt</span>
+                            <span>Tax receipt &amp; advance pay</span>
                         </div>
                     </button>
                 </section>
-
                 <!-- 4. TWO-COLUMN DASHBOARD GRID -->
                 <div class="resident-grid">
-
                     <!-- Left Column -->
                     <div class="left-col">
 
-                        <!-- Expected Visitors Section -->
+                        <!-- SECTION 1: Expected Visitors & Passes -->
                         <section class="card-section" id="visitors">
                             <div class="card-header">
-                                <h2>Expected Guests &amp; Pre-Approvals (Flat A-204)</h2>
-                                <button type="button" class="btn-text" onclick="openModal('preapproveModal')">
+                                <div>
+                                    <h2>Expected Guests &amp; Pre-Approvals (Flat A-204)</h2>
+                                    <small style="color: var(--text-muted); font-size: 11px;">Active digital gate passes verified at Gate 1</small>
+                                </div>
+                                <button type="button" class="btn-primary" onclick="openModal('preapproveModal')" style="padding: 7px 14px; font-size: 12px;">
                                     + Invite New Guest
                                 </button>
                             </div>
-
                             <div class="visitor-list" id="expectedVisitorsContainer">
                                 <!-- Populated dynamically from LocalStorage via resident.js -->
                             </div>
                         </section>
 
-                        <!-- Upcoming Events Section -->
-                        <section class="card-section" id="events">
+                        <!-- SECTION 2: Helpdesk Complaints & Maintenance Tickets -->
+                        <section class="card-section" id="complaints">
                             <div class="card-header">
-                                <h2>Upcoming Society Events</h2>
-                                <span style="font-size: 11px; color: var(--text-muted);">Community Calendar</span>
+                                <div>
+                                    <h2>Helpdesk Complaints &amp; Service Tickets</h2>
+                                    <small style="color: var(--text-muted); font-size: 11px;">Track repairs, plumbing, electrical &amp; facility requests</small>
+                                </div>
+                                <button type="button" class="btn-primary" onclick="openModal('complaintModal')" style="padding: 7px 14px; font-size: 12px;">
+                                    + Lodge New Ticket
+                                </button>
                             </div>
-
-                            <div class="events-column">
-                                <div class="event-item">
-                                    <div class="event-date-box">
-                                        <strong>20</strong>
-                                        <span>OCT</span>
-                                    </div>
-                                    <div class="event-details">
-                                        <strong>Grand Diwali Celebration &amp; Rangoli Fest</strong>
-                                        <small>Clubhouse Lawn • 07:00 PM onwards</small>
-                                    </div>
+                            <div class="complaints-toolbar">
+                                <div class="complaint-filter-tabs">
+                                    <button type="button" class="filter-btn active" data-filter="all" onclick="filterComplaints('all')">All Tickets</button>
+                                    <button type="button" class="filter-btn" data-filter="review" onclick="filterComplaints('review')">In Review</button>
+                                    <button type="button" class="filter-btn" data-filter="resolved" onclick="filterComplaints('resolved')">Resolved</button>
                                 </div>
-
-                                <div class="event-item">
-                                    <div class="event-date-box">
-                                        <strong>25</strong>
-                                        <span>OCT</span>
-                                    </div>
-                                    <div class="event-details">
-                                        <strong>Annual Residents General Body Meeting (AGM)</strong>
-                                        <small>Community Hall • 06:30 PM</small>
-                                    </div>
-                                </div>
-
-                                <div class="event-item">
-                                    <div class="event-date-box">
-                                        <strong>12</strong>
-                                        <span>NOV</span>
-                                    </div>
-                                    <div class="event-details">
-                                        <strong>Children's Sports &amp; Badminton Tournament</strong>
-                                        <small>Sports Complex • 09:00 AM</small>
-                                    </div>
-                                </div>
+                                <span style="font-size: 11px; color: var(--text-muted);">Synced with Admin Command</span>
+                            </div>
+                            <div class="complaints-list" id="residentComplaintsContainer">
+                                <!-- Populated dynamically from LocalStorage via resident.js -->
                             </div>
                         </section>
 
+                        <!-- SECTION 3: Upcoming Events Section -->
+                        <section class="card-section" id="events">
+                            <div class="card-header">
+                                <div>
+                                    <h2>Upcoming Society Events &amp; Meetings</h2>
+                                    <small style="color: var(--text-muted); font-size: 11px;">Community Calendar • Green Meadows Heights</small>
+                                </div>
+                                <span style="font-size: 11px; color: var(--cyan); font-weight: 700;">3 Scheduled</span>
+                            </div>
+                            <div class="events-column" id="eventsContainer">
+                                <!-- Populated dynamically with interactive RSVP and calendar actions -->
+                            </div>
+                        </section>
                     </div>
-
                     <!-- Right Column -->
                     <aside class="right-col">
-
                         <!-- Flat Profile Card -->
                         <div class="flat-profile-card">
                             <div class="flat-avatar-big">AS</div>
                             <h3>Aryan Sharma</h3>
                             <p>Primary Resident • Flat A-204</p>
-
                             <div class="flat-specs">
                                 <div>
                                     <span>Building</span>
@@ -260,57 +289,95 @@
                                     <strong>#1204</strong>
                                 </div>
                             </div>
+                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 14px; font-size: 12px;" onclick="openModal('residentIdModal')">
+                                🪪 View Digital Resident ID Card
+                            </button>
                         </div>
-
-                        <!-- Emergency Speed Dial -->
+                        <!-- Society Speed Dial Card -->
                         <div class="speed-dial-card">
-                            <div class="card-header">
+                            <div class="card-header" style="margin-bottom: 12px; padding-bottom: 10px;">
                                 <h2>Society Speed Dial</h2>
+                                <span style="font-size: 10px; color: var(--success); font-weight: 700;">24/7 ACTIVE</span>
                             </div>
                             <div class="dial-list">
                                 <div class="dial-row">
                                     <span>Security Gate 1</span>
-                                    <strong>+91 98200 11001</strong>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <strong>+91 98200 11001</strong>
+                                        <a href="tel:+919820011001" class="dial-call-link">Call</a>
+                                    </div>
                                 </div>
                                 <div class="dial-row">
                                     <span>Estate Manager</span>
-                                    <strong>+91 98200 11005</strong>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <strong>+91 98200 11005</strong>
+                                        <a href="tel:+919820011005" class="dial-call-link">Call</a>
+                                    </div>
                                 </div>
                                 <div class="dial-row">
                                     <span>Electrician On-Duty</span>
-                                    <strong>+91 98200 11022</strong>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <strong>+91 98200 11022</strong>
+                                        <a href="tel:+919820011022" class="dial-call-link">Call</a>
+                                    </div>
                                 </div>
                                 <div class="dial-row">
                                     <span>Ambulance / Emergency</span>
-                                    <strong>108 / 112</strong>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <strong style="color: #f43f5e;">108 / 112</strong>
+                                        <a href="tel:108" class="dial-call-link" style="color: #f43f5e; border-color: rgba(244,63,94,0.4);">Call</a>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Big Gate 1 Direct Intercom Simulation -->
+                            <button type="button" class="btn-intercom-big" onclick="startIntercomCall()">
+                                <span>📞</span> Connect Gate 1 Intercom
+                            </button>
                         </div>
-
+                        <!-- Parking Bay Quick Summary Card -->
+                        <div class="speed-dial-card" style="margin-top: 24px;">
+                            <div class="card-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+                                <h2>Allocated Parking Bay</h2>
+                                <span style="font-size: 10px; color: var(--cyan); font-weight: 700;">RFID SYNCED</span>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                    <span>Bay Number:</span>
+                                    <strong style="color: #ffffff;">Tower A - Bay B-12</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                    <span>Primary Car:</span>
+                                    <strong style="color: #a5b4fc;">MH-02-CD-4421</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>RFID Status:</span>
+                                    <strong style="color: var(--emerald-glow);">Active (#RF-98214)</strong>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 14px; font-size: 12px;" onclick="openModal('parkingModal')">
+                                🅿️ Manage Bay &amp; Request Guest Slot
+                            </button>
+                        </div>
                     </aside>
-
                 </div>
-
             </main>
-
         </div>
-
     </div>
 
-   
+    <!-- ==============================================
+         MODALS COLLECTION
+         ============================================== -->
     <!-- Modal 1: Pre-Approve Visitor -->
     <div class="modal" id="preapproveModal">
         <div class="modal-box">
             <span class="close-btn" onclick="closeModal('preapproveModal')">✕</span>
             <h2>Pre-Approve a Guest</h2>
-            <p>Generate a 6-digit entry PIN for your guest to show at Gate 1.</p>
-
+            <p>Generate a 6-digit entry PIN for your guest to present at Gate 1.</p>
             <form class="modal-form" id="preapproveForm" onsubmit="handlePreapproveVisitor(event)">
                 <div class="form-group">
                     <label>Guest Full Name *</label>
                     <input type="text" id="preName" class="modal-input" placeholder="e.g. Sameer Verma" required>
                 </div>
-
                 <div class="form-row">
                     <div>
                         <label>Contact Phone</label>
@@ -321,16 +388,27 @@
                         <input type="text" id="preVehicle" class="modal-input" placeholder="e.g. MH-02-ZZ-9999">
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label>Purpose of Visit</label>
-                    <select id="prePurpose" class="modal-select">
-                        <option value="guest">Family / Friend Guest</option>
-                        <option value="service">Home Repair / Service</option>
-                        <option value="delivery">Personal Delivery</option>
-                    </select>
+                <div class="form-row">
+                    <div>
+                        <label>Purpose of Visit</label>
+                        <select id="prePurpose" class="modal-select">
+                            <option value="guest">Family / Friend Guest</option>
+                            <option value="service">Home Repair / Service</option>
+                            <option value="delivery">Personal Delivery</option>
+                            <option value="cab">Cab / Pickup</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Expected Arrival</label>
+                        <select id="preTime" class="modal-select">
+                            <option value="Today (Anytime)">Today (Anytime)</option>
+                            <option value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM)</option>
+                            <option value="Afternoon (12 PM - 5 PM)">Afternoon (12 PM - 5 PM)</option>
+                            <option value="Evening (5 PM - 10 PM)">Evening (5 PM - 10 PM)</option>
+                            <option value="Tomorrow">Tomorrow</option>
+                        </select>
+                    </div>
                 </div>
-
                 <div class="modal-btn-row">
                     <button type="button" class="btn-secondary" onclick="closeModal('preapproveModal')">Cancel</button>
                     <button type="submit" class="btn-primary">Generate Pass &amp; Notify Gate</button>
@@ -338,31 +416,103 @@
             </form>
         </div>
     </div>
-
-    <!-- Modal 2: Raise Helpdesk Complaint -->
+    <!-- Modal 2: Generated Digital Pass Card Preview -->
+    <div class="modal" id="passModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('passModal')">✕</span>
+            <h2>Digital Visitor Gate Pass</h2>
+            <p>Share this pass with your guest. Instant boom barrier access at Gate 1.</p>
+            <div class="digital-pass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div style="font-size: 11px; text-transform: uppercase; color: var(--cyan); font-weight: 800;">
+                        NexSociety Gatekeeper 2.0
+                    </div>
+                    <span style="font-size: 11px; color: #10b981; font-weight: 700;">● GATE 1 VERIFIED</span>
+                </div>
+                <!-- QR Simulation Graphic -->
+                <div class="pass-qr-sim">
+                    <svg width="110" height="110" viewBox="0 0 110 110">
+                        <rect width="110" height="110" fill="white" />
+                        <!-- QR Outer Boxes -->
+                        <rect x="10" y="10" width="30" height="30" fill="black" />
+                        <rect x="15" y="15" width="20" height="20" fill="white" />
+                        <rect x="20" y="20" width="10" height="10" fill="black" />
+                        <rect x="70" y="10" width="30" height="30" fill="black" />
+                        <rect x="75" y="15" width="20" height="20" fill="white" />
+                        <rect x="80" y="20" width="10" height="10" fill="black" />
+                        <rect x="10" y="70" width="30" height="30" fill="black" />
+                        <rect x="15" y="75" width="20" height="20" fill="white" />
+                        <rect x="20" y="80" width="10" height="10" fill="black" />
+                        <!-- Internal Pattern Dots -->
+                        <rect x="45" y="15" width="15" height="10" fill="black" />
+                        <rect x="45" y="30" width="10" height="15" fill="black" />
+                        <rect x="25" y="45" width="20" height="10" fill="black" />
+                        <rect x="50" y="50" width="15" height="15" fill="black" />
+                        <rect x="70" y="45" width="15" height="10" fill="black" />
+                        <rect x="70" y="70" width="10" height="20" fill="black" />
+                        <rect x="85" y="60" width="15" height="15" fill="black" />
+                        <rect x="45" y="75" width="15" height="15" fill="black" />
+                    </svg>
+                </div>
+                <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px;">6-DIGIT ENTRY PASSCODE</div>
+                <div class="pass-pin-display" id="passModalPin">#940211</div>
+                <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: var(--radius-sm); font-size: 12px; text-align: left; margin-top: 14px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                        <span style="color: var(--text-muted);">Guest Name:</span>
+                        <strong id="passModalGuestName" style="color: #ffffff;">Sameer Verma</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                        <span style="color: var(--text-muted);">Destination:</span>
+                        <strong style="color: #ffffff;">Flat A-204 (Tower A)</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Valid Gate:</span>
+                        <strong style="color: var(--cyan);">Gate 1 • Main Entrance</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-btn-row" style="justify-content: center; gap: 12px;">
+                <button type="button" class="btn-secondary" id="btnPassCopy" onclick="copyPassCodeModal()">
+                    📋 Copy Passcode
+                </button>
+                <button type="button" class="btn-success" id="btnPassWhatsapp" onclick="sharePassWhatsappModal()">
+                    💬 Share via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal 3: Raise Helpdesk Complaint -->
     <div class="modal" id="complaintModal">
         <div class="modal-box">
             <span class="close-btn" onclick="closeModal('complaintModal')">✕</span>
             <h2>Lodge Maintenance Complaint</h2>
-            <p>Directly dispatches your request to the facility maintenance supervisor.</p>
-
+            <p>Dispatches ticket directly to facility supervisor and Admin Command.</p>
             <form class="modal-form" onsubmit="handleRaiseComplaint(event)">
-                <div class="form-group">
-                    <label>Complaint Category *</label>
-                    <select id="complaintCategory" class="modal-select">
-                        <option value="Plumbing">Plumbing &amp; Water Leakage</option>
-                        <option value="Electrical">Electrical / Power Trip</option>
-                        <option value="Elevator">Tower Elevator Issue</option>
-                        <option value="Carpentry">Carpentry / Common Door</option>
-                        <option value="Noise">Noise / Neighborhood Disturbance</option>
-                    </select>
+                <div class="form-row">
+                    <div>
+                        <label>Complaint Category *</label>
+                        <select id="complaintCategory" class="modal-select">
+                            <option value="Plumbing">Plumbing &amp; Water Leakage</option>
+                            <option value="Electrical">Electrical / Power Trip</option>
+                            <option value="Elevator">Tower Elevator Issue</option>
+                            <option value="Carpentry">Carpentry / Door Locks</option>
+                            <option value="Housekeeping">Common Area Cleaning</option>
+                            <option value="Noise">Noise &amp; Disturbance</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Urgency Level</label>
+                        <select id="complaintUrgency" class="modal-select">
+                            <option value="Normal">Normal (Within 24 hrs)</option>
+                            <option value="High">High (Within 6 hrs)</option>
+                            <option value="Emergency">Critical Emergency (Immediate)</option>
+                        </select>
+                    </div>
                 </div>
-
                 <div class="form-group">
                     <label>Issue Description *</label>
-                    <textarea id="complaintDetails" class="modal-textarea" placeholder="Describe the issue in your flat..." required></textarea>
+                    <textarea id="complaintDetails" class="modal-textarea" placeholder="Describe the maintenance issue inside or outside Flat A-204..." required></textarea>
                 </div>
-
                 <div class="modal-btn-row">
                     <button type="button" class="btn-secondary" onclick="closeModal('complaintModal')">Cancel</button>
                     <button type="submit" class="btn-primary">Submit Ticket</button>
@@ -370,41 +520,374 @@
             </form>
         </div>
     </div>
-
-    <!-- Modal 3: My Parking Slot Info -->
+    <!-- Modal 4: Maintenance & Invoicing Full Modal -->
+    <div class="modal" id="maintenanceModal">
+        <div class="modal-box wide">
+            <span class="close-btn" onclick="closeModal('maintenanceModal')">✕</span>
+            <h2>Maintenance Dues &amp; Billing Desk</h2>
+            <p>Flat A-204 • Green Meadows Heights Co-operative Housing Society</p>
+            <!-- Tabs -->
+            <div class="modal-tabs">
+                <button type="button" class="modal-tab-btn active" id="tabBtnCurrentBill" onclick="switchMaintenanceTab('current')">
+                    Current Bill (Oct 2026)
+                </button>
+                <button type="button" class="modal-tab-btn" id="tabBtnHistory" onclick="switchMaintenanceTab('history')">
+                    Payment History &amp; Receipts
+                </button>
+            </div>
+            <!-- Tab 1: Current Bill Details -->
+            <div id="maintCurrentTab">
+                <div class="invoice-summary-box">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div>
+                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">INVOICE #NX-2026-10204</span>
+                            <h3 style="font-size: 18px; color: #ffffff;">October 2026 Society Maintenance</h3>
+                        </div>
+                        <span class="stat-tag paid" style="font-size: 12px; padding: 4px 12px;">✓ PAID IN FULL</span>
+                    </div>
+                    <div class="invoice-row">
+                        <span>Water &amp; Municipal Drainage Charges</span>
+                        <strong>₹800.00</strong>
+                    </div>
+                    <div class="invoice-row">
+                        <span>Common Area Electricity &amp; Lift AMCs</span>
+                        <strong>₹950.00</strong>
+                    </div>
+                    <div class="invoice-row">
+                        <span>24/7 Security Personnel &amp; CCTV Guarding</span>
+                        <strong>₹1,200.00</strong>
+                    </div>
+                    <div class="invoice-row">
+                        <span>Building Sinking &amp; Major Repair Reserve Fund</span>
+                        <strong>₹800.00</strong>
+                    </div>
+                    <div class="invoice-row">
+                        <span>Clubhouse, Gymnasium &amp; Swimming Pool AMC</span>
+                        <strong>₹500.00</strong>
+                    </div>
+                    <div class="invoice-row total">
+                        <span>Net Total Paid for October</span>
+                        <span style="color: #34d399; font-size: 18px;">₹4,250.00</span>
+                    </div>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 16px; font-size: 12px; color: #a7f3d0; display: flex; align-items: center; justify-content: space-between;">
+                    <span>✓ Payment settled on 02 Oct 2026 via UPI (Txn: #UPI-992144180). Zero arrears.</span>
+                </div>
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="openOfficialReceiptModal('October 2026', '₹4,250', '#NX-2026-10204', '02 Oct 2026')">
+                        📄 View &amp; Print Tax Receipt
+                    </button>
+                    <button type="button" class="btn-primary" onclick="openAdvancePaymentModal()">
+                        💳 Pay Advance for November (₹4,250)
+                    </button>
+                </div>
+            </div>
+            <!-- Tab 2: Payment History -->
+            <div id="maintHistoryTab" style="display: none;">
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+                    <div class="dial-row" style="padding: 12px 16px;">
+                        <div>
+                            <strong>October 2026 Maintenance</strong>
+                            <div style="font-size: 11px; color: var(--text-muted);">Paid on Oct 02, 2026 • UPI #992144180</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-weight: 800; color: #34d399;">₹4,250</span>
+                            <button type="button" class="btn-action-sm btn-copy-pass" onclick="openOfficialReceiptModal('October 2026', '₹4,250', '#NX-2026-10204', '02 Oct 2026')">Receipt ↗</button>
+                        </div>
+                    </div>
+                    <div class="dial-row" style="padding: 12px 16px;">
+                        <div>
+                            <strong>September 2026 Maintenance</strong>
+                            <div style="font-size: 11px; color: var(--text-muted);">Paid on Sep 03, 2026 • NetBanking #NB-882100</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-weight: 800; color: #34d399;">₹4,250</span>
+                            <button type="button" class="btn-action-sm btn-copy-pass" onclick="openOfficialReceiptModal('September 2026', '₹4,250', '#NX-2026-09204', '03 Sep 2026')">Receipt ↗</button>
+                        </div>
+                    </div>
+                    <div class="dial-row" style="padding: 12px 16px;">
+                        <div>
+                            <strong>August 2026 Maintenance</strong>
+                            <div style="font-size: 11px; color: var(--text-muted);">Paid on Aug 01, 2026 • Card #CC-771299</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-weight: 800; color: #34d399;">₹4,250</span>
+                            <button type="button" class="btn-action-sm btn-copy-pass" onclick="openOfficialReceiptModal('August 2026', '₹4,250', '#NX-2026-08204', '01 Aug 2026')">Receipt ↗</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="closeModal('maintenanceModal')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal 5: Advance Dues Payment Simulation -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('paymentModal')">✕</span>
+            <h2>Pay Advance Society Dues</h2>
+            <p>Pay November 2026 Maintenance (Flat A-204)</p>
+            <div style="background: rgba(10, 16, 30, 0.7); border: 1px solid var(--card-border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="color: var(--text-muted);">Billing Month:</span>
+                    <strong style="color: #ffffff;">November 2026</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
+                    <span>Amount Payable:</span>
+                    <span style="color: var(--emerald-glow);">₹4,250.00</span>
+                </div>
+            </div>
+            <form class="modal-form" id="checkoutForm" onsubmit="handleAdvancePayment(event)">
+                <div class="form-group">
+                    <label>Select Payment Method</label>
+                    <select id="payMethod" class="modal-select" onchange="togglePaymentFields()">
+                        <option value="upi">UPI (Google Pay / PhonePe / Paytm / BHIM)</option>
+                        <option value="card">Credit / Debit Card</option>
+                        <option value="netbanking">Net Banking (HDFC, SBI, ICICI, Axis)</option>
+                    </select>
+                </div>
+                <div class="form-group" id="upiField">
+                    <label>Virtual Payment Address (VPA / UPI ID)</label>
+                    <input type="text" id="upiInput" class="modal-input" placeholder="e.g. aryan@okhdfcbank" value="aryan.sharma@okaxis">
+                </div>
+                <div class="form-group" id="cardField" style="display: none;">
+                    <label>Card Number</label>
+                    <input type="text" id="cardNumber" class="modal-input" placeholder="•••• •••• •••• 4421">
+                </div>
+                <div class="modal-btn-row">
+                    <button type="button" class="btn-secondary" onclick="closeModal('paymentModal')">Cancel</button>
+                    <button type="submit" class="btn-primary" id="btnPaySubmit">Pay ₹4,250 Now →</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal 6: Official Printable Tax Receipt -->
+    <div class="modal" id="receiptModal">
+        <div class="modal-box wide" style="background: #ffffff; color: #0f172a;">
+            <span class="close-btn" style="color: #0f172a;" onclick="closeModal('receiptModal')">✕</span>
+            <div class="receipt-sheet" style="box-shadow: none; padding: 0; margin-bottom: 16px;">
+                <div class="receipt-head">
+                    <div>
+                        <h2 style="font-size: 18px; color: #0f172a; font-weight: 800; margin-bottom: 2px;">Green Meadows Heights CHS Ltd.</h2>
+                        <span style="font-size: 11px; color: #64748b;">Registration No: BOM/HSG/2018/98214 • GSTIN: 27AABCG1234F1Z8</span>
+                        <div style="font-size: 11px; color: #64748b;">Plot 14, Sector 18, Palm Beach Road, Navi Mumbai - 400705</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="receipt-stamp">PAID &amp; SETTLED</span>
+                        <div style="font-size: 11px; margin-top: 6px; font-weight: 700; color: #0f172a;" id="rcptNumber">#NX-2026-10204</div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #f8fafc; padding: 12px; border-radius: 6px; margin-bottom: 16px; font-size: 12px;">
+                    <div>
+                        <span style="color: #64748b; display: block;">Resident Name:</span>
+                        <strong style="color: #0f172a;">Aryan Sharma</strong>
+                    </div>
+                    <div>
+                        <span style="color: #64748b; display: block;">Unit Allocation:</span>
+                        <strong style="color: #0f172a;">Flat A-204 (Tower A, 2nd Floor)</strong>
+                    </div>
+                    <div>
+                        <span style="color: #64748b; display: block;">Billing Period:</span>
+                        <strong style="color: #0f172a;" id="rcptPeriod">October 2026</strong>
+                    </div>
+                    <div>
+                        <span style="color: #64748b; display: block;">Settlement Date:</span>
+                        <strong style="color: #0f172a;" id="rcptDate">02 Oct 2026</strong>
+                    </div>
+                </div>
+                <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 16px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #e2e8f0; text-align: left; color: #64748b;">
+                            <th style="padding: 8px 0;">Item Description</th>
+                            <th style="padding: 8px 0; text-align: right;">Amount (INR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 8px 0;">Water &amp; Sanitation Charges</td>
+                            <td style="padding: 8px 0; text-align: right;">₹800.00</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 8px 0;">Common Area Electricity &amp; Lifts AMC</td>
+                            <td style="padding: 8px 0; text-align: right;">₹950.00</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 8px 0;">24/7 Gatekeeping &amp; CCTV Guarding</td>
+                            <td style="padding: 8px 0; text-align: right;">₹1,200.00</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 8px 0;">Building Sinking &amp; Repairs Fund</td>
+                            <td style="padding: 8px 0; text-align: right;">₹800.00</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 8px 0;">Clubhouse, Gym &amp; Pool Maintenance</td>
+                            <td style="padding: 8px 0; text-align: right;">₹500.00</td>
+                        </tr>
+                        <tr style="border-top: 2px solid #0f172a; font-weight: 800; font-size: 14px;">
+                            <td style="padding: 10px 0;">TOTAL AMOUNT RECEIVED</td>
+                            <td style="padding: 10px 0; text-align: right; color: #059669;" id="rcptTotal">₹4,250.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px;">
+                    <div style="font-size: 11px; color: #64748b;">
+                        This is a computer-generated tax invoice &amp; payment voucher.<br>
+                        Authorized by: <strong>Dr. S. Rao (Hon. Secretary)</strong>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #64748b;">[DIGITALLY SIGNED]</div>
+                        <div style="border-top: 1px dashed #94a3b8; width: 140px; margin-top: 4px; padding-top: 2px; font-size: 11px; font-weight: 700;">Estate Management</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-btn-row">
+                <button type="button" class="btn-secondary" style="color: #0f172a; border-color: #cbd5e1;" onclick="closeModal('receiptModal')">Close</button>
+                <button type="button" class="btn-primary" onclick="printReceiptSlip()">🖨️ Print / Download PDF</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal 7: Parking Slot & Visitor Bay Request -->
     <div class="modal" id="parkingModal">
         <div class="modal-box">
             <span class="close-btn" onclick="closeModal('parkingModal')">✕</span>
             <h2>Resident Parking Allocation</h2>
-            <p>Official allocated parking slot for Flat A-204.</p>
-
-            <div style="background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 16px;">
+            <p>Official allocated parking slot &amp; temporary guest bay booking.</p>
+            <div style="background: var(--bg-main); border: 1px solid var(--border-dark, var(--card-border)); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 16px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                     <span style="font-size: 13px; color: var(--text-muted);">Allocated Bay:</span>
                     <strong style="font-size: 14px; color: var(--primary);">Tower A - Bay B-12</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="font-size: 13px; color: var(--text-muted);">Vehicle Type:</span>
-                    <strong style="font-size: 13px;">4-Wheeler (Car) + 2-Wheeler</strong>
+                    <span style="font-size: 13px; color: var(--text-muted);">Registered Vehicle 1:</span>
+                    <strong style="font-size: 13px;">Car • MH-02-CD-4421</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 13px; color: var(--text-muted);">Registered Vehicle 2:</span>
+                    <strong style="font-size: 13px;">Bike • MH-02-ZZ-1102</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between;">
-                    <span style="font-size: 13px; color: var(--text-muted);">RFID Sticker:</span>
-                    <strong style="font-size: 13px; color: var(--success);">ACTIVE (#RF-98214)</strong>
+                    <span style="font-size: 13px; color: var(--text-muted);">RFID FastPass:</span>
+                    <strong style="font-size: 13px; color: var(--emerald-glow);">ACTIVE (#RF-98214)</strong>
                 </div>
             </div>
-
-            <div class="modal-btn-row">
-                <button type="button" class="btn-primary" onclick="closeModal('parkingModal')">Close</button>
+            <!-- Visitor Bay Request Box -->
+            <div style="border-top: 1px solid var(--card-border); padding-top: 16px; margin-top: 16px;">
+                <h3 style="font-size: 14px; color: #ffffff; margin-bottom: 6px;">Request Temporary Guest Parking Bay</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Allocates guest slot in Visitor Bay V-01 to V-10 for your visitor's vehicle.</p>
+                <form onsubmit="handleRequestVisitorParking(event)">
+                    <div class="form-row">
+                        <div>
+                            <label style="font-size: 11px; font-weight: 700; color: #cbd5e1;">Guest Vehicle Plate</label>
+                            <input type="text" id="visitorParkingPlate" class="modal-input" placeholder="e.g. MH-04-AB-1234" required>
+                        </div>
+                        <div>
+                            <label style="font-size: 11px; font-weight: 700; color: #cbd5e1;">Duration</label>
+                            <select id="visitorParkingDuration" class="modal-select">
+                                <option value="4 Hours">4 Hours</option>
+                                <option value="Overnight (12 Hours)">Overnight (12 Hours)</option>
+                                <option value="Full Weekend">Full Weekend (48 Hours)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <button type="button" class="btn-secondary" onclick="reportParkingDispute()" style="font-size: 11px; color: #fb7185;">
+                            ⚠️ Report Bay Obstruction
+                        </button>
+                        <button type="submit" class="btn-success" style="font-size: 12px;">
+                            + Allocate Guest Slot
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
+    <!-- Modal 8: Society Notices & Circulars -->
+    <div class="modal" id="noticesModal">
+        <div class="modal-box wide">
+            <span class="close-btn" onclick="closeModal('noticesModal')">✕</span>
+            <h2>Society Circulars &amp; Notice Board</h2>
+            <p>Official notices published by Society Executive Committee &amp; Gate Security</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto;" id="allNoticesContainer">
+                <!-- Rendered dynamically -->
+            </div>
+            <div class="modal-btn-row">
+                <button type="button" class="btn-primary" onclick="closeModal('noticesModal')">Close Notice Board</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal 9: Gate 1 Intercom Audio Simulation -->
+    <div class="modal" id="intercomModal">
+        <div class="modal-box" style="text-align: center;">
+            <span class="close-btn" onclick="endIntercomCall()">✕</span>
+            <h2>Gate 1 Guard Intercom</h2>
+            <p>Direct two-way voice channel with Security Officer Vikram Singh</p>
+            <div class="intercom-call-box">
+                <div class="intercom-avatar-pulse" id="intercomPulseAvatar">
+                    🛡️
+                </div>
+                <h3 id="intercomStatusText" style="color: #ffffff; font-size: 16px;">Ringing Gate 1 Terminal...</h3>
+                <div class="call-timer" id="intercomTimer">00:00</div>
+                <p style="font-size: 12px; color: var(--text-muted);" id="intercomSubtext">Connecting via internal society VoIP backbone...</p>
+            </div>
+            <div class="modal-btn-row" style="justify-content: center; gap: 14px;">
+                <button type="button" class="btn-danger" onclick="endIntercomCall()">
+                    🔴 End Intercom Call
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal 10: Digital Resident ID Card -->
+    <div class="modal" id="residentIdModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('residentIdModal')">✕</span>
+            <h2>Resident Digital Identity Card</h2>
+            <p>Official membership credentials for Green Meadows Heights CHS</p>
+            <div class="digital-pass-card" style="text-align: left; padding: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 14px;">
+                    <div>
+                        <strong style="color: #ffffff; font-size: 15px;">Green Meadows Heights</strong>
+                        <div style="font-size: 10px; color: var(--cyan); letter-spacing: 1px;">SMART RESIDENT PASS</div>
+                    </div>
+                    <span style="font-size: 22px;">🏢</span>
+                </div>
+                <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 14px;">
+                    <div class="user-avatar" style="width: 54px; height: 54px; font-size: 20px;">AS</div>
+                    <div>
+                        <h3 style="color: #ffffff; font-size: 17px; margin-bottom: 2px;">Aryan Sharma</h3>
+                        <span style="font-size: 12px; color: #34d399; font-weight: 700;">PRIMARY MEMBER • TOWER A</span>
+                        <div style="font-size: 11px; color: var(--text-muted);">Flat A-204 (2nd Floor)</div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 6px; font-size: 11px;">
+                    <div>
+                        <span style="color: var(--text-muted); display: block;">Parking Bay:</span>
+                        <strong style="color: #ffffff;">Tower A - Bay B-12</strong>
+                    </div>
+                    <div>
+                        <span style="color: var(--text-muted); display: block;">Intercom Ext:</span>
+                        <strong style="color: #ffffff;">#1204</strong>
+                    </div>
+                    <div>
+                        <span style="color: var(--text-muted); display: block;">RFID Tag:</span>
+                        <strong style="color: #38bdf8;">#RF-98214 (Active)</strong>
+                    </div>
+                    <div>
+                        <span style="color: var(--text-muted); display: block;">Member Since:</span>
+                        <strong style="color: #ffffff;">January 2024</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-btn-row">
+                <button type="button" class="btn-primary" onclick="closeModal('residentIdModal')">Close</button>
+            </div>
+        </div>
+    </div>
     <!-- Toast Notification -->
     <div class="toast" id="toast">
         <span id="toastIcon">✓</span>
         <span id="toastMessage">Action completed</span>
     </div>
-
     <script src="resident.js"></script>
 </body>
 </html>

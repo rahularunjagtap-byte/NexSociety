@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexSociety | Society Secretary &amp; Admin Command Center</title>
-    <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-
     <div class="admin-layout">
-
-        
         <aside class="admin-sidebar">
             <div>
                 <div class="brand-section">
@@ -21,12 +18,10 @@
                         <span>Admin &amp; Management</span>
                     </div>
                 </div>
-
                 <div class="society-badge">
                     <strong>Green Meadows Heights</strong>
                     <span>120 Flats • Towers A, B &amp; C</span>
                 </div>
-
                 <nav class="admin-menu">
                     <span class="menu-label">Society Operations</span>
                     <a href="admin.html" class="admin-nav-item active">
@@ -51,7 +46,6 @@
                     </a>
                 </nav>
             </div>
-
             <a href="index.html" class="admin-nav-item logout">
                 <span>↪</span> Sign Out Admin
             </a>
@@ -61,19 +55,16 @@
              MAIN WRAPPER
              ============================================== -->
         <div class="admin-main">
-
             <header class="admin-topbar">
                 <div class="topbar-header">
                     <h1>Society Executive Command Center</h1>
                     <small id="adminDate">Wednesday, October 14, 2026 • Term 2026-2028</small>
                 </div>
-
                 <div class="topbar-right-box">
                     <div class="live-clock-card">
                         <span>🕒</span>
                         <span id="adminClock">10:00:00 AM</span>
                     </div>
-
                     <div class="admin-user-profile">
                         <div class="secretary-avatar">SR</div>
                         <div class="secretary-info">
@@ -83,9 +74,7 @@
                     </div>
                 </div>
             </header>
-
             <main class="admin-body">
-
                 <!-- 1. KPI EXECUTIVE STAT CARDS -->
                 <section class="kpi-grid">
                     <div class="kpi-card">
@@ -97,7 +86,6 @@
                         <h3>96 / 120</h3>
                         <small>24 vacant • 18 on lease</small>
                     </div>
-
                     <div class="kpi-card">
                         <div class="kpi-top">
                             <div class="kpi-icon green">₹</div>
@@ -110,7 +98,6 @@
                         </div>
                         <small style="margin-top: 4px; display: block;">₹1,02,000 pending collection</small>
                     </div>
-
                     <div class="kpi-card">
                         <div class="kpi-top">
                             <div class="kpi-icon purple">🛡️</div>
@@ -120,7 +107,6 @@
                         <h3>3 Gates</h3>
                         <small>6 guards on duty • 0 breaches</small>
                     </div>
-
                     <div class="kpi-card">
                         <div class="kpi-top">
                             <div class="kpi-icon orange">⚠️</div>
@@ -131,13 +117,10 @@
                         <small>Average turnaround: 4.2 hours</small>
                     </div>
                 </section>
-
                 <!-- 2. TWO-COLUMN DASHBOARD GRID -->
                 <div class="admin-grid">
-
                     <!-- LEFT COLUMN -->
                     <div class="left-admin-col">
-
                         <!-- Flats & Residents Directory -->
                         <section class="admin-card" id="directory">
                             <div class="card-topbar">
@@ -149,18 +132,16 @@
                                     Export Directory CSV ↓
                                 </button>
                             </div>
-
                             <div class="directory-toolbar">
                                 <div class="dir-search">
                                     <span>🔍</span>
-                                    <input 
-                                        type="text" 
-                                        id="dirSearchInput" 
+                                    <input
+                                        type="text"
+                                        id="dirSearchInput"
                                         placeholder="Search by flat (e.g. A-204), resident name or phone..."
                                     >
                                 </div>
                             </div>
-
                             <div class="table-responsive">
                                 <table class="admin-table">
                                     <thead>
@@ -179,7 +160,6 @@
                                 </table>
                             </div>
                         </section>
-
                         <!-- Complaints Resolution Command Desk -->
                         <section class="admin-card" id="complaints">
                             <div class="card-topbar">
@@ -191,17 +171,13 @@
                                     <span>●</span> LocalStore Synced
                                 </span>
                             </div>
-
                             <div class="complaints-list" id="adminComplaintsList">
                                 <!-- Populated dynamically from LocalStorage -->
                             </div>
                         </section>
-
                     </div>
-
                     <!-- RIGHT COLUMN -->
                     <aside class="right-admin-col">
-
                         <!-- Broadcast Announcement Form -->
                         <section class="admin-card" id="broadcast">
                             <div class="card-topbar">
@@ -210,13 +186,11 @@
                                     <p>Publish updates to all residents &amp; gate</p>
                                 </div>
                             </div>
-
                             <form class="notice-form" onsubmit="handlePublishNotice(event)">
                                 <div class="form-group-admin">
                                     <label>Notice Headline *</label>
                                     <input type="text" id="noticeHeadline" class="form-input-admin" placeholder="e.g. Elevator Servicing Tower B" required>
                                 </div>
-
                                 <div class="form-group-admin">
                                     <label>Category</label>
                                     <select id="noticeCategory" class="form-select-admin">
@@ -226,25 +200,21 @@
                                         <option value="AGM">General Body Meeting (AGM)</option>
                                     </select>
                                 </div>
-
                                 <div class="form-group-admin">
                                     <label>Detailed Announcement *</label>
                                     <textarea id="noticeContent" class="form-textarea-admin" placeholder="Write society announcement details..." required></textarea>
                                 </div>
-
                                 <button type="submit" class="btn-publish">
                                     📢 Publish &amp; Notify Society
                                 </button>
                             </form>
                         </section>
-
                         <!-- Gate Security Status Oversight -->
                         <section class="admin-card">
                             <div class="card-topbar">
                                 <h2>Security Gate Status</h2>
                                 <span style="font-size: 11px; color: var(--success); font-weight: 700;">ALL NORMAL</span>
                             </div>
-
                             <div class="security-status-card">
                                 <div class="gate-status-row">
                                     <div>
@@ -254,7 +224,6 @@
                                     </div>
                                     <span class="status-chip paid">Boom Barrier Active</span>
                                 </div>
-
                                 <div class="gate-status-row">
                                     <div>
                                         <span class="status-dot-green"></span>
@@ -263,7 +232,6 @@
                                     </div>
                                     <span class="status-chip paid">Delivery Scanner ON</span>
                                 </div>
-
                                 <div class="gate-status-row">
                                     <div>
                                         <span class="status-dot-green"></span>
@@ -274,13 +242,11 @@
                                 </div>
                             </div>
                         </section>
-
                         <!-- Monthly Budget Breakdown -->
                         <section class="admin-card">
                             <div class="card-topbar">
                                 <h2>Monthly Expense Allocation</h2>
                             </div>
-
                             <div class="finance-breakdown">
                                 <div class="finance-bar-row">
                                     <div class="finance-bar-head">
@@ -291,7 +257,6 @@
                                         <div class="finance-fill" style="width: 35%; background: var(--primary);"></div>
                                     </div>
                                 </div>
-
                                 <div class="finance-bar-row">
                                     <div class="finance-bar-head">
                                         <span>Electricity &amp; Lift AMCs</span>
@@ -301,7 +266,6 @@
                                         <div class="finance-fill" style="width: 28%; background: var(--purple);"></div>
                                     </div>
                                 </div>
-
                                 <div class="finance-bar-row">
                                     <div class="finance-bar-head">
                                         <span>Water Supply &amp; Housekeeping</span>
@@ -311,7 +275,6 @@
                                         <div class="finance-fill" style="width: 18%; background: var(--warning);"></div>
                                     </div>
                                 </div>
-
                                 <div class="finance-bar-row">
                                     <div class="finance-bar-head">
                                         <span>Sinking &amp; Reserve Fund</span>
@@ -323,23 +286,16 @@
                                 </div>
                             </div>
                         </section>
-
                     </aside>
-
                 </div>
-
             </main>
-
         </div>
-
     </div>
-
     <!-- Toast Notification -->
     <div class="toast" id="toast">
         <span id="toastIcon">✓</span>
         <span id="toastMessage">Action completed</span>
     </div>
-
     <script src="admin.js"></script>
 </body>
 </html>

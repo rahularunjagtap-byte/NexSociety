@@ -1,11 +1,8 @@
-
-
 const STORAGE_KEYS = {
     FLATS: "nexSociety_flats",
     COMPLAINTS: "nexSociety_complaints",
     NOTICES: "nexSociety_notices"
 };
-
 
 const DEFAULT_FLATS = [
     { flat: "A-101", resident: "Ramesh Patel", phone: "+91 98201 11201", tower: "Tower A", bay: "Bay A-01", status: "paid" },
@@ -78,7 +75,6 @@ let flats = loadFromStorage(STORAGE_KEYS.FLATS, DEFAULT_FLATS);
 let adminComplaints = loadFromStorage(STORAGE_KEYS.COMPLAINTS, DEFAULT_COMPLAINTS);
 let dirSearchQuery = "";
 
-
 // DOM Ready Setup
 // ========================================================
 document.addEventListener("DOMContentLoaded", () => {
@@ -106,7 +102,6 @@ function initAdminClock() {
     update();
     setInterval(update, 1000);
 }
-
 
 function renderFlatsDirectory() {
     const tbody = document.getElementById("directoryTableBody");
@@ -190,7 +185,6 @@ function sendDuesReminder(flat, resident, phone) {
     showToast(`📩 Automated Dues Reminder SMS dispatched to ${resident} (${flat})`, "✓");
 }
 
-
 function renderAdminComplaints() {
     const container = document.getElementById("adminComplaintsList");
     const countBadge = document.getElementById("complaintsBadge");
@@ -220,7 +214,7 @@ function renderAdminComplaints() {
         item.className = "complaint-item";
 
         let statusClass = ticket.status === "Resolved" ? "resolved" : "review";
-        let resolveBtnHtml = ticket.status === "Resolved" 
+        let resolveBtnHtml = ticket.status === "Resolved"
             ? `<span style="font-size: 11px; color: var(--success); font-weight: 700;">✓ Resolved</span>`
             : `<button type="button" class="btn-resolve" onclick="resolveTicket('${ticket.id || index}')">Mark Resolved ✓</button>`;
 
@@ -251,7 +245,6 @@ function resolveTicket(ticketId) {
     showToast(`✓ Ticket ${ticket.id || ''} for ${ticket.category} marked as Resolved!`, "✓");
 }
 
-
 function handlePublishNotice(e) {
     e.preventDefault();
 
@@ -279,7 +272,6 @@ function handlePublishNotice(e) {
     playChirp();
     showToast(`📢 Announcement "${headline}" broadcasted to all 120 residents & Gate!`, "📢");
 }
-
 
 function exportFlatsDirectory() {
     const headers = ["Flat", "Tower", "Resident Name", "Phone", "Parking Bay", "Maintenance Status"];
@@ -322,6 +314,47 @@ function playChirp() {
     } catch (e) {}
 }
 
+// Modal Controls
+function openModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.add("show");
+    }
+}
+
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.remove("show");
+    }
+}
+
+// Close modal on backdrop click or Escape key
+window.addEventListener("click", (e) => {
+    if (e.target.classList && e.target.classList.contains("modal")) {
+        e.target.classList.remove("show");
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        document.querySelectorAll(".modal.show").forEach(m => m.classList.remove("show"));
+    }
+});
+
+// Admin Date Display
+function initAdminDate() {
+    const dateEl = document.getElementById("adminDate");
+    if (!dateEl) return;
+    const today = new Date();
+    dateEl.textContent = today.toLocaleDateString("en-IN", {
+        weekday: "long", day: "numeric", month: "long", year: "numeric"
+    }) + " • Term 2026-2028";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    initAdminDate();
+});
 
 let toastTimeout = null;
 function showToast(message, icon = "✓") {

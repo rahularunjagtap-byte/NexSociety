@@ -1,11 +1,9 @@
-
 const STORAGE_KEYS = {
     VISITORS: "nexSociety_visitors",
     PREAPPROVED: "nexSociety_preapproved",
     VEHICLES: "nexSociety_vehicles",
     INCIDENTS: "nexSociety_incidents"
 };
-
 
 const DEFAULT_VISITORS = [
     {
@@ -121,7 +119,6 @@ const DEFAULT_PREAPPROVED = [
     }
 ];
 
-
 function loadFromStorage(key, fallback) {
     try {
         const item = localStorage.getItem(key);
@@ -152,7 +149,6 @@ let incidents = loadFromStorage(STORAGE_KEYS.INCIDENTS, []);
 let activeTabFilter = "all";
 let searchFilterQuery = "";
 
-
 document.addEventListener("DOMContentLoaded", () => {
     initLiveClock();
     renderGateTable();
@@ -162,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initOtpBoxes();
 });
 
-
+function initLiveClock() {
     const clockEl = document.getElementById("liveClock");
     if (!clockEl) return;
 
@@ -316,7 +312,6 @@ function updateTableFooterText(shown, total) {
     }
 }
 
-
 function renderPreapprovedList() {
     const container = document.getElementById("preapprovedListContainer");
     const countBadge = document.getElementById("preapprovedCount");
@@ -355,7 +350,6 @@ function renderPreapprovedList() {
     });
 }
 
-
 function updateStatCounters() {
     const insideCount = visitors.filter(v => v.status === "inside").length;
     const totalCount = visitors.length;
@@ -373,7 +367,6 @@ function updateStatCounters() {
     if (activeVisitorCount) activeVisitorCount.textContent = insideCount;
     if (incidentBadge) incidentBadge.textContent = incidents.length;
 }
-
 
 function initSearchAndFilter() {
     const searchInput = document.getElementById("searchInput");
@@ -399,7 +392,6 @@ function setTabFilter(filterName) {
     const tab = document.querySelector(`.filter-tab[data-filter="${filterName}"]`);
     if (tab) tab.click();
 }
-
 
 function checkoutVisitor(id) {
     const visitor = visitors.find(v => v.id === id);
@@ -473,7 +465,6 @@ function callResident(flat, resident) {
     showToast(`📞 Calling resident ${resident || 'Host'} (${flat}) via gate intercom...`, "📞");
 }
 
-
 function quickDeliveryCheckin(provider) {
     const flat = prompt(`Enter destination flat number for ${provider}:`, "A-204");
     if (!flat) return;
@@ -513,7 +504,6 @@ function quickDeliveryCheckin(provider) {
     playTerminalSound("success");
     showToast(`⚡ ${provider} pass issued for Flat ${flat.toUpperCase()}`, "✓");
 }
-
 
 function handleNewVisitor(e) {
     e.preventDefault();
@@ -619,7 +609,6 @@ function handleIncidentReport(e) {
     showToast("⚠️ Security incident reported and saved in LocalStorage.", "⚠️");
 }
 
-
 function initOtpBoxes() {
     const container = document.getElementById("quickOtpInputs");
     if (!container) return;
@@ -674,11 +663,17 @@ function handleModalOtp(e) {
     }
 
     closeModal("otpModal");
-    playTerminalSound("success");
-    showToast(`✓ Invitation Code #${code} verified! Boom barrier opening.`, "✓");
     document.getElementById("modalOtpInput").value = "";
-}
 
+    // Check if matches any pre-approved pass
+    const match = preapproved.find(p => (p.passNumber || "").replace("#", "").includes(code.replace("#", "")));
+    if (match) {
+        allowPreapproved(match.name, match.flat, match.vehicle, match.id);
+    } else {
+        playTerminalSound("success");
+        showToast(`✓ Invitation Code #${code} verified! Boom barrier opening.`, "✓");
+    }
+}
 
 function openModal(id) {
     const modal = document.getElementById(id);
@@ -714,7 +709,6 @@ function triggerSosModal() {
     }
 }
 
-
 function exportGateLog() {
     if (!visitors || visitors.length === 0) {
         showToast("No entries available to export.", "ℹ️");
@@ -746,7 +740,6 @@ function exportGateLog() {
 
     showToast("📄 Exported Gate Log CSV successfully from LocalStore!", "✓");
 }
-
 
 window.NexSocietyStorage = {
     addVisitor(data) {
@@ -781,7 +774,6 @@ window.NexSocietyStorage = {
     }
 };
 
-
 function playTerminalSound(type = "success") {
     try {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -815,7 +807,6 @@ function playTerminalSound(type = "success") {
         // Fallback silently if audio context blocked
     }
 }
-
 
 let toastTimeout = null;
 function showToast(message, icon = "✓") {
