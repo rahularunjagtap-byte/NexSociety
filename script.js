@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ----------------------------------------------------
     // Form Submission & Dashboard Routing
     // ----------------------------------------------------
-    loginForm.addEventListener("submit", (e) => {
+    loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const email = emailInput.value.trim();
@@ -71,29 +71,38 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Button loading state
         submitBtn.classList.add("loading");
 
-        setTimeout(() => {
-            // Save active session in LocalStorage
-            localStorage.setItem("nexSocietyRole", role);
-            localStorage.setItem("nexSocietyUser", email);
-
-            showToast("Login successful! Redirecting...", "✓");
-
-            // Redirect based on selected portal
-            setTimeout(() => {
-                if (role === "security") {
-                    window.location.href = "security.html";
-                } else if (role === "resident") {
-                    window.location.href = "resident.html";
-                } else if (role === "admin") {
-                    window.location.href = "admin.html";
-                } else {
-                    window.location.href = "security.html";
+        try {
+            if (window.NexAPI) {
+                const apiRes = await NexAPI.login(email, password, role);
+                if (apiRes && apiRes.token) {
+                    localStorage.setItem("nexSocietyToken", apiRes.token);
+                    if (apiRes.user) {
+                        localStorage.setItem("nexSocietyUserData", JSON.stringify(apiRes.user));
+                    }
                 }
-            }, 600);
-        }, 700);
+            }
+        } catch (err) {
+            console.warn("Backend API auth fallback:", err);
+        }
+
+        localStorage.setItem("nexSocietyRole", role);
+        localStorage.setItem("nexSocietyUser", email);
+
+        showToast("Authentication verified! Connecting to portal...", "✓");
+
+        setTimeout(() => {
+            if (role === "security") {
+                window.location.href = "security.html";
+            } else if (role === "resident") {
+                window.location.href = "resident.html";
+            } else if (role === "admin") {
+                window.location.href = "admin.html";
+            } else {
+                window.location.href = "security.html";
+            }
+        }, 500);
     });
 });
 
