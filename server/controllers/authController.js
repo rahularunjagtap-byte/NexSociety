@@ -34,10 +34,10 @@ exports.login = async (req, res) => {
             return res.status(403).json({ success: false, message: `Access denied. Account is not registered as ${role}.` });
         }
 
-        // Check password (supports bcrypt hash or demo admin123)
+        // Check password using bcrypt hash
         const isMatch = await bcrypt.compare(password, user.password_hash);
-        if (!isMatch && password !== "admin123" && password !== "demo123") {
-            return res.status(401).json({ success: false, message: "Incorrect password." });
+        if (!isMatch) {
+            return res.status(401).json({ success: false, message: "Incorrect password. Access denied." });
         }
 
         const token = jwt.sign(

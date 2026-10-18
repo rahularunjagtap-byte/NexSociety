@@ -27,10 +27,11 @@ const NexAPI = {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password, role })
             });
-            return await res.json();
+            const data = await res.json();
+            return data;
         } catch (e) {
-            console.warn("API login offline, using local fallback");
-            return { success: true, fallback: true };
+            console.error("API login network error:", e);
+            return { success: false, message: "Cannot reach NexSociety server. Check backend connection." };
         }
     },
 

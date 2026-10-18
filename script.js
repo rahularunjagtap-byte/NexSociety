@@ -76,18 +76,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         submitBtn.classList.add("loading");
 
-        try {
-            if (window.NexAPI) {
+        if (window.NexAPI) {
+            try {
                 const apiRes = await NexAPI.login(email, password, role);
-                if (apiRes && apiRes.token) {
-                    localStorage.setItem("nexSocietyToken", apiRes.token);
-                    if (apiRes.user) {
-                        localStorage.setItem("nexSocietyUserData", JSON.stringify(apiRes.user));
-                    }
+
+                // STRICT CHECK: IF NOT SUCCESS, DO NOT REDIRECT!
+                if (!apiRes || !apiRes.success) {
+                    submitBtn.classList.remove("loading");
+                    showToast(apiRes ? apiRes.message : "Incorrect password or User ID.", "❌");
+                    return; // STOP EXECUTION!
                 }
+
+                // Login succeeded: save token and user metadata
+                localStorage.setItem("nexSocietyToken", apiRes.token);
+                if (apiRes.user) {
+                    localStorage.setItem("nexSocietyUserData", JSON.stringify(apiRes.user));
+                }
+            } catch (err) {
+                submitBtn.classList.remove("loading");
+                showToast("Unable to reach backend server. Please verify backend is running.", "❌");
+                return;
             }
-        } catch (err) {
-            console.warn("Backend API auth fallback:", err);
+        } else {
+            submitBtn.classList.remove("loading");
+            showToast("API client not loaded. Please refresh the page.", "❌");
+            return;
         }
 
         localStorage.setItem("nexSocietyRole", role);
