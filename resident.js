@@ -191,10 +191,27 @@ function initResidentDate() {
     });
 }
 
-// Personalize greeting
+// Personalize greeting & user data
 function initResidentGreeting() {
+    let userData = null;
+    try {
+        const raw = localStorage.getItem("nexSocietyUserData");
+        if (raw) userData = JSON.parse(raw);
+    } catch (e) {}
+
     const loggedUser = localStorage.getItem("nexSocietyUser");
     const greetingEl = document.getElementById("residentGreeting");
+
+    let residentName = "Resident";
+    let flatNum = "A-101";
+
+    if (userData && userData.name) {
+        residentName = userData.name;
+        if (userData.flat) flatNum = userData.flat;
+    } else if (loggedUser) {
+        const raw = loggedUser.split("@")[0];
+        residentName = raw.charAt(0).toUpperCase() + raw.slice(1);
+    }
 
     if (greetingEl) {
         const hour = new Date().getHours();
@@ -202,13 +219,13 @@ function initResidentGreeting() {
         if (hour >= 12 && hour < 17) timeSalutation = "Good afternoon";
         else if (hour >= 17) timeSalutation = "Good evening";
 
-        let residentName = "Aryan";
-        if (loggedUser) {
-            const raw = loggedUser.split("@")[0];
-            residentName = raw.charAt(0).toUpperCase() + raw.slice(1);
-        }
-        greetingEl.textContent = `${timeSalutation}, ${residentName} 👋`;
+        greetingEl.textContent = `${timeSalutation}, ${residentName} 👋 (${flatNum})`;
     }
+
+    const passFlatInput = document.getElementById("passFlat");
+    if (passFlatInput) passFlatInput.value = flatNum;
+    const cmpFlatInput = document.getElementById("complaintFlat");
+    if (cmpFlatInput) cmpFlatInput.value = flatNum;
 }
 
 // --------------------------------------------------------------------------

@@ -24,13 +24,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const role = btn.dataset.role;
             selectedRoleInput.value = role;
 
-            // Auto-populate demo email matching role for convenience
+            // Auto-populate demo credentials matching role for convenience
             if (role === "security") {
                 emailInput.value = "guard@nexsociety.in";
+                passwordInput.value = "admin123";
             } else if (role === "resident") {
-                emailInput.value = "aryan@nexsociety.in";
+                emailInput.value = "A-101";
+                passwordInput.value = "Jetha101";
             } else if (role === "admin") {
                 emailInput.value = "admin@nexsociety.in";
+                passwordInput.value = "admin123";
             }
         });
     });
@@ -112,7 +115,19 @@ document.addEventListener("DOMContentLoaded", () => {
 function quickFill(role) {
     const roleBtn = document.querySelector(`.role-tab-btn[data-role="${role}"]`);
     if (roleBtn) roleBtn.click();
-    showToast(`Loaded ${role.toUpperCase()} credentials. Click 'Authenticate'!`, "💡");
+    if (role === "resident") {
+        document.getElementById("email").value = "A-101";
+        document.getElementById("password").value = "Jetha101";
+        showToast("Loaded Jethalal (Flat A-101) credentials. Click 'Authenticate'!", "🏠");
+    } else if (role === "security") {
+        document.getElementById("email").value = "guard@nexsociety.in";
+        document.getElementById("password").value = "admin123";
+        showToast("Loaded Gate Security credentials. Click 'Authenticate'!", "🛡️");
+    } else if (role === "admin") {
+        document.getElementById("email").value = "admin@nexsociety.in";
+        document.getElementById("password").value = "admin123";
+        showToast("Loaded Admin credentials. Click 'Authenticate'!", "⚙️");
+    }
 }
 
 // --------------------------------------------------------

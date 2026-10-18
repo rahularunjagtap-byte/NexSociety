@@ -12,13 +12,19 @@ exports.login = async (req, res) => {
             return res.status(400).json({ success: false, message: "Email and password are required." });
         }
 
+        const loginIdentifier = email.trim();
         const userResult = await db.query(
-            "SELECT * FROM users WHERE LOWER(email) = LOWER($1)",
-            [email.trim()]
+            `SELECT * FROM users 
+             WHERE LOWER(email) = LOWER($1) 
+                OR LOWER(email) = REPLACE(LOWER($1), '@netsociety.in', '@nexsociety.in')
+                OR UPPER(flat_number) = UPPER($1) 
+                OR REPLACE(UPPER(flat_number), '-', '') = REPLACE(UPPER($1), '-', '')
+                OR LOWER(full_name) = LOWER($1)`,
+            [loginIdentifier]
         );
 
         if (userResult.rows.length === 0) {
-            return res.status(401).json({ success: false, message: "Invalid credentials. User not found." });
+            return res.status(401).json({ success: false, message: `No account found for '${loginIdentifier}'.` });
         }
 
         const user = userResult.rows[0];

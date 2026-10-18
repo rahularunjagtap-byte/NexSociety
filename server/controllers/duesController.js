@@ -1,4 +1,5 @@
 const db = require("../config/db");
+const bcrypt = require("bcryptjs");
 
 // Get all flats directory with dues status
 exports.getFlatsDirectory = async (req, res) => {
