@@ -76,31 +76,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
         submitBtn.classList.add("loading");
 
+        let apiRes = null;
         if (window.NexAPI) {
             try {
-                const apiRes = await NexAPI.login(email, password, role);
+                apiRes = await NexAPI.login(email, password, role);
+            } catch (e) {}
+        }
 
-                // STRICT CHECK: IF NOT SUCCESS, DO NOT REDIRECT!
-                if (!apiRes || !apiRes.success) {
-                    submitBtn.classList.remove("loading");
-                    showToast(apiRes ? apiRes.message : "Incorrect password or User ID.", "❌");
-                    return; // STOP EXECUTION!
-                }
-
-                // Login succeeded: save token and user metadata
-                localStorage.setItem("nexSocietyToken", apiRes.token);
-                if (apiRes.user) {
-                    localStorage.setItem("nexSocietyUserData", JSON.stringify(apiRes.user));
-                }
+        // Direct fetch fallback if NexAPI was not available or threw
+        if (!apiRes || apiRes.status === "offline") {
+            try {
+                const targetUrl = (window.location.port === "5000") ? "/api/auth/login" : "http://localhost:5000/api/auth/login";
+                const res = await fetch(targetUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password, role })
+                });
+                apiRes = await res.json();
             } catch (err) {
-                submitBtn.classList.remove("loading");
-                showToast("Unable to reach backend server. Please verify backend is running.", "❌");
-                return;
+                try {
+                    const res2 = await fetch("http://127.0.0.1:5000/api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, password, role })
+                    });
+                    apiRes = await res2.json();
+                } catch (err2) {
+                    submitBtn.classList.remove("loading");
+                    showToast("Cannot connect to backend server. Please open http://localhost:5000 in browser.", "❌");
+                    return;
+                }
             }
-        } else {
+        }
+
+        // STRICT CHECK: IF NOT SUCCESS, DO NOT REDIRECT!
+        if (!apiRes || !apiRes.success) {
             submitBtn.classList.remove("loading");
-            showToast("API client not loaded. Please refresh the page.", "❌");
-            return;
+            showToast(apiRes ? apiRes.message : "Incorrect password or User ID.", "❌");
+            return; // STOP EXECUTION!
+        }
+
+        // Login succeeded: save token and user metadata
+        localStorage.setItem("nexSocietyToken", apiRes.token);
+        if (apiRes.user) {
+            localStorage.setItem("nexSocietyUserData", JSON.stringify(apiRes.user));
         }
 
         localStorage.setItem("nexSocietyRole", role);
