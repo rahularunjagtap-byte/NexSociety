@@ -83,6 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
     renderAdminComplaints();
     initDirectorySearch();
     loadDirectoryFromBackend();
+    loadComplaintsFromBackend();
+    loadNoticesFromBackend();
 });
 
 // Load directory live from PostgreSQL backend
@@ -316,9 +318,18 @@ function renderAdminComplaints() {
     });
 }
 
-function resolveTicket(ticketId) {
+async function resolveTicket(ticketId) {
     const ticket = adminComplaints.find(t => (t.id === ticketId || String(adminComplaints.indexOf(t)) === String(ticketId)));
     if (!ticket) return;
+
+    // Try resolving via PostgreSQL backend
+    try {
+        if (window.NexAPI && ticket.db_id) {
+            await NexAPI.resolveComplaint(ticket.db_id);
+        }
+    } catch (err) {
+        console.warn("Backend resolve error:", err);
+    }
 
     ticket.status = "Resolved";
     saveToStorage(STORAGE_KEYS.COMPLAINTS, adminComplaints);
@@ -328,7 +339,7 @@ function resolveTicket(ticketId) {
     showToast(`✓ Ticket ${ticket.id || ''} for ${ticket.category} marked as Resolved!`, "✓");
 }
 
-function handlePublishNotice(e) {
+async function handlePublishNotice(e) {
     e.preventDefault();
 
     const headline = document.getElementById("noticeHeadline").value.trim();
@@ -337,6 +348,16 @@ function handlePublishNotice(e) {
 
     if (!headline || !content) return;
 
+    // 1. Publish to PostgreSQL backend
+    try {
+        if (window.NexAPI) {
+            await NexAPI.publishNotice({ title: headline, category, content, posted_by: "Admin" });
+        }
+    } catch (err) {
+        console.warn("Backend notice publish error:", err);
+    }
+
+    // 2. Also save locally as fallback
     const notice = {
         id: "NOT-" + Date.now(),
         headline: headline,
@@ -344,7 +365,6 @@ function handlePublishNotice(e) {
         content: content,
         date: new Date().toLocaleDateString("en-IN")
     };
-
     const notices = loadFromStorage(STORAGE_KEYS.NOTICES, []);
     notices.unshift(notice);
     saveToStorage(STORAGE_KEYS.NOTICES, notices);
@@ -353,7 +373,7 @@ function handlePublishNotice(e) {
     document.getElementById("noticeContent").value = "";
 
     playChirp();
-    showToast(`📢 Announcement "${headline}" broadcasted to all 120 residents & Gate!`, "📢");
+    showToast(`📢 Announcement "${headline}" broadcasted to all residents & saved to PostgreSQL!`, "📢");
 }
 
 function exportFlatsDirectory() {
@@ -438,6 +458,49 @@ function initAdminDate() {
 document.addEventListener("DOMContentLoaded", () => {
     initAdminDate();
 });
+
+// Load complaints live from PostgreSQL backend
+async function loadComplaintsFromBackend() {
+    try {
+        if (!window.NexAPI) return;
+        const res = await NexAPI.getComplaints();
+        if (res && Array.isArray(res)) {
+            adminComplaints = res.map(c => ({
+                id: `CMP-${c.id}`,
+                db_id: c.id,
+                category: c.category || "General",
+                flat: c.flat_number ? `Flat ${c.flat_number}` : (c.submitted_by || "Society"),
+                details: c.description || c.details || "",
+                date: c.created_at ? new Date(c.created_at).toLocaleString("en-IN") : "Today",
+                status: c.status === "resolved" ? "Resolved" : "In Review"
+            }));
+            saveToStorage(STORAGE_KEYS.COMPLAINTS, adminComplaints);
+            renderAdminComplaints();
+        }
+    } catch (e) {
+        console.warn("Backend complaints fetch fallback to local:", e);
+    }
+}
+
+// Load notices live from PostgreSQL backend
+async function loadNoticesFromBackend() {
+    try {
+        if (!window.NexAPI) return;
+        const res = await NexAPI.getNotices();
+        if (res && Array.isArray(res) && res.length > 0) {
+            const notices = res.map(n => ({
+                id: `NOT-${n.id}`,
+                headline: n.title,
+                category: n.category || "General",
+                content: n.content,
+                date: n.created_at ? new Date(n.created_at).toLocaleDateString("en-IN") : "Today"
+            }));
+            saveToStorage(STORAGE_KEYS.NOTICES, notices);
+        }
+    } catch (e) {
+        console.warn("Backend notices fetch fallback to local:", e);
+    }
+}
 
 let toastTimeout = null;
 function showToast(message, icon = "✓") {

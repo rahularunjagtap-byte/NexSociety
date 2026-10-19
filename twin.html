@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexSociety | 3D Interactive Digital Twin &amp; Smart Command Center</title>
+    <meta name="description" content="Photorealistic 3D Digital Twin and architectural facility command center for NexSociety Smart Community.">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="twin.css">
+</head>
+<body>
+
+    <!-- ==============================================
+         3D WEBGL RENDER CANVAS
+         ============================================== -->
+    <canvas id="webglCanvas"></canvas>
+
+    <!-- 3D Overlay Labels container (dynamically projected from 3D coordinates) -->
+    <div id="labelsContainer"></div>
+
+    <!-- ==============================================
+         FLOATING TOP COMMAND BAR
+         ============================================== -->
+    <header class="twin-topbar">
+        <!-- Brand & Title -->
+        <div class="twin-brand-card">
+            <div class="twin-logo-box">🏙️</div>
+            <div class="twin-brand-text">
+                <h1>NexSociety 3D Twin</h1>
+                <span>
+                    <span class="pulse-dot"></span>
+                    Live Digital Twin Telemetry
+                </span>
+            </div>
+        </div>
+
+        <!-- Telemetry Chips -->
+        <div class="twin-telemetry-cluster">
+            <div class="telemetry-chip emerald">
+                <span>OCCUPANCY:</span>
+                <strong>114 / 120 UNITS (95%)</strong>
+            </div>
+            <div class="telemetry-chip cyan">
+                <span>SOLAR GRID:</span>
+                <strong>38.4 kW LIVE</strong>
+            </div>
+            <div class="telemetry-chip">
+                <span>ENGINE:</span>
+                <strong id="fpsCounter">60 FPS • WebGL 2.0</strong>
+            </div>
+        </div>
+
+        <!-- Nav Links -->
+        <div class="twin-nav-actions" style="pointer-events: auto;">
+            <a href="resident.html" class="btn-nav-twin">
+                <span>🏠</span> Resident Portal
+            </a>
+            <a href="security.html" class="btn-nav-twin">
+                <span>🛡️</span> Security Gate
+            </a>
+            <a href="admin.html" class="btn-nav-twin">
+                <span>⚙️</span> Admin Command
+            </a>
+            <a href="payment.html" class="btn-nav-twin" style="background: rgba(99,102,241,0.2); border-color: #6366f1; color: #ffffff;">
+                <span>💳</span> Payment Gateway
+            </a>
+        </div>
+    </header>
+
+    <!-- ==============================================
+         BOTTOM CONTROL TOOLBAR
+         ============================================== -->
+    <div class="twin-toolbar-bottom">
+        <button type="button" class="toolbar-btn" id="btnDroneTour" onclick="toggleDroneTour()">
+            <span>🚁</span>
+            <span>Drone Flyover</span>
+        </button>
+        <button type="button" class="toolbar-btn" id="btnLightingToggle" onclick="cycleLightingMode()">
+            <span id="lightIcon">🌙</span>
+            <span id="lightLabel">Night (Neon)</span>
+        </button>
+        <button type="button" class="toolbar-btn" id="btnRainToggle" onclick="toggleRainFx()">
+            <span id="rainIcon">🌧️</span>
+            <span id="rainLabel">Rain FX</span>
+        </button>
+
+        <div class="toolbar-divider"></div>
+
+        <button type="button" class="toolbar-btn" onclick="focusTower('A')">
+            <span>🏢</span>
+            <span>Tower A (Aryan)</span>
+        </button>
+        <button type="button" class="toolbar-btn" onclick="focusTower('B')">
+            <span>🏢</span>
+            <span>Tower B</span>
+        </button>
+        <button type="button" class="toolbar-btn" onclick="focusTower('C')">
+            <span>🏢</span>
+            <span>Tower C</span>
+        </button>
+        <button type="button" class="toolbar-btn" onclick="focusFountain()">
+            <span>⛲</span>
+            <span>Grand Fountain</span>
+        </button>
+        <button type="button" class="toolbar-btn" onclick="focusClubhouse()">
+            <span>🏊</span>
+            <span>Pool &amp; Sunbeds</span>
+        </button>
+        <button type="button" class="toolbar-btn" onclick="focusGate()">
+            <span>🛡️</span>
+            <span>Gate 1</span>
+        </button>
+
+        <div class="toolbar-divider"></div>
+
+        <button type="button" class="toolbar-btn" onclick="resetCameraView()">
+            <span>🔄</span>
+            <span>Reset View</span>
+        </button>
+    </div>
+
+    <!-- Bottom Left Navigation Hint -->
+    <div class="twin-quick-hints">
+        <div><span>Left Click + Drag:</span> Orbit 360° around society</div>
+        <div><span>Right Click + Drag:</span> Pan camera position</div>
+        <div><span>Scroll Wheel:</span> Zoom into floors &amp; flats</div>
+        <div><span>Click on any building:</span> View real-time telemetry</div>
+    </div>
+
+    <!-- ==============================================
+         RIGHT SLIDING ARCHITECTURAL INSPECTOR PANEL
+         ============================================== -->
+    <aside class="twin-sidebar-panel" id="twinSidebarPanel">
+        <div class="panel-header-row">
+            <div class="panel-title-group">
+                <h2 id="inspectorTitle">Tower A — Green Meadows</h2>
+                <span id="inspectorSubtitle">Residential High-Rise • 10 Floors</span>
+            </div>
+            <button type="button" class="btn-close-panel" onclick="closeInspectorPanel()">✕</button>
+        </div>
+
+        <div class="panel-content-scroll">
+            <!-- KPIs Grid -->
+            <div class="panel-kpi-grid">
+                <div class="panel-kpi-card">
+                    <span>Active Units</span>
+                    <strong id="kpiUnits">38 / 40 Flats</strong>
+                </div>
+                <div class="panel-kpi-card">
+                    <span>Maintenance Status</span>
+                    <strong id="kpiMaintenance" style="color: #34d399;">95% Settled</strong>
+                </div>
+                <div class="panel-kpi-card">
+                    <span>Smart Power Load</span>
+                    <strong id="kpiPower">14.2 kW</strong>
+                </div>
+                <div class="panel-kpi-card">
+                    <span>High-Speed Lifts</span>
+                    <strong id="kpiLifts" style="color: #38bdf8;">2 Operational</strong>
+                </div>
+            </div>
+
+            <!-- Floor Selector Module (Displayed for Towers) -->
+            <div class="floor-selector-box" id="floorModule">
+                <div class="floor-selector-title">
+                    <span>Floor-by-Floor 3D Elevation</span>
+                    <span style="color: #38bdf8; font-size: 11px;">Click Floor to Inspect</span>
+                </div>
+                <div class="floor-pill-grid">
+                    <button type="button" class="floor-pill-btn" onclick="selectFloor(10)">FL 10</button>
+                    <button type="button" class="floor-pill-btn" onclick="selectFloor(9)">FL 09</button>
+                    <button type="button" class="floor-pill-btn" onclick="selectFloor(8)">FL 08</button>
+                    <button type="button" class="floor-pill-btn" onclick="selectFloor(7)">FL 07</button>
+                    <button type="button" class="floor-pill-btn" onclick="selectFloor(6)">FL 06</button>
+                    <button type="button" class="floor-pill-btn" onclick="selectFloor(5)">FL 05</button>
+                    <button type="button" class="floor-pill-btn" onclick="selectFloor(4)">FL 04</button>
+                    <button type="button" class="floor-pill-btn" onclick="selectFloor(3)">FL 03</button>
+                    <button type="button" class="floor-pill-btn highlight-flat active" onclick="selectFloor(2)">FL 02 (A-204)</button>
+                    <button type="button" class="floor-pill-btn" onclick="selectFloor(1)">FL 01</button>
+                </div>
+            </div>
+
+            <!-- Unit Detail Card (Dynamically updated) -->
+            <div class="unit-detail-card" id="unitDetailCard">
+                <div class="unit-head-row">
+                    <div>
+                        <strong id="unitTitle">Flat A-204 (2nd Floor)</strong>
+                        <div style="font-size: 11px; color: #94a3b8;" id="unitOwnerName">Primary Member: Aryan Sharma</div>
+                    </div>
+                    <span class="unit-badge-status" id="unitStatusBadge">PAID &amp; ACTIVE</span>
+                </div>
+
+                <div class="unit-item-row">
+                    <span>Allocated Parking Bay:</span>
+                    <strong id="unitBay">Tower A - Bay B-12</strong>
+                </div>
+                <div class="unit-item-row">
+                    <span>Registered Vehicle:</span>
+                    <strong id="unitVehicle">Car • MH-02-CD-4421</strong>
+                </div>
+                <div class="unit-item-row">
+                    <span>RFID Gate Access:</span>
+                    <strong id="unitRfid" style="color: #34d399;">ACTIVE (#RF-98214)</strong>
+                </div>
+                <div class="unit-item-row">
+                    <span>Intercom Extension:</span>
+                    <strong id="unitIntercom">#1204 (Online)</strong>
+                </div>
+            </div>
+
+            <!-- Direct Portal Action -->
+            <a href="resident.html" class="btn-panel-action" id="btnPanelAction">
+                <span>🏠</span>
+                <span>Open Resident Portal for Flat A-204</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ==============================================
+         SCRIPTS: THREE.JS & TWIN CONTROLLER
+         ============================================== -->
+    <!-- Three.js r128 Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- OrbitControls -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Digital Twin Logic -->
+    <script src="twin.js"></script>
+</body>
+</html>

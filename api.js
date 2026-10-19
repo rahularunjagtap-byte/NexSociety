@@ -140,10 +140,17 @@ const NexAPI = {
 
     async publishNotice(noticeData) {
         try {
+            // Map frontend fields to backend schema fields
+            const payload = {
+                headline: noticeData.title || noticeData.headline,
+                category: noticeData.category || "General",
+                content: noticeData.content,
+                published_by: noticeData.posted_by || noticeData.published_by || "Society Admin"
+            };
             const res = await fetch(`${API_BASE_URL}/notices`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(noticeData)
+                body: JSON.stringify(payload)
             });
             return await res.json();
         } catch (e) {

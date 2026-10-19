@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexSociety | Secure Payment Gateway - Maintenance & Society Dues</title>
+    <meta name="description" content="Secure society maintenance and dues payment gateway for NexSociety residents with UPI, Credit/Debit Cards, Wallets, and NetBanking.">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap">
+    <!-- Shared and payment-specific stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="payment.css">
+</head>
+<body class="payment-body">
+
+    <!-- ==============================================
+         TOPBAR NAVIGATION
+         ============================================== -->
+    <header class="payment-navbar">
+        <div class="payment-navbar-inner">
+            <a href="resident.html" class="nav-brand-group">
+                <div class="nav-brand-icon">💳</div>
+                <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="nav-brand-title">NexSociety</span>
+                        <span class="nav-brand-badge">NexPay</span>
+                    </div>
+                    <div style="font-size: 11px; color: #94a3b8;">Secure Society Escrow Gateway</div>
+                </div>
+            </a>
+
+            <div class="nav-security-status">
+                <div class="ssl-badge">
+                    <span class="ssl-dot"></span>
+                    <span>256-Bit SSL Encrypted</span>
+                </div>
+                <a href="resident.html" class="btn-back-nav" id="backToPortalBtn">
+                    <span>←</span> Return to Resident Portal
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==============================================
+         MAIN PAYMENT HUB GRID
+         ============================================== -->
+    <main class="payment-main-container">
+
+        <!-- LEFT COLUMN: SOCIETY DUE DETAILS & INVOICE BREAKDOWN -->
+        <aside class="glass-panel invoice-card">
+            <div class="invoice-header">
+                <div class="society-title-row">
+                    <span class="society-name">Green Meadows Heights CHS Ltd.</span>
+                    <span class="invoice-badge-status" id="billStatusBadge">PENDING</span>
+                </div>
+                <div style="font-size: 12px; color: #94a3b8;">Reg No: BOM/HSG/2018/98214 • GSTIN: 27AABCG1234F1Z8</div>
+
+                <!-- Unit & Resident Selector Box -->
+                <div class="flat-info-box">
+                    <div class="flat-info-left">
+                        <strong id="displayResidentName">Aryan Sharma</strong>
+                        <span id="displayFlatDetails">Flat A-204 • Tower A (2nd Floor)</span>
+                    </div>
+                    <div>
+                        <select id="flatSelectDropdown" class="flat-selector-select" onchange="handleFlatChange(this.value)">
+                            <option value="A-204" selected>Flat A-204</option>
+                            <option value="A-301">Flat A-301</option>
+                            <option value="B-102">Flat B-102</option>
+                            <option value="B-303">Flat B-303</option>
+                            <option value="C-501">Flat C-501</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Itemized Society Due Breakdown -->
+            <div class="breakdown-title">Maintenance Bill Breakdown (Oct–Nov 2026)</div>
+            <div class="breakdown-list">
+                <div class="breakdown-item">
+                    <span>Water &amp; Sanitation Infrastructure</span>
+                    <strong>₹800.00</strong>
+                </div>
+                <div class="breakdown-item">
+                    <span>Common Area Electricity &amp; Lifts AMC</span>
+                    <strong>₹950.00</strong>
+                </div>
+                <div class="breakdown-item">
+                    <span>24/7 Security Guarding &amp; CCTV Desk</span>
+                    <strong>₹1,200.00</strong>
+                </div>
+                <div class="breakdown-item">
+                    <span>Building Sinking &amp; Repairs Reserve</span>
+                    <strong>₹800.00</strong>
+                </div>
+                <div class="breakdown-item">
+                    <span>Clubhouse, Gym &amp; Garden Upkeep</span>
+                    <strong>₹500.00</strong>
+                </div>
+                <div class="breakdown-item" style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 8px;">
+                    <span style="color: #38bdf8;">Society Member GST / Cess</span>
+                    <span style="color: #34d399; font-weight: 700;">Waived (₹0.00)</span>
+                </div>
+            </div>
+
+            <!-- Net Payable Box -->
+            <div class="total-due-box">
+                <div>
+                    <div class="total-due-label">Total Amount Payable</div>
+                    <div class="total-due-sub">Due by: 31st October 2026</div>
+                </div>
+                <div class="total-due-amount" id="displayTotalAmount">₹4,250.00</div>
+            </div>
+
+            <!-- Trust & Compliance Badges -->
+            <div class="trust-badges-grid">
+                <div class="trust-badge-pill">
+                    <span>🛡️</span>
+                    PCI-DSS Level 1
+                </div>
+                <div class="trust-badge-pill">
+                    <span>⚡</span>
+                    Instant Settlement
+                </div>
+                <div class="trust-badge-pill">
+                    <span>🏛️</span>
+                    RBI Regulated
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT COLUMN: MULTI-OPTION PAYMENT METHODS HUB -->
+        <section class="glass-panel payment-methods-card">
+
+            <!-- Payment Method Tabs -->
+            <div class="payment-tabs-header">
+                <button type="button" class="payment-tab-btn active" id="tabBtn-upi" onclick="switchPaymentTab('upi')">
+                    <span class="tab-icon">📱</span>
+                    <span>UPI &amp; QR</span>
+                </button>
+                <button type="button" class="payment-tab-btn" id="tabBtn-card" onclick="switchPaymentTab('card')">
+                    <span class="tab-icon">💳</span>
+                    <span>Cards</span>
+                </button>
+                <button type="button" class="payment-tab-btn" id="tabBtn-wallet" onclick="switchPaymentTab('wallet')">
+                    <span class="tab-icon">👛</span>
+                    <span>Wallets</span>
+                </button>
+                <button type="button" class="payment-tab-btn" id="tabBtn-netbanking" onclick="switchPaymentTab('netbanking')">
+                    <span class="tab-icon">🏦</span>
+                    <span>Net Banking</span>
+                </button>
+            </div>
+
+            <!-- ==============================================
+                 1. UPI & DYNAMIC QR CODE TAB
+                 ============================================== -->
+            <div class="tab-content-panel active" id="panel-upi">
+                <div class="upi-grid">
+                    <!-- Dynamic QR Box -->
+                    <div class="qr-box-card">
+                        <div class="qr-scan-frame">
+                            <!-- High quality generated SVG QR Code -->
+                            <svg class="qr-code-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="200" height="200" fill="#ffffff"/>
+                                <!-- Top-Left Corner Box -->
+                                <rect x="15" y="15" width="50" height="50" fill="#0f172a" rx="6"/>
+                                <rect x="23" y="23" width="34" height="34" fill="#ffffff" rx="4"/>
+                                <rect x="29" y="29" width="22" height="22" fill="#6366f1" rx="3"/>
+                                <!-- Top-Right Corner Box -->
+                                <rect x="135" y="15" width="50" height="50" fill="#0f172a" rx="6"/>
+                                <rect x="143" y="23" width="34" height="34" fill="#ffffff" rx="4"/>
+                                <rect x="149" y="29" width="22" height="22" fill="#6366f1" rx="3"/>
+                                <!-- Bottom-Left Corner Box -->
+                                <rect x="15" y="135" width="50" height="50" fill="#0f172a" rx="6"/>
+                                <rect x="23" y="143" width="34" height="34" fill="#ffffff" rx="4"/>
+                                <rect x="29" y="149" width="22" height="22" fill="#6366f1" rx="3"/>
+                                <!-- UPI QR Matrix Grid -->
+                                <rect x="75" y="20" width="10" height="10" fill="#0f172a"/>
+                                <rect x="95" y="20" width="10" height="10" fill="#0f172a"/>
+                                <rect x="115" y="20" width="10" height="10" fill="#0f172a"/>
+                                <rect x="75" y="40" width="20" height="10" fill="#0f172a"/>
+                                <rect x="105" y="40" width="20" height="10" fill="#0f172a"/>
+                                <rect x="20" y="75" width="10" height="20" fill="#0f172a"/>
+                                <rect x="40" y="85" width="20" height="10" fill="#0f172a"/>
+                                <rect x="75" y="75" width="15" height="15" fill="#6366f1"/>
+                                <rect x="100" y="80" width="15" height="15" fill="#0f172a"/>
+                                <rect x="130" y="75" width="20" height="10" fill="#0f172a"/>
+                                <rect x="160" y="85" width="20" height="15" fill="#0f172a"/>
+                                <rect x="75" y="110" width="10" height="20" fill="#0f172a"/>
+                                <rect x="95" y="125" width="25" height="15" fill="#6366f1"/>
+                                <rect x="130" y="110" width="15" height="15" fill="#0f172a"/>
+                                <rect x="155" y="120" width="25" height="10" fill="#0f172a"/>
+                                <rect x="75" y="150" width="20" height="10" fill="#0f172a"/>
+                                <rect x="105" y="150" width="15" height="25" fill="#0f172a"/>
+                                <rect x="130" y="145" width="15" height="15" fill="#6366f1"/>
+                                <rect x="155" y="155" width="25" height="20" fill="#0f172a"/>
+                                <rect x="85" y="170" width="15" height="15" fill="#0f172a"/>
+                                <rect x="135" y="170" width="10" height="15" fill="#0f172a"/>
+                            </svg>
+                            <div class="qr-badge-logo" title="NPCI UPI Verified">
+                                <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+                                    <path d="M12 28L24 14L36 28" stroke="#097939" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 36L24 22L36 36" stroke="#ED7524" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="qr-scan-label">Scan with any UPI App</div>
+                        <div class="qr-timer-pill">
+                            <span>⏱️</span>
+                            <span>Expires in <strong id="qrTimer">04:59</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- UPI App Bar & VPA Input -->
+                    <div>
+                        <div style="font-size: 13px; font-weight: 700; color: #cbd5e1; margin-bottom: 10px;">Fast 1-Click UPI Payment</div>
+                        <div class="upi-apps-row">
+                            <div class="upi-app-chip selected" onclick="selectUpiApp(this, 'Google Pay', 'aryan.sharma@okhdfcbank')">
+                                <span class="upi-app-icon">
+                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                                        <path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"/>
+                                        <path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" fill="#34A853"/>
+                                        <path d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z" fill="#FBBC05"/>
+                                        <path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"/>
+                                    </svg>
+                                </span>
+                                <span>Google Pay</span>
+                            </div>
+                            <div class="upi-app-chip" onclick="selectUpiApp(this, 'PhonePe', '9820144521@ybl')">
+                                <span class="upi-app-icon">
+                                    <svg width="26" height="26" viewBox="0 0 48 48" fill="none">
+                                        <circle cx="24" cy="24" r="23" fill="#5F259F"/>
+                                        <path d="M30 16H21C17.5 16 15 18.5 15 22C15 24.8 17 27 19.8 27.5L14.5 39H19.5L24 29.5H27V39H31.5V16H30ZM27 25H21.5C19.8 25 18.8 23.8 18.8 22.2C18.8 20.6 19.8 19.5 21.5 19.5H27V25Z" fill="#FFFFFF"/>
+                                    </svg>
+                                </span>
+                                <span>PhonePe</span>
+                            </div>
+                            <div class="upi-app-chip" onclick="selectUpiApp(this, 'Paytm', '9820144521@paytm')">
+                                <span class="upi-app-icon">
+                                    <svg width="32" height="22" viewBox="0 0 68 30" fill="none">
+                                        <rect width="68" height="30" rx="6" fill="#002E6E"/>
+                                        <text x="7" y="21" fill="#FFFFFF" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="16" letter-spacing="-0.5">pay</text>
+                                        <text x="38" y="21" fill="#00BAF2" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="16" letter-spacing="-0.5">tm</text>
+                                    </svg>
+                                </span>
+                                <span>Paytm UPI</span>
+                            </div>
+                            <div class="upi-app-chip" onclick="selectUpiApp(this, 'CRED', 'aryan@cred')">
+                                <span class="upi-app-icon">
+                                    <svg width="26" height="26" viewBox="0 0 48 48" fill="none">
+                                        <rect width="48" height="48" rx="10" fill="#121212"/>
+                                        <path d="M14 13H34V35H14V13Z" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round" fill="none"/>
+                                        <path d="M19 19H29V30H19V19Z" fill="#FFFFFF"/>
+                                        <circle cx="24" cy="24.5" r="2.5" fill="#121212"/>
+                                    </svg>
+                                </span>
+                                <span>CRED</span>
+                            </div>
+                        </div>
+
+                        <!-- Manual VPA Input -->
+                        <div class="vpa-input-group">
+                            <label class="vpa-input-label" for="upiIdInput">Or Enter Your UPI ID / VPA</label>
+                            <div class="vpa-input-wrapper">
+                                <input type="text" id="upiIdInput" class="payment-text-input" placeholder="e.g. yourname@okhdfcbank" value="aryan.sharma@okhdfcbank" oninput="resetVpaValidation()">
+                                <button type="button" class="btn-verify-vpa" id="btnVerifyVpa" onclick="verifyUpiVpa()">Verify VPA</button>
+                            </div>
+                            <div class="vpa-verified-status" id="vpaSuccessNote">
+                                <span>✓</span>
+                                <span>Verified: <strong>Aryan Sharma (HDFC Bank)</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 2. CREDIT & DEBIT CARDS TAB (WITH 3D VIRTUAL CARD)
+                 ============================================== -->
+            <div class="tab-content-panel" id="panel-card">
+                <!-- 3D Interactive Virtual Card Preview -->
+                <div class="virtual-card-wrapper">
+                    <div class="virtual-card" id="virtualCard">
+                        <!-- Front Face -->
+                        <div class="card-face front">
+                            <div class="card-chip-row">
+                                <div class="card-emv-chip"></div>
+                                <div class="card-network-badge" id="cardNetworkLabel">
+                                    <svg width="48" height="18" viewBox="0 0 54 20" fill="none">
+                                        <text x="0" y="16" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="18" font-style="italic" letter-spacing="1">VISA</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="card-number-display" id="cardDisplayNumber">•••• •••• •••• 4421</div>
+                            <div class="card-footer-row">
+                                <div class="card-holder-col">
+                                    <label>Cardholder Name</label>
+                                    <div class="card-holder-name" id="cardDisplayName">ARYAN SHARMA</div>
+                                </div>
+                                <div class="card-expiry-col">
+                                    <label>Valid Thru</label>
+                                    <div class="card-expiry-val" id="cardDisplayExpiry">12/28</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Back Face (CVV) -->
+                        <div class="card-face back">
+                            <div class="card-magnetic-strip"></div>
+                            <div class="card-signature-row">
+                                <div class="card-signature-box"></div>
+                                <div class="card-cvv-box" id="cardDisplayCvv">•••</div>
+                            </div>
+                            <div style="font-size: 9px; color: #94a3b8; text-align: center; margin-top: 14px;">
+                                Authorized for Green Meadows Heights CHS Escrow Maintenance Payments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Form Inputs -->
+                <div class="card-form-grid">
+                    <div class="card-form-full">
+                        <label class="vpa-input-label" for="cardInputNumber">Card Number</label>
+                        <input type="text" id="cardInputNumber" class="payment-text-input" placeholder="4111 2222 3333 4421" maxlength="19" oninput="handleCardNumberInput(this)">
+                    </div>
+                    <div class="card-form-full">
+                        <label class="vpa-input-label" for="cardInputHolder">Cardholder Name (as on card)</label>
+                        <input type="text" id="cardInputHolder" class="payment-text-input" placeholder="ARYAN SHARMA" value="ARYAN SHARMA" oninput="handleCardHolderInput(this)">
+                    </div>
+                    <div>
+                        <label class="vpa-input-label" for="cardInputExpiry">Expiry Date (MM/YY)</label>
+                        <input type="text" id="cardInputExpiry" class="payment-text-input" placeholder="12/28" maxlength="5" oninput="handleCardExpiryInput(this)">
+                    </div>
+                    <div>
+                        <label class="vpa-input-label" for="cardInputCvv">CVV / CVC (3-digits)</label>
+                        <input type="password" id="cardInputCvv" class="payment-text-input" placeholder="•••" maxlength="4" onfocus="flipCard(true)" onblur="flipCard(false)" oninput="handleCardCvvInput(this)">
+                    </div>
+                </div>
+                <div style="font-size: 12px; color: #94a3b8; display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+                    <input type="checkbox" id="saveCardCheckbox" checked style="accent-color: #6366f1;">
+                    <label for="saveCardCheckbox">Save card securely as per RBI tokenization guidelines</label>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 3. DIGITAL WALLETS TAB
+                 ============================================== -->
+            <div class="tab-content-panel" id="panel-wallet">
+                <div style="font-size: 13px; font-weight: 700; color: #cbd5e1; margin-bottom: 14px;">Select Digital Wallet Provider</div>
+                <div class="wallets-grid">
+                    <div class="wallet-card-option selected" onclick="selectWallet(this, 'Paytm Wallet')">
+                        <span class="wallet-icon">
+                            <svg width="34" height="24" viewBox="0 0 68 30" fill="none">
+                                <rect width="68" height="30" rx="6" fill="#002E6E"/>
+                                <text x="7" y="21" fill="#FFFFFF" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="16" letter-spacing="-0.5">pay</text>
+                                <text x="38" y="21" fill="#00BAF2" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="16" letter-spacing="-0.5">tm</text>
+                            </svg>
+                        </span>
+                        <span class="wallet-name">Paytm Wallet</span>
+                        <span class="wallet-badge-offer">Flat ₹50 Cashback</span>
+                    </div>
+                    <div class="wallet-card-option" onclick="selectWallet(this, 'PhonePe Wallet')">
+                        <span class="wallet-icon">
+                            <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+                                <circle cx="24" cy="24" r="23" fill="#5F259F"/>
+                                <path d="M30 16H21C17.5 16 15 18.5 15 22C15 24.8 17 27 19.8 27.5L14.5 39H19.5L24 29.5H27V39H31.5V16H30ZM27 25H21.5C19.8 25 18.8 23.8 18.8 22.2C18.8 20.6 19.8 19.5 21.5 19.5H27V25Z" fill="#FFFFFF"/>
+                            </svg>
+                        </span>
+                        <span class="wallet-name">PhonePe Wallet</span>
+                        <span class="wallet-badge-offer">Instant Top-up</span>
+                    </div>
+                    <div class="wallet-card-option" onclick="selectWallet(this, 'Amazon Pay')">
+                        <span class="wallet-icon">
+                            <svg width="32" height="26" viewBox="0 0 48 40" fill="none">
+                                <rect width="48" height="40" rx="8" fill="#232F3E"/>
+                                <text x="8" y="22" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="14">pay</text>
+                                <path d="M10 28C18 33 30 33 38 27" stroke="#FF9900" stroke-width="3" stroke-linecap="round"/>
+                                <path d="M35 24L39 27L36 31" fill="#FF9900"/>
+                            </svg>
+                        </span>
+                        <span class="wallet-name">Amazon Pay</span>
+                        <span class="wallet-badge-offer">Amazon Rewards</span>
+                    </div>
+                    <div class="wallet-card-option" onclick="selectWallet(this, 'MobiKwik')">
+                        <span class="wallet-icon">
+                            <svg width="30" height="26" viewBox="0 0 48 40" fill="none">
+                                <rect width="48" height="40" rx="8" fill="#0079C1"/>
+                                <text x="8" y="28" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="22">M</text>
+                                <circle cx="34" cy="15" r="5" fill="#E41E26"/>
+                            </svg>
+                        </span>
+                        <span class="wallet-name">MobiKwik ZIP</span>
+                        <span class="wallet-badge-offer">SuperCash</span>
+                    </div>
+                    <div class="wallet-card-option" onclick="selectWallet(this, 'Airtel Money')">
+                        <span class="wallet-icon">
+                            <svg width="30" height="26" viewBox="0 0 48 40" fill="none">
+                                <rect width="48" height="40" rx="8" fill="#E40000"/>
+                                <path d="M16 28C16 20 22 14 30 14" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+                                <circle cx="18" cy="26" r="3.5" fill="#FFFFFF"/>
+                            </svg>
+                        </span>
+                        <span class="wallet-name">Airtel Payments</span>
+                        <span class="wallet-badge-offer">Zero Fee</span>
+                    </div>
+                    <div class="wallet-card-option" onclick="selectWallet(this, 'Freecharge')">
+                        <span class="wallet-icon">
+                            <svg width="30" height="26" viewBox="0 0 48 40" fill="none">
+                                <rect width="48" height="40" rx="8" fill="#F47721"/>
+                                <path d="M26 8L15 23H24L21 34L33 19H24L26 8Z" fill="#FFFFFF"/>
+                            </svg>
+                        </span>
+                        <span class="wallet-name">Freecharge</span>
+                        <span class="wallet-badge-offer">1-Tap Pay</span>
+                    </div>
+                </div>
+
+                <div class="vpa-input-group">
+                    <label class="vpa-input-label" for="walletPhoneInput">Registered Wallet Mobile Number</label>
+                    <input type="tel" id="walletPhoneInput" class="payment-text-input" placeholder="+91 98201 44521" value="+91 98201 44521">
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 4. NET BANKING TAB
+                 ============================================== -->
+            <div class="tab-content-panel" id="panel-netbanking">
+                <div style="font-size: 13px; font-weight: 700; color: #cbd5e1; margin-bottom: 14px;">Popular Supported Banks</div>
+                <div class="bank-popular-grid">
+                    <div class="bank-option-card selected" onclick="selectBank(this, 'HDFC Bank')">
+                        <div class="bank-logo-box">
+                            <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="8" fill="#004C8F"/>
+                                <rect x="15" y="8" width="10" height="24" fill="#ED232A"/>
+                                <rect x="8" y="15" width="24" height="10" fill="#ED232A"/>
+                                <rect x="16" y="16" width="8" height="8" fill="#FFFFFF"/>
+                            </svg>
+                        </div>
+                        <span class="bank-title">HDFC Bank</span>
+                    </div>
+                    <div class="bank-option-card" onclick="selectBank(this, 'State Bank of India')">
+                        <div class="bank-logo-box">
+                            <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                                <circle cx="20" cy="20" r="19" fill="#0083CA"/>
+                                <circle cx="20" cy="18" r="6" fill="#FFFFFF"/>
+                                <rect x="18" y="18" width="4" height="15" fill="#FFFFFF"/>
+                            </svg>
+                        </div>
+                        <span class="bank-title">State Bank of India</span>
+                    </div>
+                    <div class="bank-option-card" onclick="selectBank(this, 'ICICI Bank')">
+                        <div class="bank-logo-box">
+                            <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="8" fill="#B02A30"/>
+                                <circle cx="20" cy="14" r="3.5" fill="#F58220"/>
+                                <rect x="17" y="20" width="6" height="13" rx="2" fill="#F58220"/>
+                            </svg>
+                        </div>
+                        <span class="bank-title">ICICI Bank</span>
+                    </div>
+                    <div class="bank-option-card" onclick="selectBank(this, 'Axis Bank')">
+                        <div class="bank-logo-box">
+                            <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="8" fill="#861F41"/>
+                                <path d="M20 9L29 29H22L17.5 19L14 29H8L20 9Z" fill="#FFFFFF"/>
+                            </svg>
+                        </div>
+                        <span class="bank-title">Axis Bank</span>
+                    </div>
+                    <div class="bank-option-card" onclick="selectBank(this, 'Kotak Mahindra')">
+                        <div class="bank-logo-box">
+                            <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="8" fill="#ED1C24"/>
+                                <path d="M12 20C12 16 15 13 18 13C22 13 24 16 26 20C28 24 30 27 34 27C37 27 39 24 39 20C39 16 36 13 32 13C28 13 26 16 24 20C22 24 20 27 16 27C13 27 12 24 12 20Z" stroke="#FFFFFF" stroke-width="3" fill="none"/>
+                            </svg>
+                        </div>
+                        <span class="bank-title">Kotak Mahindra</span>
+                    </div>
+                    <div class="bank-option-card" onclick="selectBank(this, 'Punjab National Bank')">
+                        <div class="bank-logo-box">
+                            <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                                <circle cx="20" cy="20" r="19" fill="#A20034"/>
+                                <circle cx="20" cy="20" r="14" stroke="#FFCC00" stroke-width="3" fill="none"/>
+                                <text x="11" y="24" fill="#FFCC00" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="11">pnb</text>
+                            </svg>
+                        </div>
+                        <span class="bank-title">Punjab National</span>
+                    </div>
+                </div>
+
+                <div class="vpa-input-group">
+                    <label class="vpa-input-label" for="allBanksSelect">Or Search / Select All Other Indian Banks</label>
+                    <select id="allBanksSelect" class="payment-text-input" onchange="handleSelectOtherBank(this.value)">
+                        <option value="">-- Choose from 50+ Other Scheduled Banks --</option>
+                        <option value="Bank of Baroda">Bank of Baroda</option>
+                        <option value="Canara Bank">Canara Bank</option>
+                        <option value="Union Bank of India">Union Bank of India</option>
+                        <option value="IndusInd Bank">IndusInd Bank</option>
+                        <option value="IDFC First Bank">IDFC First Bank</option>
+                        <option value="Federal Bank">Federal Bank</option>
+                        <option value="Yes Bank">Yes Bank</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- PRIMARY SUBMIT PAYMENT ACTION -->
+            <button type="button" class="btn-submit-pay" id="btnMainPay" onclick="executePaymentFlow()">
+                <span>🔒</span>
+                <span id="btnPayText">Pay ₹4,250.00 via UPI</span>
+            </button>
+
+            <div class="payment-assurance-row">
+                <span>🔒 256-Bit SSL Protection</span>
+                <span>•</span>
+                <span>🛡️ NPCI UPI 2.0 Certified</span>
+                <span>•</span>
+                <span>📜 Instant Society Tax Receipt</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==============================================
+         PROCESSING ANIMATION OVERLAY
+         ============================================== -->
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="processing-card">
+            <div class="processing-spinner-box"></div>
+            <h2 style="font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 6px;">Processing Transaction</h2>
+            <p style="font-size: 13px; color: #94a3b8;" id="processingSubtext">Communicating securely with NexSociety Banking Escrow...</p>
+
+            <div class="processing-steps-list">
+                <div class="process-step-item active" id="step-1">
+                    <span>⏳</span>
+                    <span>1. Initiating 256-bit encrypted handshake</span>
+                </div>
+                <div class="process-step-item" id="step-2">
+                    <span>⚪</span>
+                    <span>2. Verifying banking authorization &amp; VPA</span>
+                </div>
+                <div class="process-step-item" id="step-3">
+                    <span>⚪</span>
+                    <span>3. Updating PostgreSQL society ledger</span>
+                </div>
+                <div class="process-step-item" id="step-4">
+                    <span>⚪</span>
+                    <span>4. Issuing official digital tax receipt</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         SUCCESS & OFFICIAL DIGITAL TAX RECEIPT MODAL
+         ============================================== -->
+    <div class="receipt-modal-backdrop" id="receiptModalBackdrop">
+        <div class="receipt-modal-card">
+            <!-- Header Row -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #0f172a; padding-bottom: 16px; margin-bottom: 20px;">
+                <div>
+                    <h2 style="font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">Green Meadows Heights CHS Ltd.</h2>
+                    <div style="font-size: 11px; color: #64748b;">Registration No: BOM/HSG/2018/98214 • GSTIN: 27AABCG1234F1Z8</div>
+                    <div style="font-size: 11px; color: #64748b;">Plot 14, Sector 18, Palm Beach Road, Navi Mumbai - 400705</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="receipt-stamp-paid">SETTLED &amp; PAID</div>
+                    <div style="font-size: 11px; font-weight: 800; color: #0f172a; margin-top: 6px;" id="receiptTxnId">#TXN-984210</div>
+                </div>
+            </div>
+
+            <!-- Payer & Allocation Box -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px 16px; border-radius: 10px; margin-bottom: 20px; font-size: 12px;">
+                <div>
+                    <span style="color: #64748b; display: block;">Resident Name:</span>
+                    <strong style="color: #0f172a; font-size: 13px;" id="receiptResidentName">Aryan Sharma</strong>
+                </div>
+                <div>
+                    <span style="color: #64748b; display: block;">Unit Allocation:</span>
+                    <strong style="color: #0f172a; font-size: 13px;" id="receiptFlatNumber">Flat A-204 (Tower A)</strong>
+                </div>
+                <div>
+                    <span style="color: #64748b; display: block;">Payment Channel:</span>
+                    <strong style="color: #0f172a;" id="receiptPaymentMode">UPI (Google Pay)</strong>
+                </div>
+                <div>
+                    <span style="color: #64748b; display: block;">Settlement Timestamp:</span>
+                    <strong style="color: #0f172a;" id="receiptTimestamp">19 Oct 2026, 11:15 AM</strong>
+                </div>
+            </div>
+
+            <!-- Itemized Table -->
+            <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 20px;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #cbd5e1; text-align: left; color: #475569;">
+                        <th style="padding: 8px 0;">Item Description</th>
+                        <th style="padding: 8px 0; text-align: right;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 8px 0;">Water &amp; Sanitation Infrastructure</td>
+                        <td style="padding: 8px 0; text-align: right;">₹800.00</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 8px 0;">Common Area Electricity &amp; Lifts AMC</td>
+                        <td style="padding: 8px 0; text-align: right;">₹950.00</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 8px 0;">24/7 Security Guarding &amp; CCTV Desk</td>
+                        <td style="padding: 8px 0; text-align: right;">₹1,200.00</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 8px 0;">Building Sinking &amp; Repairs Fund</td>
+                        <td style="padding: 8px 0; text-align: right;">₹800.00</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 8px 0;">Clubhouse, Gym &amp; Pool Maintenance</td>
+                        <td style="padding: 8px 0; text-align: right;">₹500.00</td>
+                    </tr>
+                    <tr style="border-top: 2px solid #0f172a; font-size: 14px; font-weight: 800;">
+                        <td style="padding: 10px 0;">TOTAL RECEIVED &amp; CREDITED</td>
+                        <td style="padding: 10px 0; text-align: right; color: #059669;" id="receiptTotalAmount">₹4,250.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Signatures & Authority -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 10px; border-top: 1px solid #e2e8f0; margin-bottom: 24px;">
+                <div style="font-size: 11px; color: #64748b;">
+                    Official computer-generated receipt.<br>
+                    Authorized by: <strong>Dr. S. Rao (Hon. Secretary)</strong>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #059669; font-weight: 700;">[DIGITALLY SIGNED &amp; SEALED]</div>
+                    <div style="border-top: 1px dashed #94a3b8; width: 140px; margin-top: 4px; padding-top: 2px; font-size: 11px; font-weight: 700; color: #0f172a;">Estate Management</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button type="button" class="btn-back-nav" style="color: #0f172a; border-color: #cbd5e1; background: #f1f5f9;" onclick="window.print()">
+                    🖨️ Print / Save PDF
+                </button>
+                <button type="button" class="btn-submit-pay" style="width: auto; padding: 12px 24px; font-size: 14px;" onclick="window.location.href='resident.html'">
+                    ✓ Done &amp; Back to Resident Portal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="api.js"></script>
+    <script src="payment.js"></script>
+</body>
+</html>

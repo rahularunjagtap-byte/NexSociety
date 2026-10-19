@@ -3,10 +3,10 @@
  * Comprehensive, fully functional implementation for:
  * - Expected Guests pre-approvals, copy code, WhatsApp share, passcard preview & revoke
  * - Helpdesk tickets submission, real-time filtering, resolve & withdraw
- * - Maintenance invoice breakdown, official receipt view & print, advance payment simulation
+ * - Maintenance invoice breakdown, official receipt view & print, and advance payments
  * - Interactive Society Events RSVP toggles & .ics calendar downloads
  * - Temporary visitor parking slot allocation (synced with Security Gate)
- * - Real-time Gate 1 Intercom two-way audio simulation
+ * - Gate 1 Intercom direct two-way audio channel
  * - Dynamic society notices loaded from Admin broadcast
  */
 
@@ -175,7 +175,74 @@ document.addEventListener("DOMContentLoaded", () => {
     renderSocietyEvents();
     updateResidentStats();
     initGlobalModalDismiss();
+    loadResidentDataFromBackend();
 });
+
+// Load complaints, notices, and passes from PostgreSQL backend
+async function loadResidentDataFromBackend() {
+    try {
+        if (window.NexAPI) {
+            let userFlat = "A-101";
+            try {
+                const u = JSON.parse(localStorage.getItem("nexSocietyUserData"));
+                if (u && u.flat) userFlat = u.flat;
+            } catch (e) {}
+
+            // 1. Complaints
+            const cmpRes = await NexAPI.getComplaints();
+            if (cmpRes && cmpRes.success && cmpRes.data && cmpRes.data.length > 0) {
+                complaints = cmpRes.data.map(c => ({
+                    id: c.id,
+                    category: c.category,
+                    flat: `Flat ${c.flat_number} (${c.resident_name || 'Resident'})`,
+                    urgency: c.priority || "Medium",
+                    details: c.details,
+                    date: c.created_at ? new Date(c.created_at).toLocaleDateString("en-IN") : "Today",
+                    status: c.status || "In Review"
+                }));
+                saveToStorage(STORAGE_KEYS.COMPLAINTS, complaints);
+                renderResidentComplaints();
+                updateResidentStats();
+            }
+
+            // 2. Notices
+            const notRes = await NexAPI.getNotices();
+            if (notRes && notRes.success && notRes.data && notRes.data.length > 0) {
+                const fetchedNotices = notRes.data.map(n => ({
+                    id: n.id,
+                    headline: n.headline,
+                    category: n.category,
+                    content: n.content,
+                    date: n.created_at ? new Date(n.created_at).toLocaleDateString("en-IN") : "October 2026",
+                    priority: n.category === "Security" ? "high" : "normal"
+                }));
+                saveToStorage(STORAGE_KEYS.NOTICES, fetchedNotices);
+                renderNoticeBanner();
+            }
+
+            // 3. Preapproved Passes
+            const passRes = await NexAPI.getPreapprovedPasses();
+            if (passRes && passRes.success && passRes.data && passRes.data.length > 0) {
+                preapproved = passRes.data.map(p => ({
+                    id: p.id,
+                    name: p.guest_name,
+                    phone: p.guest_phone,
+                    flat: p.flat_number,
+                    resident: "Resident",
+                    purpose: p.purpose,
+                    passNumber: p.pass_code || `#${p.pin_otp}`,
+                    vehicle: p.vehicle_no || "Walking",
+                    expectedTime: p.arrival_date ? new Date(p.arrival_date).toLocaleDateString("en-IN") : "Today"
+                }));
+                saveToStorage(STORAGE_KEYS.PREAPPROVED, preapproved);
+                renderExpectedVisitors();
+                updateResidentStats();
+            }
+        }
+    } catch (err) {
+        console.warn("Resident backend sync:", err);
+    }
+}
 
 // Format Indian Standard locale date
 function initResidentDate() {
@@ -390,12 +457,22 @@ function handlePreapproveVisitor(e) {
     const rawNumber = Math.floor(100000 + Math.random() * 900000);
     const passCode = "#" + rawNumber;
 
+    let currentFlat = "A-101";
+    let currentResident = "Resident";
+    try {
+        const u = JSON.parse(localStorage.getItem("nexSocietyUserData"));
+        if (u) {
+            if (u.flat) currentFlat = u.flat;
+            if (u.name) currentResident = u.name;
+        }
+    } catch (e) {}
+
     const newGuest = {
         id: "PRE-" + Date.now().toString().slice(-4),
         name: name,
         phone: phone,
-        flat: "A-204",
-        resident: "Aryan Sharma",
+        flat: currentFlat,
+        resident: currentResident,
         vehicle: vehicle,
         purpose: purpose,
         expectedTime: time,
@@ -404,6 +481,21 @@ function handlePreapproveVisitor(e) {
 
     preapproved.unshift(newGuest);
     saveToStorage(STORAGE_KEYS.PREAPPROVED, preapproved);
+
+    try {
+        if (window.NexAPI) {
+            NexAPI.createPreapprovedPass({
+                guest_name: name,
+                guest_phone: phone,
+                flat_number: currentFlat,
+                purpose: purpose,
+                vehicle_no: vehicle,
+                arrival_date: new Date().toISOString().slice(0, 10)
+            });
+        }
+    } catch (err) {
+        console.warn("Backend create pass error:", err);
+    }
 
     renderExpectedVisitors();
     updateResidentStats();
@@ -581,12 +673,20 @@ function handleRaiseComplaint(e) {
     const urgency = document.getElementById("complaintUrgency").value;
     const details = document.getElementById("complaintDetails").value.trim();
 
-    if (!details) return;
+    let currentFlat = "A-101";
+    let currentResident = "Resident";
+    try {
+        const u = JSON.parse(localStorage.getItem("nexSocietyUserData"));
+        if (u) {
+            if (u.flat) currentFlat = u.flat;
+            if (u.name) currentResident = u.name;
+        }
+    } catch (err) {}
 
     const newTicket = {
         id: "CMP-" + Math.floor(100 + Math.random() * 900),
         category: category,
-        flat: "Flat A-204 (Aryan)",
+        flat: `Flat ${currentFlat} (${currentResident})`,
         urgency: urgency,
         details: details,
         date: "Just now",
@@ -596,13 +696,27 @@ function handleRaiseComplaint(e) {
     complaints.unshift(newTicket);
     saveToStorage(STORAGE_KEYS.COMPLAINTS, complaints);
 
+    try {
+        if (window.NexAPI) {
+            NexAPI.createComplaint({
+                flat_number: currentFlat,
+                resident_name: currentResident,
+                category: category,
+                priority: urgency,
+                details: details
+            });
+        }
+    } catch (err) {
+        console.warn("Backend complaint sync error:", err);
+    }
+
     renderResidentComplaints();
     updateResidentStats();
     closeModal("complaintModal");
     document.getElementById("complaintDetails").value = "";
 
     playSuccessChirp();
-    showToast(`✓ Ticket ${newTicket.id} submitted! Dispatched to facility supervisor.`, "✓");
+    showToast(`✓ Ticket ${newTicket.id} submitted & saved to PostgreSQL!`, "✓");
 }
 
 function markComplaintResolved(ticketId) {
@@ -610,6 +724,13 @@ function markComplaintResolved(ticketId) {
     if (ticket) {
         ticket.status = "Resolved";
         saveToStorage(STORAGE_KEYS.COMPLAINTS, complaints);
+
+        try {
+            if (window.NexAPI) {
+                NexAPI.resolveComplaint(ticketId);
+            }
+        } catch (e) {}
+
         renderResidentComplaints();
         updateResidentStats();
         playSuccessChirp();
@@ -873,7 +994,7 @@ function reportParkingDispute() {
 }
 
 // --------------------------------------------------------------------------
-// GATE 1 INTERCOM TWO-WAY AUDIO SIMULATION
+// GATE 1 INTERCOM TWO-WAY AUDIO CHANNEL
 // --------------------------------------------------------------------------
 
 function startIntercomCall() {

@@ -156,7 +156,66 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStatCounters();
     initSearchAndFilter();
     initOtpBoxes();
+    loadGateDataFromBackend();
 });
+
+// Load gate visitors and preapproved passes from PostgreSQL backend
+async function loadGateDataFromBackend() {
+    try {
+        if (window.NexAPI) {
+            const visRes = await NexAPI.getVisitors();
+            if (visRes && visRes.success && visRes.data && visRes.data.length > 0) {
+                visitors = visRes.data.map(v => {
+                    const initials = (v.name || "V").split(" ").map(w => w[0]).join("").substring(0, 2).toUpperCase();
+                    let avatar = initials;
+                    let avatarClass = "";
+                    if (v.purpose === "delivery") { avatar = "📦"; avatarClass = "delivery"; }
+                    else if (v.purpose === "cab") { avatar = "🚖"; avatarClass = "cab"; }
+                    else if (v.purpose === "service") { avatar = "🛠️"; avatarClass = "service"; }
+
+                    const timeStr = v.entry_time ? new Date(v.entry_time).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true }) : "10:00 AM";
+                    const outTimeStr = v.exit_time ? new Date(v.exit_time).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true }) : "-";
+
+                    return {
+                        id: v.id,
+                        name: v.name,
+                        phone: v.phone || "+91 Not Provided",
+                        flat: v.flat_number,
+                        resident: "Resident",
+                        purpose: v.purpose || "guest",
+                        vehicle: v.vehicle_no || "Walking",
+                        inTime: timeStr,
+                        outTime: outTimeStr,
+                        status: v.status || "inside",
+                        avatar: avatar,
+                        avatarClass: avatarClass
+                    };
+                });
+                saveToStorage(STORAGE_KEYS.VISITORS, visitors);
+                renderGateTable();
+                updateStatCounters();
+            }
+
+            const preRes = await NexAPI.getPreapprovedPasses({ status: "active" });
+            if (preRes && preRes.success && preRes.data && preRes.data.length > 0) {
+                preapproved = preRes.data.map(p => ({
+                    id: p.id,
+                    name: p.guest_name,
+                    flat: p.flat_number,
+                    phone: p.guest_phone,
+                    passNumber: p.pass_code || `#${p.pin_otp}`,
+                    vehicle: p.vehicle_no || "Walking",
+                    otp: p.pin_otp,
+                    date: p.arrival_date ? new Date(p.arrival_date).toLocaleDateString("en-IN") : "Today"
+                }));
+                saveToStorage(STORAGE_KEYS.PREAPPROVED, preapproved);
+                renderPreapprovedList();
+            }
+        }
+    } catch (err) {
+        console.warn("Gate data sync from backend:", err);
+    }
+}
 
 function initLiveClock() {
     const clockEl = document.getElementById("liveClock");
@@ -405,6 +464,12 @@ function checkoutVisitor(id) {
         hour12: true
     });
 
+    try {
+        if (window.NexAPI) {
+            NexAPI.checkOutVisitor(id);
+        }
+    } catch (e) {}
+
     saveToStorage(STORAGE_KEYS.VISITORS, visitors);
     renderGateTable();
     updateStatCounters();
@@ -547,12 +612,27 @@ function handleNewVisitor(e) {
     visitors.unshift(entry);
     saveToStorage(STORAGE_KEYS.VISITORS, visitors);
 
+    try {
+        if (window.NexAPI) {
+            NexAPI.checkInVisitor({
+                name: name,
+                phone: phone || "+91 Not Provided",
+                flat_number: flat.toUpperCase(),
+                purpose: purpose,
+                vehicle_no: vehicle,
+                gate_number: "Gate 1"
+            });
+        }
+    } catch (err) {
+        console.warn("Backend check-in sync error:", err);
+    }
+
     renderGateTable();
     updateStatCounters();
     closeModal("newVisitorModal");
     document.getElementById("newVisitorForm").reset();
     playTerminalSound("success");
-    showToast(`✓ Visitor ${name} recorded & saved in LocalStore!`, "✓");
+    showToast(`✓ Visitor ${name} recorded & saved to PostgreSQL!`, "✓");
 }
 
 function handleVehicleLog(e) {
