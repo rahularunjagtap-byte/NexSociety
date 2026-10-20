@@ -13,6 +13,7 @@
 const firebaseConfig = {
     apiKey: "AIzaSyBKL6qY4dffpgyMLzVZjwtQ1EZZ_aHsu8s",
     authDomain: "nexsociety-b4311.firebaseapp.com",
+    databaseURL: "https://nexsociety-b4311-default-rtdb.firebaseio.com",
     projectId: "nexsociety-b4311",
     storageBucket: "nexsociety-b4311.firebasestorage.app",
     messagingSenderId: "625119396196",
@@ -26,6 +27,7 @@ window.NexFirebase = {
     app: null,
     auth: null,
     db: null,
+    rtdb: null,
 
     // Initialize Firebase SDK
     init() {
@@ -46,10 +48,11 @@ window.NexFirebase = {
             } else {
                 this.app = firebase.app();
             }
-            this.auth = firebase.auth();
-            this.db = firebase.firestore();
+            if (firebase.auth) this.auth = firebase.auth();
+            if (firebase.firestore) this.db = firebase.firestore();
+            if (firebase.database) this.rtdb = firebase.database();
             this.isConfigured = true;
-            console.log("✓ Firebase successfully connected to NexSociety!");
+            console.log("✓ Firebase & Realtime Database successfully connected to NexSociety!");
             return true;
         } catch (err) {
             console.error("Firebase initialization failed:", err);
