@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Real-Time Firebase Cloud Logging (Instantly appears on Firebase Console!)
         if (window.NexFirebase && typeof window.NexFirebase.logUserLogin === "function") {
             try {
-                window.NexFirebase.logUserLogin(email, role, {
+                await window.NexFirebase.logUserLogin(email, role, {
                     name: apiRes.user ? apiRes.user.name : email,
                     flat: apiRes.user ? apiRes.user.flat : ""
                 });
