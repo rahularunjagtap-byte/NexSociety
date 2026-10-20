@@ -168,6 +168,47 @@ window.NexFirebase = {
             console.error("Firestore publishNotice error:", err);
             return { success: false, error: err.message };
         }
+    },
+
+    // 4. Live Login Session Logger (Shows real-time in Firebase Console who logged in!)
+    async logUserLogin(userEmail, userRole, extraInfo = {}) {
+        if (!this.isConfigured) return;
+        const now = new Date();
+        const loginData = {
+            user: userEmail,
+            role: userRole,
+            timestamp: now.toISOString(),
+            timeFormatted: now.toLocaleTimeString("en-IN") + ", " + now.toLocaleDateString("en-IN"),
+            userAgent: navigator.userAgent.substring(0, 100),
+            status: "ONLINE",
+            ...extraInfo
+        };
+
+        // Push to Realtime Database (Appears instantly at https://nexsociety-b4311-default-rtdb.firebaseio.com/logins)
+        if (this.rtdb) {
+            try {
+                this.rtdb.ref("active_logins").push(loginData);
+                // Also set current active user
+                const safeKey = userEmail.replace(/[.#$[\]]/g, "_");
+                this.rtdb.ref("current_sessions/" + safeKey).set({
+                    ...loginData,
+                    lastSeen: firebase.database.ServerValue.TIMESTAMP
+                });
+                console.log("✓ Live login logged to Firebase Realtime Database:", userEmail);
+            } catch (e) {
+                console.warn("RTDB login log error:", e);
+            }
+        }
+
+        // Push to Firestore as audit trail
+        if (this.db) {
+            try {
+                this.db.collection("user_logins").add({
+                    ...loginData,
+                    serverTime: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch (e) {}
+        }
     }
 };
 
