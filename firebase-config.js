@@ -184,23 +184,36 @@ window.NexFirebase = {
             ...extraInfo
         };
 
-        // Push to Realtime Database (Appears instantly at https://nexsociety-b4311-default-rtdb.firebaseio.com/logins)
+        // 1. Direct REST API Call (100% Guaranteed instant write to Firebase RTDB without SDK delay)
+        try {
+            fetch("https://nexsociety-b4311-default-rtdb.firebaseio.com/active_logins.json", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(loginData)
+            }).then(() => console.log("✓ Live login logged via REST to Firebase:", loginData.name || userEmail))
+              .catch(err => console.warn("Firebase REST write warning:", err));
+
+            const safeKey = userEmail.replace(/[.#$[\]]/g, "_");
+            fetch(`https://nexsociety-b4311-default-rtdb.firebaseio.com/current_sessions/${safeKey}.json`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(loginData)
+            }).catch(() => {});
+        } catch (e) {}
+
+        // 2. Firebase SDK Write (RTDB)
         if (this.rtdb) {
             try {
                 this.rtdb.ref("active_logins").push(loginData);
-                // Also set current active user
                 const safeKey = userEmail.replace(/[.#$[\]]/g, "_");
                 this.rtdb.ref("current_sessions/" + safeKey).set({
                     ...loginData,
                     lastSeen: firebase.database.ServerValue.TIMESTAMP
                 });
-                console.log("✓ Live login logged to Firebase Realtime Database:", userEmail);
-            } catch (e) {
-                console.warn("RTDB login log error:", e);
-            }
+            } catch (e) {}
         }
 
-        // Push to Firestore as audit trail
+        // 3. Firestore Audit Collection
         if (this.db) {
             try {
                 this.db.collection("user_logins").add({

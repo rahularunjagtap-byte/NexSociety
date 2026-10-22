@@ -99,15 +99,21 @@
                         <span><span>💡</span> 1-Click Demo Accounts</span>
                         <small style="color: var(--cyan-glow); font-size: 10px; font-weight: 700;">LIVE DEMO</small>
                     </div>
-                    <div class="demo-pills">
+                    <div class="demo-pills" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <button type="button" class="demo-btn-pill" onclick="quickFillResident('jethalal')">
+                            👨 Jethalal Gada (A-101)
+                        </button>
+                        <button type="button" class="demo-btn-pill" onclick="quickFillResident('babita')">
+                            💃 Babita Ji (A-102)
+                        </button>
+                        <button type="button" class="demo-btn-pill" onclick="quickFill('resident')">
+                            🏠 Aryan Sharma (A-204)
+                        </button>
                         <button type="button" class="demo-btn-pill" onclick="quickFill('security')">
                             🛡️ Guard Demo
                         </button>
-                        <button type="button" class="demo-btn-pill" onclick="quickFill('resident')">
-                            🏠 Resident Demo
-                        </button>
                         <button type="button" class="demo-btn-pill" onclick="quickFill('admin')">
-                            ⚙️ Admin Demo
+                            ⚙️ Secretary Bhide
                         </button>
                     </div>
                 </div>
@@ -124,8 +130,9 @@
                                 type="text"
                                 id="email"
                                 class="auth-input"
-                                placeholder="e.g. A-204 or aryan@nexsociety.in"
-                                value="guard@nexsociety.in"
+                                placeholder="e.g. A-101 or email@nexsociety.in"
+                                value=""
+                                autocomplete="off"
                                 required
                             >
                         </div>
@@ -141,8 +148,9 @@
                                 type="password"
                                 id="password"
                                 class="auth-input"
-                                placeholder="••••••••"
-                                value="password123"
+                                placeholder="Enter password"
+                                value=""
+                                autocomplete="current-password"
                                 required
                             >
                             <button type="button" class="eye-toggle-btn" id="showPassword">Show</button>

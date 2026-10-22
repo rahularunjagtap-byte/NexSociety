@@ -24,16 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const role = btn.dataset.role;
             selectedRoleInput.value = role;
 
-            // Auto-populate demo credentials matching role for convenience
+            // Clear or update placeholder according to role
+            emailInput.value = "";
+            passwordInput.value = "";
             if (role === "security") {
-                emailInput.value = "guard@nexsociety.in";
-                passwordInput.value = "admin123";
+                emailInput.placeholder = "e.g. guard@nexsociety.in";
             } else if (role === "resident") {
-                emailInput.value = "A-101";
-                passwordInput.value = "Jetha101";
+                emailInput.placeholder = "e.g. A-101, A-102 or jethalal@nexsociety.in";
             } else if (role === "admin") {
-                emailInput.value = "admin@nexsociety.in";
-                passwordInput.value = "admin123";
+                emailInput.placeholder = "e.g. admin@nexsociety.in";
             }
         });
     });
@@ -156,6 +155,21 @@ document.addEventListener("DOMContentLoaded", () => {
 // --------------------------------------------------------
 // 1-Click Demo Account Quick Fill Helper
 // --------------------------------------------------------
+function quickFillResident(member) {
+    const roleBtn = document.querySelector(`.role-tab-btn[data-role="resident"]`);
+    if (roleBtn) roleBtn.click();
+
+    if (member === "jethalal") {
+        document.getElementById("email").value = "jethalal@nexsociety.in";
+        document.getElementById("password").value = "admin123";
+        showToast("Loaded Jethalal Gada (Flat A-101). Click Authenticate!", "👨");
+    } else if (member === "babita") {
+        document.getElementById("email").value = "babita@nexsociety.in";
+        document.getElementById("password").value = "admin123";
+        showToast("Loaded Babita Iyer (Flat A-102). Click Authenticate!", "💃");
+    }
+}
+
 function quickFill(role) {
     const roleBtn = document.querySelector(`.role-tab-btn[data-role="${role}"]`);
     if (roleBtn) roleBtn.click();
@@ -170,7 +184,7 @@ function quickFill(role) {
     } else if (role === "admin") {
         document.getElementById("email").value = "admin@nexsociety.in";
         document.getElementById("password").value = "admin123";
-        showToast("Loaded Admin credentials. Click 'Authenticate'!", "⚙️");
+        showToast("Loaded Secretary Bhide credentials. Click 'Authenticate'!", "⚙️");
     }
 }
 
