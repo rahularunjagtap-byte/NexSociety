@@ -1287,11 +1287,106 @@ button {
 
 @media (max-width: 768px) {
     .resident-sidebar { display: none; }
-    .resident-topbar { padding: 0 16px; }
-    .resident-body { padding: 16px; }
-    .stats-row { grid-template-columns: 1fr; }
-    .quick-cards-grid { grid-template-columns: 1fr; }
-    .notice-banner { flex-direction: column; align-items: flex-start; }
-    .visitor-item { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .visitor-right-actions { width: 100%; justify-content: space-between; }
+    
+    .resident-topbar {
+        height: auto;
+        padding: 12px 14px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .topbar-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .topbar-info h1 {
+        font-size: 17px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .topbar-info small {
+        font-size: 11px;
+    }
+
+    .topbar-actions-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .btn-topbar-intercom {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .topbar-user {
+        margin-left: auto;
+    }
+
+    .user-details strong {
+        font-size: 12px;
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user-details span {
+        font-size: 10px;
+    }
+
+    .resident-body { 
+        padding: 14px; 
+    }
+
+    .stats-row { 
+        grid-template-columns: 1fr; 
+        gap: 12px;
+    }
+
+    .quick-cards-grid { 
+        grid-template-columns: 1fr; 
+        gap: 12px;
+    }
+
+    .notice-banner { 
+        flex-direction: column; 
+        align-items: stretch; 
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .notice-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .notice-actions button {
+        flex: 1;
+    }
+
+    .visitor-item { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 12px; 
+    }
+
+    .visitor-right-actions { 
+        width: 100%; 
+        justify-content: space-between; 
+    }
+
+    .modal-box {
+        width: 95% !important;
+        max-width: 95% !important;
+        margin: 10px auto;
+        padding: 18px !important;
+    }
 }

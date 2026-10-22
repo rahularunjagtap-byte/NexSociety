@@ -1030,3 +1030,50 @@
     from { opacity: 0; transform: scale(0.94); }
     to { opacity: 1; transform: scale(1); }
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+    .payment-main-container {
+        grid-template-columns: 1fr;
+        padding: 14px;
+        gap: 16px;
+    }
+
+    .payment-navbar-inner {
+        padding: 10px 14px;
+    }
+
+    .nav-security-status .ssl-badge {
+        display: none;
+    }
+
+    .btn-back-nav {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+
+    .tabs-nav-bar {
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
+
+    .payment-tab-btn {
+        padding: 8px 12px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+    .upi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-preview-stage {
+        perspective: none;
+    }
+
+    .credit-card-3d {
+        width: 100%;
+        max-width: 320px;
+        height: 190px;
+    }
+}
