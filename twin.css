@@ -564,15 +564,47 @@ html, body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .twin-topbar {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .twin-brand-card {
+        padding: 8px 12px;
+    }
     .twin-sidebar-panel {
-        left: 20px;
-        right: 20px;
+        left: 10px;
+        right: 10px;
         width: auto;
-        bottom: 90px;
+        bottom: 80px;
         top: auto;
-        height: 50vh;
+        height: 48vh;
     }
     .twin-telemetry-cluster {
         display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .twin-topbar {
+        top: 8px;
+        left: 8px;
+        right: 8px;
+    }
+    .twin-brand-card {
+        padding: 6px 10px;
+    }
+    .twin-brand-text h1 {
+        font-size: 13px;
+    }
+    .twin-sidebar-panel {
+        left: 8px;
+        right: 8px;
+        bottom: 70px;
+        height: 45vh;
+        padding: 14px;
     }
 }

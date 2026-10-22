@@ -3,8 +3,25 @@
    Ultra-modern, glassmorphic, fintech-grade design system
    ========================================================================== */
 
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+
 /* Layout & Containers */
 .payment-body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
     background: radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
                 radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
                 radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
@@ -24,6 +41,9 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .payment-navbar-inner {
@@ -1033,14 +1053,22 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 900px) {
-    .payment-main-container {
-        grid-template-columns: 1fr;
-        padding: 14px;
-        gap: 16px;
+    .payment-navbar {
+        padding: 10px 14px;
     }
 
     .payment-navbar-inner {
-        padding: 10px 14px;
+        padding: 0;
+    }
+
+    .payment-main-container {
+        grid-template-columns: 1fr;
+        padding: 14px 12px;
+        gap: 16px;
+        margin: 14px auto;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .nav-security-status .ssl-badge {
@@ -1048,19 +1076,23 @@
     }
 
     .btn-back-nav {
-        padding: 6px 12px;
+        padding: 6px 10px;
         font-size: 11px;
     }
 
     .tabs-nav-bar {
         overflow-x: auto;
         padding-bottom: 6px;
+        display: flex;
+        gap: 6px;
+        -webkit-overflow-scrolling: touch;
     }
 
     .payment-tab-btn {
         padding: 8px 12px;
         font-size: 11px;
         white-space: nowrap;
+        flex-shrink: 0;
     }
 
     .upi-grid {
@@ -1075,5 +1107,37 @@
         width: 100%;
         max-width: 320px;
         height: 190px;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-main-container {
+        padding: 10px 8px;
+    }
+
+    .bill-summary-card, .glass-panel {
+        padding: 16px 12px;
+    }
+
+    .bill-title-row h2 {
+        font-size: 18px;
+    }
+
+    .amount-highlight {
+        font-size: 28px;
+    }
+
+    .upi-app-btn {
+        padding: 10px 12px;
+    }
+
+    .credit-card-3d {
+        max-width: 280px;
+        height: 170px;
+    }
+
+    .receipt-modal-card {
+        padding: 18px 14px;
+        width: 95%;
     }
 }

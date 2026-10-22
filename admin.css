@@ -43,7 +43,18 @@
     box-sizing: border-box;
 }
 
+html {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
     font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--bg-main);
     color: var(--text-main);
@@ -60,6 +71,9 @@ body {
 .admin-layout {
     display: flex;
     min-height: 100vh;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 /* Sidebar */
@@ -730,7 +744,106 @@ body {
 
 @media (max-width: 800px) {
     .admin-sidebar { display: none; }
-    .admin-topbar { padding: 0 16px; }
-    .admin-body { padding: 16px; }
-    .kpi-grid { grid-template-columns: 1fr; }
+    
+    .admin-topbar {
+        height: auto;
+        padding: 12px 14px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .topbar-header {
+        width: 100%;
+    }
+
+    .topbar-header h1 {
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .topbar-header small {
+        font-size: 11px;
+    }
+
+    .topbar-right-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .live-clock-card {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+
+    .admin-body {
+        padding: 14px 12px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .kpi-grid { 
+        grid-template-columns: 1fr; 
+        gap: 12px;
+    }
+
+    .admin-card {
+        margin-bottom: 16px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: auto;
+    }
+
+    .card-topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px 16px;
+    }
+
+    .directory-toolbar {
+        flex-direction: column;
+        padding: 10px 14px;
+        gap: 10px;
+    }
+
+    .admin-table {
+        min-width: 550px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-body {
+        padding: 12px 8px;
+    }
+
+    .kpi-card {
+        padding: 14px;
+    }
+
+    .kpi-card h3 {
+        font-size: 24px;
+    }
+
+    .card-topbar {
+        padding: 12px;
+    }
+
+    .secretary-info strong {
+        font-size: 12px;
+    }
+
+    .secretary-info small {
+        font-size: 10px;
+    }
 }
