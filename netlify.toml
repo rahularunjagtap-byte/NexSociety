@@ -1,0 +1,10 @@
+# Netlify Configuration for NexSociety
+[build]
+  publish = "."
+
+# Handle routing cleanly for single-page style navigation
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
