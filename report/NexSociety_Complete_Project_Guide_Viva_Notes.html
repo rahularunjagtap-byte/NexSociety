@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexSociety - Complete Technical Guide &amp; Viva Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --bg-card: #f8fafc;
+            --code-bg: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-main);
+            background: #cbd5e1;
+            line-height: 1.65;
+            font-size: 13.5px;
+        }
+
+        /* Top Bar */
+        .top-action-bar {
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .top-action-bar .brand {
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: #ffffff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-print:hover {
+            background: #1d4ed8;
+        }
+
+        /* Document Wrapper (A4 Booklet Style) */
+        .doc-wrapper {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 50px 60px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border-radius: 12px;
+        }
+
+        /* Header / Cover Block */
+        .cover-header {
+            text-align: center;
+            padding-bottom: 28px;
+            border-bottom: 3px solid var(--primary);
+            margin-bottom: 36px;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            padding: 4px 14px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .cover-header h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .cover-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .meta-strip {
+            display: flex;
+            justify-content: space-around;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .meta-strip strong {
+            color: var(--primary);
+        }
+
+        /* Headings */
+        h2.section-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 32px 0 14px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3.sub-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 20px 0 8px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: #334155;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 22px;
+            font-size: 12.5px;
+        }
+
+        table th {
+            background: #0f172a;
+            color: #ffffff;
+            font-weight: 700;
+            padding: 10px 12px;
+            text-align: left;
+            border: 1px solid #0f172a;
+        }
+
+        table td {
+            padding: 9px 12px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 12.5px;
+        }
+
+        .callout-success {
+            background: #ecfdf5;
+            border-left-color: #10b981;
+        }
+
+        .callout-amber {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            overflow-x: auto;
+            margin: 12px 0 16px;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #e2e8f0;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11.5px;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Q&A Cards */
+        .qa-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            page-break-inside: avoid;
+        }
+
+        .qa-q {
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            font-size: 13.5px;
+        }
+
+        .qa-a {
+            color: #1e293b;
+            font-size: 12.5px;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 40px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Print Specific Styling */
+        @media print {
+            body {
+                background: #ffffff;
+                color: #000000;
+            }
+            .top-action-bar {
+                display: none !important;
+            }
+            .doc-wrapper {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            @page {
+                size: A4;
+                margin: 16mm 14mm;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .qa-card, table, pre {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Printable Header Action Bar -->
+    <div class="top-action-bar">
+        <div class="brand">
+            <span>🛡️</span>
+            <span>NexSociety — Complete Technical Guide &amp; Viva Preparation Notes</span>
+        </div>
+        <button type="button" class="btn-print" onclick="window.print()">
+            🖨️ Print / Save as PDF
+        </button>
+    </div>
+
+    <!-- Main Document -->
+    <div class="doc-wrapper">
+
+        <!-- Cover Header -->
+        <header class="cover-header">
+            <span class="cover-badge">Academic Project Technical Report &amp; Viva Notes</span>
+            <h1>NEXSOCIETY: SMART AUTONOMOUS GATED COMMUNITY PLATFORM</h1>
+            <h2>Full-Stack System Architecture, Codebase Breakdown &amp; Backend Engineering Guide</h2>
+            <div class="meta-strip">
+                <div><strong>Domain:</strong> Web Engineering &amp; IoT / Cloud</div>
+                <div><strong>Architecture:</strong> 3-Tier Multi-Role Full Stack</div>
+                <div><strong>Frontend:</strong> HTML5, CSS3, JS, Three.js</div>
+                <div><strong>Backend:</strong> Node.js, Express, PostgreSQL</div>
+            </div>
+        </header>
+
+        <!-- SECTION 1 -->
+        <h2 class="section-title">1. Executive Overview &amp; Problem Statement</h2>
+        <p>
+            Traditional residential societies face security loopholes (paper visitor registers, manual phone calls for guest verification, unrecorded deliveries), delayed maintenance fee collection, and zero visual oversight of campus assets.
+        </p>
+        <p>
+            <strong>NexSociety</strong> solves this by interconnecting three key society stakeholders onto a single unified real-time cloud platform:
+        </p>
+        <ul>
+            <li><strong>Security Guards:</strong> Instant 1-tap fast pass for delivery partners (Zomato/Swiggy), visitor registration, and OTP-driven boom barrier automation.</li>
+            <li><strong>Society Residents:</strong> Pre-approve guests with 6-digit entry PINs, raise helpdesk repair tickets, track maintenance dues, and access Gate 1 intercom.</li>
+            <li><strong>Executive Secretary / Admin:</strong> Real-time oversight of flat occupancy, maintenance collection audit, directory search, and broadcast circulars.</li>
+            <li><strong>3D Digital Twin HUD:</strong> Real-time WebGL interactive 3D model of Towers A, B, and C with live occupancy telemetry and parking bay status.</li>
+        </ul>
+
+        <!-- SECTION 2 -->
+        <h2 class="section-title">2. Complete System Architecture &amp; Data Flow</h2>
+        <div class="callout callout-success">
+            <strong>Tri-Tier Resilience Architecture:</strong> The application connects to a Node.js/Express REST backend with PostgreSQL. If the backend server is offline or experiencing network drops during presentation, an automatic client-side fallback routes data to <strong>Firebase Realtime Database</strong> and <strong>LocalStorage</strong> without any crashes.
+        </div>
+
+        <pre><code>[CLIENT APPLICATION] (Desktop / Mobile Devices)
+       │
+       ├──> [NETLIFY EDGE CDN] ──> Static Delivery: HTML5, CSS3, ES6 JS, Three.js
+       │
+       ├──> [REST API BACKEND] ──> Node.js / Express Server (Port 5000)
+       │           │
+       │           └──> [POSTGRESQL DATABASE] (Relational Tables: users, visitors, dues, complaints)
+       │
+       └──> [FIREBASE CLOUD] ──> Realtime Database (Session Tracking: nexsociety-b4311)
+</code></pre>
+
+        <!-- SECTION 3 -->
+        <h2 class="section-title">3. Detailed File-by-File Breakdown</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 25%;">File Name</th>
+                    <th style="width: 35%;">Core Responsibilities</th>
+                    <th style="width: 40%;">Technical Implementation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>index.html</code><br><code>script.js</code><br><code>style.css</code></td>
+                    <td>Unified Authentication Portal &amp; 1-Click Demo Launcher.</td>
+                    <td>Glassmorphic CSS grid layout. <code>script.js</code> verifies role credentials (security, resident, admin), logs active session to Firebase RTDB, and stores user in <code>sessionStorage</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>security.html</code><br><code>security.js</code><br><code>security.css</code></td>
+                    <td>Gate Guard Terminal (Gate 1 North). 1-Tap delivery check-in, live log, OTP boom barrier.</td>
+                    <td>Dynamic DOM rendering for visitor tables, modal dialogs for incident reporting, 6-digit PIN verification, CSV export engine via client-side Blob generation.</td>
+                </tr>
+                <tr>
+                    <td><code>resident.html</code><br><code>resident.js</code><br><code>resident.css</code></td>
+                    <td>Resident Self-Service Dashboard (Flat A-204). Guest pass, dues invoice, complaints.</td>
+                    <td>6-digit numeric pass generation, Web Audio simulated guard intercom with animated waveform, helpdesk filter tabs, dynamic circular notice banner.</td>
+                </tr>
+                <tr>
+                    <td><code>admin.html</code><br><code>admin.js</code><br><code>admin.css</code></td>
+                    <td>Executive Command Center. 120-unit society flats directory, maintenance collections.</td>
+                    <td>Real-time KPI calculations (occupied vs vacant units), directory search filter, complaint resolution workflow, notice publishing form.</td>
+                </tr>
+                <tr>
+                    <td><code>payment.html</code><br><code>payment.js</code><br><code>payment.css</code></td>
+                    <td>Fintech Payment Gateway Module. Society maintenance fee checkout simulator.</td>
+                    <td>Interactive 3D Credit/Debit card with CSS 3D flip animation, UPI apps deep link simulation, GST-compliant printable receipt generator.</td>
+                </tr>
+                <tr>
+                    <td><code>twin.html</code><br><code>twin.js</code><br><code>twin.css</code></td>
+                    <td>3D Digital Twin Command HUD. Interactive 3D architectural rendering.</td>
+                    <td>Built with <strong>Three.js</strong> WebGL. Perspective camera, ambient and directional sunlight, procedural window shaders, and <code>THREE.Raycaster</code> for click telemetry.</td>
+                </tr>
+                <tr>
+                    <td><code>firebase-config.js</code></td>
+                    <td>Cross-device Firebase Cloud Connector.</td>
+                    <td>Firebase v9 Compat SDK connector. Pushes user login metadata (email, role, flat, timestamp, user agent) to <code>/sessions</code> on Firebase Realtime Database.</td>
+                </tr>
+                <tr>
+                    <td><code>api.js</code></td>
+                    <td>Centralized HTTP API Request Client.</td>
+                    <td>Unified Fetch API wrapper with timeout controller, Authorization headers, and seamless fallback to LocalStorage if backend is unreachable.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 4 -->
+        <h2 class="section-title">4. Backend Engineering (Node.js + Express + PostgreSQL)</h2>
+        <p>The backend directory <code>server/</code> handles server-side business logic, security middleware, and database operations.</p>
+
+        <h3 class="sub-title">A. Server Configuration (<code>server/server.js</code>)</h3>
+        <ul>
+            <li><strong>Port:</strong> Runs on <code>http://localhost:5000</code>.</li>
+            <li><strong>CORS &amp; PNA Headers:</strong> Configured with <code>Access-Control-Allow-Origin: *</code> and <code>Access-Control-Allow-Private-Network: true</code>, allowing frontend instances hosted on Netlify to query the local Express server.</li>
+            <li><strong>Health Endpoint:</strong> <code>GET /api/health</code> checks PostgreSQL connectivity and returns database status.</li>
+        </ul>
+
+        <h3 class="sub-title">B. PostgreSQL Database Schema (<code>server/db/schema.sql</code>)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Table Name</th>
+                    <th>Primary Columns</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>users</code></td>
+                    <td><code>id, full_name, email, password_hash, role, flat_number, tower</code></td>
+                    <td>Stores registered security guards, residents, and admins with role-based permissions.</td>
+                </tr>
+                <tr>
+                    <td><code>visitors</code></td>
+                    <td><code>id, name, phone, flat_number, purpose, vehicle_no, entry_time, exit_time, status</code></td>
+                    <td>Gate security logs tracking active visitors inside campus and departed visitors.</td>
+                </tr>
+                <tr>
+                    <td><code>preapproved_passes</code></td>
+                    <td><code>id, guest_name, guest_phone, flat_number, pin_otp, arrival_date, status</code></td>
+                    <td>Stores 6-digit numeric passcodes generated by residents for guest pre-authorization.</td>
+                </tr>
+                <tr>
+                    <td><code>complaints</code></td>
+                    <td><code>id, flat_number, resident_name, category, priority, details, status</code></td>
+                    <td>Helpdesk maintenance requests (Plumbing, Electrical, Elevator) with review status.</td>
+                </tr>
+                <tr>
+                    <td><code>maintenance_dues</code></td>
+                    <td><code>id, flat_number, resident_name, tower, amount, month, status, transaction_id</code></td>
+                    <td>Monthly dues billing tracking paid vs pending collections with transaction references.</td>
+                </tr>
+                <tr>
+                    <td><code>notices</code></td>
+                    <td><code>id, headline, category, content, published_by, created_at</code></td>
+                    <td>Broadcast circulars published by society executive desk to all resident dashboards.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECTION 5 -->
+        <h2 class="section-title">5. Core Feature Workflows (How It Works)</h2>
+
+        <h3 class="sub-title">Workflow 1: 6-Digit Gate Pass Verification</h3>
+        <ol>
+            <li><strong>Generation:</strong> In Resident Portal (<code>resident.js</code>), resident inputs guest name and flat. A random 6-digit numeric PIN is generated (e.g. <code>482910</code>) and saved to <code>preapproved_passes</code>.</li>
+            <li><strong>Arrival:</strong> Guest arrives at Gate 1. Guard clicks <em>"Verify Passcode"</em> on the Security Terminal (<code>security.js</code>) and inputs <code>482910</code>.</li>
+            <li><strong>Verification:</strong> The system queries the database. If valid, the pass status updates from <code>active</code> to <code>used</code>, boom barrier opens, and the visitor is automatically added to the live campus log with status <code>inside</code>.</li>
+        </ol>
+
+        <h3 class="sub-title">Workflow 2: Fintech Maintenance Payment &amp; Receipt</h3>
+        <ol>
+            <li>Resident views pending maintenance (₹4,250) on <code>resident.html</code> and clicks <em>"Pay Now"</em>, redirecting to <code>payment.html</code>.</li>
+            <li>Resident chooses payment mode: 1-Tap UPI (GPay/PhonePe) or Credit Card.</li>
+            <li>Submitting payment triggers <code>processPayment()</code> in <code>payment.js</code>. It validates card/VPA inputs, simulates a 2-second bank authorization gateway, generates a unique transaction reference (e.g., <code>TXN-NEX-88219</code>), marks dues as <code>PAID</code>, and generates a GST-compliant tax receipt.</li>
+        </ol>
+
+        <h3 class="sub-title">Workflow 3: 3D Digital Twin Visualizer (Three.js)</h3>
+        <ol>
+            <li><code>twin.js</code> initializes a WebGL scene with shadow mapping and perspective camera.</li>
+            <li>Renders 3 towers: Tower A (12 floors), Tower B (10 floors), Tower C (8 floors) with distinct textures.</li>
+            <li>Adds campus elements: boundary walls, boom barriers, parking bay meshes, and landscaping.</li>
+            <li>A <code>THREE.Raycaster</code> listens to user pointer clicks. When a user clicks Tower A, it calculates intersection points, highlights the building, and slides open the telemetry HUD showing occupancy (96/120 flats occupied).</li>
+        </ol>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 6 -->
+        <h2 class="section-title">6. Frequently Asked Viva Questions &amp; Model Answers</h2>
+
+        <div class="qa-card">
+            <div class="qa-q">Q1: What is the overall architecture of NexSociety?</div>
+            <div class="qa-a"><strong>Answer:</strong> "NexSociety follows a modular 3-tier client-server architecture. The frontend is built using semantic HTML5, CSS3, ES6 JavaScript, and Three.js for 3D visualization. The backend is an asynchronous REST API built with Node.js and Express.js, connected to a PostgreSQL relational database. For cloud deployment and real-time cross-device monitoring, we use Firebase Realtime Database and Netlify Edge CDN."</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q2: Why did you choose PostgreSQL over MongoDB?</div>
+            <div class="qa-a"><strong>Answer:</strong> "Residential society management involves financial transactions (maintenance dues) and structured relational associations (visitors linked to flat numbers, complaints linked to towers). PostgreSQL guarantees ACID compliance, strict foreign key constraints, and numeric precision for financial ledgers, preventing dirty reads or lost updates."</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q3: How does your application handle network interruptions during a demo?</div>
+            <div class="qa-a"><strong>Answer:</strong> "We implemented a dual-mode offline-resilient architecture in <code>api.js</code> and <code>script.js</code>. If the local Express backend (port 5000) is unreachable, the frontend seamlessly falls back to LocalStorage and Firebase Realtime Database. The UI never crashes or displays broken errors."</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q4: How did you ensure responsive mobile screen fitting without horizontal scroll?</div>
+            <div class="qa-a"><strong>Answer:</strong> "We applied strict global viewport bounds: <code>html, body { width: 100%; max-width: 100vw; overflow-x: hidden; }</code>. Wide multi-column tables are wrapped in <code>.table-responsive</code> containers with <code>overflow-x: auto</code> and touch momentum scrolling. Media queries at 768px and 480px dynamically convert multi-column grids into single-column responsive layouts."</div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-q">Q5: How does the 3D Digital Twin work under the hood?</div>
+            <div class="qa-a"><strong>Answer:</strong> "The 3D Digital Twin uses the Three.js library over WebGL. It sets up a scene, camera, ambient and directional lights, and renders procedural 3D box geometries for towers and parking lots. User click interactions are detected using <code>THREE.Raycaster</code>, which projects a ray from the camera through the mouse coordinates to identify clicked building meshes."</div>
+        </div>
+
+        <footer class="doc-footer">
+            NexSociety Smart Autonomous Community Platform &bull; Academic Examination &amp; Viva Guide &bull; October 2026
+        </footer>
+
+    </div>
+
+</body>
+</html>
