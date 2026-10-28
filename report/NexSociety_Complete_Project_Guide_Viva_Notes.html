@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexSociety - Complete Technical Guide &amp; Viva Notes</title>
+    <title>NexSociety - Complete Step-by-Step Technical Guide &amp; Viva Handbook</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,9 +12,10 @@
             --primary-light: #eff6ff;
             --text-main: #0f172a;
             --text-muted: #475569;
-            --border: #e2e8f0;
+            --border: #cbd5e1;
             --bg-card: #f8fafc;
             --code-bg: #0f172a;
+            --success: #059669;
         }
 
         * {
@@ -27,11 +28,11 @@
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             color: var(--text-main);
             background: #cbd5e1;
-            line-height: 1.65;
-            font-size: 13.5px;
+            line-height: 1.6;
+            font-size: 13px;
         }
 
-        /* Top Bar */
+        /* Top Action Bar */
         .top-action-bar {
             position: sticky;
             top: 0;
@@ -45,14 +46,6 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
-        .top-action-bar .brand {
-            font-size: 15px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
         .btn-print {
             background: linear-gradient(135deg, #2563eb, #3b82f6);
             color: #ffffff;
@@ -63,16 +56,9 @@
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
 
-        .btn-print:hover {
-            background: #1d4ed8;
-        }
-
-        /* Document Wrapper (A4 Booklet Style) */
+        /* Document Container */
         .doc-wrapper {
             max-width: 900px;
             margin: 30px auto;
@@ -82,12 +68,12 @@
             border-radius: 12px;
         }
 
-        /* Header / Cover Block */
+        /* Cover Header */
         .cover-header {
             text-align: center;
-            padding-bottom: 28px;
+            padding-bottom: 24px;
             border-bottom: 3px solid var(--primary);
-            margin-bottom: 36px;
+            margin-bottom: 30px;
         }
 
         .cover-badge {
@@ -105,11 +91,11 @@
         }
 
         .cover-header h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             color: #0f172a;
-            letter-spacing: -0.5px;
             margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
         .cover-header h2 {
@@ -125,8 +111,8 @@
             border: 1px solid var(--border);
             padding: 10px;
             border-radius: 8px;
-            margin-top: 20px;
-            font-size: 12px;
+            margin-top: 18px;
+            font-size: 11.5px;
         }
 
         .meta-strip strong {
@@ -135,7 +121,7 @@
 
         /* Headings */
         h2.section-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 800;
             color: #0f172a;
             margin: 32px 0 14px;
@@ -147,36 +133,84 @@
         }
 
         h3.sub-title {
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             color: var(--primary-dark);
             margin: 20px 0 8px;
         }
 
         p {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: #334155;
+        }
+
+        /* Step Box */
+        .step-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            page-break-inside: avoid;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .step-header h3 {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .step-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 99px;
+            text-transform: uppercase;
+        }
+
+        .step-block {
+            margin-bottom: 10px;
+        }
+
+        .step-block strong.label {
+            display: inline-block;
+            font-size: 12px;
+            color: var(--primary-dark);
+            font-weight: 700;
+            margin-bottom: 4px;
         }
 
         /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 14px 0 22px;
-            font-size: 12.5px;
+            margin: 12px 0 18px;
+            font-size: 12px;
         }
 
         table th {
             background: #0f172a;
             color: #ffffff;
             font-weight: 700;
-            padding: 10px 12px;
+            padding: 9px 11px;
             text-align: left;
             border: 1px solid #0f172a;
         }
 
         table td {
-            padding: 9px 12px;
+            padding: 8px 11px;
             border: 1px solid #e2e8f0;
             vertical-align: top;
         }
@@ -185,44 +219,24 @@
             background: #f8fafc;
         }
 
-        /* Callout Boxes */
-        .callout {
-            background: var(--primary-light);
-            border-left: 4px solid var(--primary);
-            padding: 12px 16px;
-            border-radius: 0 8px 8px 0;
-            margin: 14px 0;
-            font-size: 12.5px;
-        }
-
-        .callout-success {
-            background: #ecfdf5;
-            border-left-color: #10b981;
-        }
-
-        .callout-amber {
-            background: #fffbeb;
-            border-left-color: #f59e0b;
-        }
-
         /* Code Blocks */
         pre {
             background: var(--code-bg);
             color: #f8fafc;
-            padding: 12px 16px;
-            border-radius: 8px;
+            padding: 10px 14px;
+            border-radius: 6px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 11.5px;
+            font-size: 11px;
             overflow-x: auto;
-            margin: 12px 0 16px;
-            line-height: 1.5;
+            margin: 8px 0 12px;
+            line-height: 1.45;
         }
 
         code {
             font-family: 'JetBrains Mono', monospace;
             background: #e2e8f0;
             color: #0f172a;
-            padding: 2px 6px;
+            padding: 1px 5px;
             border-radius: 4px;
             font-size: 11.5px;
         }
@@ -238,35 +252,33 @@
             background: #ffffff;
             border: 1px solid #cbd5e1;
             border-radius: 8px;
-            padding: 14px 16px;
-            margin-bottom: 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            padding: 12px 15px;
+            margin-bottom: 12px;
             page-break-inside: avoid;
         }
 
         .qa-q {
             font-weight: 800;
             color: var(--primary-dark);
-            margin-bottom: 6px;
-            font-size: 13.5px;
+            margin-bottom: 4px;
+            font-size: 13px;
         }
 
         .qa-a {
             color: #1e293b;
-            font-size: 12.5px;
+            font-size: 12px;
         }
 
-        /* Footer */
         .doc-footer {
-            margin-top: 40px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border);
+            margin-top: 36px;
+            padding-top: 14px;
+            border-top: 1px solid #e2e8f0;
             text-align: center;
             font-size: 11px;
             color: var(--text-muted);
         }
 
-        /* Print Specific Styling */
+        /* Print Specifics */
         @media print {
             body {
                 background: #ffffff;
@@ -284,12 +296,12 @@
             }
             @page {
                 size: A4;
-                margin: 16mm 14mm;
+                margin: 14mm 12mm;
             }
             .page-break {
                 page-break-before: always;
             }
-            .qa-card, table, pre {
+            .step-card, .qa-card, table, pre {
                 page-break-inside: avoid;
             }
         }
@@ -297,54 +309,31 @@
 </head>
 <body>
 
-    <!-- Printable Header Action Bar -->
     <div class="top-action-bar">
-        <div class="brand">
-            <span>🛡️</span>
-            <span>NexSociety — Complete Technical Guide &amp; Viva Preparation Notes</span>
-        </div>
-        <button type="button" class="btn-print" onclick="window.print()">
-            🖨️ Print / Save as PDF
-        </button>
+        <div><strong>🛡️ NexSociety — Complete Technical Guide &amp; Viva Handbook</strong></div>
+        <button type="button" class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
     </div>
 
-    <!-- Main Document -->
     <div class="doc-wrapper">
 
         <!-- Cover Header -->
         <header class="cover-header">
-            <span class="cover-badge">Academic Project Technical Report &amp; Viva Notes</span>
-            <h1>NEXSOCIETY: SMART AUTONOMOUS GATED COMMUNITY PLATFORM</h1>
-            <h2>Full-Stack System Architecture, Codebase Breakdown &amp; Backend Engineering Guide</h2>
+            <span class="cover-badge">Complete Step-by-Step Implementation Handbook</span>
+            <h1>NEXSOCIETY: SMART AUTONOMOUS GATED COMMUNITY</h1>
+            <h2>From Scratch to Deployment — Architecture, Source Code Breakdown &amp; Viva Guide</h2>
             <div class="meta-strip">
-                <div><strong>Domain:</strong> Web Engineering &amp; IoT / Cloud</div>
                 <div><strong>Architecture:</strong> 3-Tier Multi-Role Full Stack</div>
                 <div><strong>Frontend:</strong> HTML5, CSS3, JS, Three.js</div>
-                <div><strong>Backend:</strong> Node.js, Express, PostgreSQL</div>
+                <div><strong>Backend:</strong> Node.js, Express (Port 5000)</div>
+                <div><strong>Database:</strong> PostgreSQL &amp; Firebase RTDB</div>
             </div>
         </header>
 
-        <!-- SECTION 1 -->
-        <h2 class="section-title">1. Executive Overview &amp; Problem Statement</h2>
+        <!-- SECTION 1: ARCHITECTURE OVERVIEW -->
+        <h2 class="section-title">1. High-Level System Architecture &amp; Data Pipeline</h2>
         <p>
-            Traditional residential societies face security loopholes (paper visitor registers, manual phone calls for guest verification, unrecorded deliveries), delayed maintenance fee collection, and zero visual oversight of campus assets.
+            NexSociety interconnects three distinct residential community actors (<strong>Security Guard, Residents, and Executive Management</strong>) through an asynchronous RESTful API and cloud synchronization backbone:
         </p>
-        <p>
-            <strong>NexSociety</strong> solves this by interconnecting three key society stakeholders onto a single unified real-time cloud platform:
-        </p>
-        <ul>
-            <li><strong>Security Guards:</strong> Instant 1-tap fast pass for delivery partners (Zomato/Swiggy), visitor registration, and OTP-driven boom barrier automation.</li>
-            <li><strong>Society Residents:</strong> Pre-approve guests with 6-digit entry PINs, raise helpdesk repair tickets, track maintenance dues, and access Gate 1 intercom.</li>
-            <li><strong>Executive Secretary / Admin:</strong> Real-time oversight of flat occupancy, maintenance collection audit, directory search, and broadcast circulars.</li>
-            <li><strong>3D Digital Twin HUD:</strong> Real-time WebGL interactive 3D model of Towers A, B, and C with live occupancy telemetry and parking bay status.</li>
-        </ul>
-
-        <!-- SECTION 2 -->
-        <h2 class="section-title">2. Complete System Architecture &amp; Data Flow</h2>
-        <div class="callout callout-success">
-            <strong>Tri-Tier Resilience Architecture:</strong> The application connects to a Node.js/Express REST backend with PostgreSQL. If the backend server is offline or experiencing network drops during presentation, an automatic client-side fallback routes data to <strong>Firebase Realtime Database</strong> and <strong>LocalStorage</strong> without any crashes.
-        </div>
-
         <pre><code>[CLIENT APPLICATION] (Desktop / Mobile Devices)
        │
        ├──> [NETLIFY EDGE CDN] ──> Static Delivery: HTML5, CSS3, ES6 JS, Three.js
@@ -356,154 +345,451 @@
        └──> [FIREBASE CLOUD] ──> Realtime Database (Session Tracking: nexsociety-b4311)
 </code></pre>
 
-        <!-- SECTION 3 -->
-        <h2 class="section-title">3. Detailed File-by-File Breakdown</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 25%;">File Name</th>
-                    <th style="width: 35%;">Core Responsibilities</th>
-                    <th style="width: 40%;">Technical Implementation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>index.html</code><br><code>script.js</code><br><code>style.css</code></td>
-                    <td>Unified Authentication Portal &amp; 1-Click Demo Launcher.</td>
-                    <td>Glassmorphic CSS grid layout. <code>script.js</code> verifies role credentials (security, resident, admin), logs active session to Firebase RTDB, and stores user in <code>sessionStorage</code>.</td>
-                </tr>
-                <tr>
-                    <td><code>security.html</code><br><code>security.js</code><br><code>security.css</code></td>
-                    <td>Gate Guard Terminal (Gate 1 North). 1-Tap delivery check-in, live log, OTP boom barrier.</td>
-                    <td>Dynamic DOM rendering for visitor tables, modal dialogs for incident reporting, 6-digit PIN verification, CSV export engine via client-side Blob generation.</td>
-                </tr>
-                <tr>
-                    <td><code>resident.html</code><br><code>resident.js</code><br><code>resident.css</code></td>
-                    <td>Resident Self-Service Dashboard (Flat A-204). Guest pass, dues invoice, complaints.</td>
-                    <td>6-digit numeric pass generation, Web Audio simulated guard intercom with animated waveform, helpdesk filter tabs, dynamic circular notice banner.</td>
-                </tr>
-                <tr>
-                    <td><code>admin.html</code><br><code>admin.js</code><br><code>admin.css</code></td>
-                    <td>Executive Command Center. 120-unit society flats directory, maintenance collections.</td>
-                    <td>Real-time KPI calculations (occupied vs vacant units), directory search filter, complaint resolution workflow, notice publishing form.</td>
-                </tr>
-                <tr>
-                    <td><code>payment.html</code><br><code>payment.js</code><br><code>payment.css</code></td>
-                    <td>Fintech Payment Gateway Module. Society maintenance fee checkout simulator.</td>
-                    <td>Interactive 3D Credit/Debit card with CSS 3D flip animation, UPI apps deep link simulation, GST-compliant printable receipt generator.</td>
-                </tr>
-                <tr>
-                    <td><code>twin.html</code><br><code>twin.js</code><br><code>twin.css</code></td>
-                    <td>3D Digital Twin Command HUD. Interactive 3D architectural rendering.</td>
-                    <td>Built with <strong>Three.js</strong> WebGL. Perspective camera, ambient and directional sunlight, procedural window shaders, and <code>THREE.Raycaster</code> for click telemetry.</td>
-                </tr>
-                <tr>
-                    <td><code>firebase-config.js</code></td>
-                    <td>Cross-device Firebase Cloud Connector.</td>
-                    <td>Firebase v9 Compat SDK connector. Pushes user login metadata (email, role, flat, timestamp, user agent) to <code>/sessions</code> on Firebase Realtime Database.</td>
-                </tr>
-                <tr>
-                    <td><code>api.js</code></td>
-                    <td>Centralized HTTP API Request Client.</td>
-                    <td>Unified Fetch API wrapper with timeout controller, Authorization headers, and seamless fallback to LocalStorage if backend is unreachable.</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- SECTION 2: STEP-BY-STEP IMPLEMENTATION WALKTHROUGH -->
+        <h2 class="section-title">2. Step-by-Step Engineering Walkthrough (What, Why &amp; How)</h2>
+
+        <!-- STEP 1 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 1: Global Theme &amp; Viewport Lock Design System</h3>
+                <span class="step-tag">UI Foundation</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Website standard boring white page jaisi nahi dikhni chahiye thi. Modern dark glassmorphic design system chahiye tha, aur sabse important: mobile phone par kisi bhi element se horizontal scroll (right side spill) nahi aana chahiye tha.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>style.css</code>):</strong>
+                <pre><code>/* 1. Design Tokens */
+:root {
+    --brand-primary: #6366f1;
+    --cyan-glow: #06b6d4;
+    --bg-page: #060913;
+    --bg-card: rgba(15, 23, 42, 0.75);
+}
+
+/* 2. Global Viewport Lock */
+html, body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
+    box-sizing: border-box;
+}</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Jab bhi koi user Galaxy, iPhone ya laptop par page open karta hai, <code>backdrop-filter: blur(20px)</code> glassmorphic texture render karta hai, aur <code>overflow-x: hidden</code> mobile viewport ko screen bounds ke andar lock rakhta hai.</p>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 2: Multi-Role Authentication &amp; 1-Click Demo Launcher</h3>
+                <span class="step-tag">Auth &amp; Session</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Society ke 3 distinct stakeholders hain: Guard, Resident, aur Secretary. Presentation ke time password bar-bar type karna awkward hota hai, isliye 1-Click Demo accounts banaye.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>index.html</code> &amp; <code>script.js</code>):</strong>
+                <pre><code>// 1. One-Click Demo Pill Click
+function fillDemo(email, pass, role) {
+    document.getElementById('emailInput').value = email;
+    document.getElementById('passwordInput').value = pass;
+    switchRole(role);
+}
+
+// 2. Authentication Submission &amp; Role-Based Routing
+async function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value;
+    const role = currentActiveRole;
+    
+    // Store in SessionStorage
+    sessionStorage.setItem('nexUser', JSON.stringify({ email, role, name }));
+    
+    // Cloud Session Logging via Firebase
+    if (window.NexFirebase) {
+        await window.NexFirebase.logUserLogin(email, role, { flat: 'A-204' });
+    }
+    
+    // Redirect to Authorized Dashboard
+    if (role === 'security') window.location.href = 'security.html';
+    else if (role === 'resident') window.location.href = 'resident.html';
+    else if (role === 'admin') window.location.href = 'admin.html';
+}</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>User ne "Vikram (Guard)" pill click ki ➔ credentials auto-fill huye ➔ Login button dabaya ➔ Backend/Firebase par live session log hua ➔ <code>sessionStorage</code> populate hua ➔ User seedha <code>security.html</code> par land kar gaya.</p>
+            </div>
+        </div>
 
         <div class="page-break"></div>
 
-        <!-- SECTION 4 -->
-        <h2 class="section-title">4. Backend Engineering (Node.js + Express + PostgreSQL)</h2>
-        <p>The backend directory <code>server/</code> handles server-side business logic, security middleware, and database operations.</p>
+        <!-- STEP 3 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 3: Security Gate Terminal Console</h3>
+                <span class="step-tag">Gate Operations</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Guard cabin par fast delivery check-in (Zomato/Swiggy), resident ke 6-digit OTP passcode ki boom barrier verification, aur Excel/CSV log export chahiye tha.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>security.js</code> &amp; <code>security.html</code>):</strong>
+                <pre><code>// 1. 1-Tap Delivery Check-in
+function quickDeliveryCheckin(partner) {
+    const entry = {
+        id: 'VIS-' + Date.now(),
+        name: partner + ' Partner',
+        flat: 'Gate Assigned',
+        time: new Date().toLocaleTimeString(),
+        status: 'inside'
+    };
+    visitorLogs.unshift(entry);
+    renderTable(); // Re-renders table smoothly
+}
 
-        <h3 class="sub-title">A. Server Configuration (<code>server/server.js</code>)</h3>
-        <ul>
-            <li><strong>Port:</strong> Runs on <code>http://localhost:5000</code>.</li>
-            <li><strong>CORS &amp; PNA Headers:</strong> Configured with <code>Access-Control-Allow-Origin: *</code> and <code>Access-Control-Allow-Private-Network: true</code>, allowing frontend instances hosted on Netlify to query the local Express server.</li>
-            <li><strong>Health Endpoint:</strong> <code>GET /api/health</code> checks PostgreSQL connectivity and returns database status.</li>
-        </ul>
+// 2. 6-Digit Passcode Verification
+function verifyPasscode() {
+    const pin = document.getElementById('passcodeInput').value;
+    const pass = preapprovedList.find(p => p.pin === pin && p.status === 'active');
+    if (pass) {
+        pass.status = 'used';
+        triggerBoomBarrierAnimation();
+        showToast('Valid Passcode! Boom Barrier Opened.', '✓');
+    } else {
+        showToast('Invalid Passcode or Expired!', '⚠️');
+    }
+}
 
-        <h3 class="sub-title">B. PostgreSQL Database Schema (<code>server/db/schema.sql</code>)</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Table Name</th>
-                    <th>Primary Columns</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>users</code></td>
-                    <td><code>id, full_name, email, password_hash, role, flat_number, tower</code></td>
-                    <td>Stores registered security guards, residents, and admins with role-based permissions.</td>
-                </tr>
-                <tr>
-                    <td><code>visitors</code></td>
-                    <td><code>id, name, phone, flat_number, purpose, vehicle_no, entry_time, exit_time, status</code></td>
-                    <td>Gate security logs tracking active visitors inside campus and departed visitors.</td>
-                </tr>
-                <tr>
-                    <td><code>preapproved_passes</code></td>
-                    <td><code>id, guest_name, guest_phone, flat_number, pin_otp, arrival_date, status</code></td>
-                    <td>Stores 6-digit numeric passcodes generated by residents for guest pre-authorization.</td>
-                </tr>
-                <tr>
-                    <td><code>complaints</code></td>
-                    <td><code>id, flat_number, resident_name, category, priority, details, status</code></td>
-                    <td>Helpdesk maintenance requests (Plumbing, Electrical, Elevator) with review status.</td>
-                </tr>
-                <tr>
-                    <td><code>maintenance_dues</code></td>
-                    <td><code>id, flat_number, resident_name, tower, amount, month, status, transaction_id</code></td>
-                    <td>Monthly dues billing tracking paid vs pending collections with transaction references.</td>
-                </tr>
-                <tr>
-                    <td><code>notices</code></td>
-                    <td><code>id, headline, category, content, published_by, created_at</code></td>
-                    <td>Broadcast circulars published by society executive desk to all resident dashboards.</td>
-                </tr>
-            </tbody>
-        </table>
+// 3. Client-Side CSV Export
+function exportGateLog() {
+    let csv = "ID,Name,Flat,Time,Status\n";
+    visitorLogs.forEach(v => { csv += `${v.id},${v.name},${v.flat},${v.time},${v.status}\n`; });
+    const link = document.createElement("a");
+    link.href = encodeURI("data:text/csv;charset=utf-8," + csv);
+    link.download = "NexSociety_Gate_Log.csv";
+    link.click();
+}</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Guard ne "🍕 Zomato" dabaya ➔ Visitor log table mein instant entry insert ho gayi. Guest ne 6-digit PIN bataya ➔ Guard ne type kiya ➔ Backend match karke boom barrier open kar deta hai aur pass status "used" ho jata hai.</p>
+            </div>
+        </div>
 
-        <!-- SECTION 5 -->
-        <h2 class="section-title">5. Core Feature Workflows (How It Works)</h2>
+        <!-- STEP 4 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 4: Resident Self-Service Portal &amp; Intercom Simulation</h3>
+                <span class="step-tag">Resident Services</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Resident ko mehman aane se pehle 6-digit entry pass banana tha, society helpdesk par complaint lodge karni thi, aur Guard cabin ke sath simulated live intercom voice call chahiye thi.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>resident.js</code>):</strong>
+                <pre><code>// 1. Random 6-Digit OTP Generation
+function createPreapproval(guestName, arrivalDate) {
+    const randomPin = Math.floor(100000 + Math.random() * 900000).toString(); // e.g. 482910
+    const pass = { id: 'PASS-' + Date.now(), guestName, pin: randomPin, status: 'active' };
+    saveToStorage(pass);
+    showPinModal(randomPin); // Pops up shareable PIN card
+}
 
-        <h3 class="sub-title">Workflow 1: 6-Digit Gate Pass Verification</h3>
-        <ol>
-            <li><strong>Generation:</strong> In Resident Portal (<code>resident.js</code>), resident inputs guest name and flat. A random 6-digit numeric PIN is generated (e.g. <code>482910</code>) and saved to <code>preapproved_passes</code>.</li>
-            <li><strong>Arrival:</strong> Guest arrives at Gate 1. Guard clicks <em>"Verify Passcode"</em> on the Security Terminal (<code>security.js</code>) and inputs <code>482910</code>.</li>
-            <li><strong>Verification:</strong> The system queries the database. If valid, the pass status updates from <code>active</code> to <code>used</code>, boom barrier opens, and the visitor is automatically added to the live campus log with status <code>inside</code>.</li>
-        </ol>
+// 2. Gate 1 Intercom Simulated WebRTC Voice Call
+function startIntercomCall() {
+    document.getElementById('intercomModal').style.display = 'flex';
+    let seconds = 0;
+    setInterval(() => {
+        seconds++;
+        document.getElementById('callTimer').innerText = 
+            `00:${seconds < 10 ? '0' + seconds : seconds}`;
+    }, 1000);
+}</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Resident form submit karta hai ➔ <code>482910</code> screen par display hota hai jisko WhatsApp par guest ko bhejte hain. Intercom button dabate hi guard cabin call connect ho jati hai audio waveform pulse ke sath.</p>
+            </div>
+        </div>
 
-        <h3 class="sub-title">Workflow 2: Fintech Maintenance Payment &amp; Receipt</h3>
-        <ol>
-            <li>Resident views pending maintenance (₹4,250) on <code>resident.html</code> and clicks <em>"Pay Now"</em>, redirecting to <code>payment.html</code>.</li>
-            <li>Resident chooses payment mode: 1-Tap UPI (GPay/PhonePe) or Credit Card.</li>
-            <li>Submitting payment triggers <code>processPayment()</code> in <code>payment.js</code>. It validates card/VPA inputs, simulates a 2-second bank authorization gateway, generates a unique transaction reference (e.g., <code>TXN-NEX-88219</code>), marks dues as <code>PAID</code>, and generates a GST-compliant tax receipt.</li>
-        </ol>
+        <!-- STEP 5 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 5: Executive Admin Desk &amp; Broadcast Engine</h3>
+                <span class="step-tag">Society Management</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Society Secretary (Dr. S. Rao / Aatmaram Bhide) ko 120 flats ka audit, financial collections (₹4,08,000 collected vs ₹1,02,000 pending), aur circular notices broadcast karne the.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>admin.js</code>):</strong>
+                <pre><code>// 1. Real-Time Occupancy &amp; Collection KPI Math
+function updateAdminMetrics() {
+    const totalUnits = 120;
+    const occupied = flatsData.filter(f => f.status === 'Occupied').length; // 96
+    const rate = Math.round((occupied / totalUnits) * 100); // 80%
+    document.getElementById('occupancyText').innerText = `${occupied} / ${totalUnits} (${rate}%)`;
+}
 
-        <h3 class="sub-title">Workflow 3: 3D Digital Twin Visualizer (Three.js)</h3>
-        <ol>
-            <li><code>twin.js</code> initializes a WebGL scene with shadow mapping and perspective camera.</li>
-            <li>Renders 3 towers: Tower A (12 floors), Tower B (10 floors), Tower C (8 floors) with distinct textures.</li>
-            <li>Adds campus elements: boundary walls, boom barriers, parking bay meshes, and landscaping.</li>
-            <li>A <code>THREE.Raycaster</code> listens to user pointer clicks. When a user clicks Tower A, it calculates intersection points, highlights the building, and slides open the telemetry HUD showing occupancy (96/120 flats occupied).</li>
-        </ol>
+// 2. Broadcast Circular Notice to All Dashboards
+function broadcastNotice(headline, content) {
+    const notice = { id: Date.now(), headline, content, date: new Date().toLocaleDateString() };
+    localStorage.setItem('societyNotice', JSON.stringify(notice));
+    showToast('Notice published to all residents!', '📢');
+}</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Admin ne notice form fill karke "Publish Notice" dabaya ➔ Notice LocalStorage/Database mein sync hua ➔ Resident Portal kholte hi upar yellow announcement banner render ho gaya.</p>
+            </div>
+        </div>
 
         <div class="page-break"></div>
 
-        <!-- SECTION 6 -->
-        <h2 class="section-title">6. Frequently Asked Viva Questions &amp; Model Answers</h2>
+        <!-- STEP 6 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 6: Fintech Payment Gateway Module</h3>
+                <span class="step-tag">Fintech Checkout</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Maintenance fees pay karne ke liye Razorpay/Stripe grade checkout experience with 3D credit card flipping animation aur GST-compliant tax receipt download chahiye tha.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>payment.js</code>):</strong>
+                <pre><code>// 1. 3D Credit Card Real-Time Formatting
+cardNumberInput.addEventListener('input', (e) => {
+    let raw = e.target.value.replace(/\D/g, '').substring(0, 16);
+    let formatted = raw.replace(/(.{4})/g, '$1 ').trim();
+    document.getElementById('cardPreviewNumber').innerText = formatted || '•••• •••• •••• ••••';
+});
+
+// 2. Payment Gateway Gateway Simulation &amp; Invoice Creation
+function processPayment() {
+    showSpinner();
+    setTimeout(() => {
+        const txnId = 'TXN-NEX-' + Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('receiptTxnId').innerText = txnId;
+        document.getElementById('receiptStatus').innerText = 'PAID ✓';
+        openModal('receiptModal'); // Displays printable tax invoice
+    }, 1500);
+}</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Resident ne Card number dala ➔ 3D Card par numbers live appear huye ➔ Pay Now dabaya ➔ 1.5 sec bank simulation hua ➔ <code>TXN-NEX-88219</code> generate hua aur GST invoice display ho gayi.</p>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 7: 3D Digital Twin HUD Engine</h3>
+                <span class="step-tag">Three.js WebGL</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Society ke 3 Towers (A, B, C) aur campus ka live 3D visual visualizer chahiye tha jisme buildings par click karne par unki flat occupancy telemetry pop-up ho.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>twin.js</code>):</strong>
+                <pre><code>// 1. Three.js Scene, Camera, WebGL Canvas
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webglCanvas'), antialias: true });
+
+// 2. Procedural Tower Mesh
+const geometry = new THREE.BoxGeometry(15, 45, 15);
+const material = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.2 });
+const towerA = new THREE.Mesh(geometry, material);
+towerA.name = "Tower A";
+scene.add(towerA);
+
+// 3. Raycasting Click-Detection for Telemetry HUD
+const raycaster = new THREE.Raycaster();
+window.addEventListener('click', (e) => {
+    raycaster.setFromCamera(mouse, camera);
+    const hits = raycaster.intersectObjects(scene.children);
+    if (hits.length > 0) {
+        openTelemetryHUD(hits[0].object.name); // Opens flat telemetry
+    }
+});</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Canvas par 3D model render hota hai. User jab Tower A par mouse click karta hai, Raycaster us building ko identify karta hai aur screen par Tower A ke 40 flats ka live breakdown khol deta hai.</p>
+            </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 8: Backend Server Architecture (Node.js + Express)</h3>
+                <span class="step-tag">REST API Server</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Port 5000 par RESTful backend server chahiye tha jo Netlify frontend aur local clients dono se secure requests handle kar sake.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>server/server.js</code>):</strong>
+                <pre><code>const express = require("express");
+const cors = require("cors");
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// CORS &amp; Private Network Access Headers
+app.use(cors({ origin: "*" }));
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Private-Network", "true");
+    next();
+});
+
+app.use(express.json());
+
+// Mount REST Route Modules
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/visitors", require("./routes/visitorRoutes"));
+app.use("/api/complaints", require("./routes/complaintRoutes"));
+app.use("/api/dues", require("./routes/duesRoutes"));
+
+app.listen(PORT, () => console.log(`🚀 NexSociety Server live on http://localhost:${PORT}`));</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Terminal par <code>node server.js</code> chala kar server online hota hai. Frontend <code>fetch('/api/visitors')</code> bhej kar data dynamically read aur write karta hai.</p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- STEP 9 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 9: PostgreSQL Relational Database Schema</h3>
+                <span class="step-tag">Database Layer</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Financial maintenance dues aur visitor security passes me relational integrity aur ACID compliance chahiye thi, isliye PostgreSQL use kiya.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>server/db/schema.sql</code> &amp; <code>db.js</code>):</strong>
+                <pre><code>-- 1. Visitors Table
+CREATE TABLE visitors (
+    id VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    flat_number VARCHAR(20) NOT NULL,
+    vehicle_no VARCHAR(50) DEFAULT 'None',
+    entry_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'inside' CHECK (status IN ('inside', 'checked-out'))
+);
+
+-- 2. Pre-Approved Passes Table
+CREATE TABLE preapproved_passes (
+    id VARCHAR(50) PRIMARY KEY,
+    guest_name VARCHAR(100) NOT NULL,
+    flat_number VARCHAR(20) NOT NULL,
+    pin_otp VARCHAR(10) NOT NULL,
+    status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'used'))
+);</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Backend <code>pg.Pool</code> connection pool use karta hai. Guard jab entry karta hai, <code>INSERT INTO visitors...</code> query chalti hai aur data hard disk par safe store hota hai.</p>
+            </div>
+        </div>
+
+        <!-- STEP 10 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 10: Firebase Cloud Sync Integration</h3>
+                <span class="step-tag">Cloud Realtime Sync</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Agar internet se site chalayi jaye (bina local backend ke), toh live multi-device session monitoring ke liye Firebase cloud database chahiye tha.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>firebase-config.js</code>):</strong>
+                <pre><code>const firebaseConfig = {
+    apiKey: "AIzaSyBKL6qY4dffpgyMLzVZjwtQ1EZZ_aHsu8s",
+    authDomain: "nexsociety-b4311.firebaseapp.com",
+    databaseURL: "https://nexsociety-b4311-default-rtdb.firebaseio.com",
+    projectId: "nexsociety-b4311"
+};
+
+firebase.initializeApp(firebaseConfig);
+const rtdb = firebase.database();
+
+window.NexFirebase = {
+    logUserLogin(email, role, details) {
+        return rtdb.ref("sessions").push({
+            user: email,
+            role: role,
+            flat: details.flat,
+            timestamp: new Date().toISOString()
+        });
+    }
+};</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Jaise hi user browser par login karta hai, uska live timestamp aur user agent Firebase console mein real-time node ke andar populate ho jata hai.</p>
+            </div>
+        </div>
+
+        <!-- STEP 11 -->
+        <div class="step-card">
+            <div class="step-header">
+                <h3>STEP 11: Netlify Hosting &amp; Production Deployment</h3>
+                <span class="step-tag">CI/CD Deployment</span>
+            </div>
+            <div class="step-block">
+                <strong class="label">1. Kya Socha (Objective):</strong>
+                <p>Poori site ko globally live deploy karna tha taaki mobile aur desktop par kahi se bhi open ho sake.</p>
+            </div>
+            <div class="step-block">
+                <strong class="label">2. Kya Code Dala (Implementation in <code>netlify.toml</code>):</strong>
+                <pre><code>[build]
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200</code></pre>
+            </div>
+            <div class="step-block">
+                <strong class="label">3. Fir Kaise Use Hua (Execution Flow):</strong>
+                <p>Code ko GitHub branch <code>main</code> par push kiya. Netlify automated webhook ne code compile karke live production URL generate kar diya: <strong>https://nexsociety-smart.netlify.app/</strong></p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 3: VIVA QUESTIONS -->
+        <h2 class="section-title">3. Top Viva Questions &amp; Examiner Ready-Made Answers</h2>
 
         <div class="qa-card">
-            <div class="qa-q">Q1: What is the overall architecture of NexSociety?</div>
-            <div class="qa-a"><strong>Answer:</strong> "NexSociety follows a modular 3-tier client-server architecture. The frontend is built using semantic HTML5, CSS3, ES6 JavaScript, and Three.js for 3D visualization. The backend is an asynchronous REST API built with Node.js and Express.js, connected to a PostgreSQL relational database. For cloud deployment and real-time cross-device monitoring, we use Firebase Realtime Database and Netlify Edge CDN."</div>
+            <div class="qa-q">Q1: What is the high-level architecture of your project?</div>
+            <div class="qa-a"><strong>Answer:</strong> "Sir, NexSociety follows a modular 3-tier client-server architecture with an offline-first fallback. The frontend is built using HTML5, CSS3, JavaScript, and Three.js for 3D visualization. The backend is an asynchronous REST API built with Node.js and Express.js, connected to a PostgreSQL relational database. For cloud deployment and real-time live monitoring, we use Firebase Realtime Database and Netlify Edge CDN."</div>
         </div>
 
         <div class="qa-card">
             <div class="qa-q">Q2: Why did you choose PostgreSQL over MongoDB?</div>
-            <div class="qa-a"><strong>Answer:</strong> "Residential society management involves financial transactions (maintenance dues) and structured relational associations (visitors linked to flat numbers, complaints linked to towers). PostgreSQL guarantees ACID compliance, strict foreign key constraints, and numeric precision for financial ledgers, preventing dirty reads or lost updates."</div>
+            <div class="qa-a"><strong>Answer:</strong> "Sir, residential society management involves financial transactions (maintenance dues) and structured relational associations (visitors linked to flat numbers, complaints linked to towers). PostgreSQL guarantees ACID compliance, strict foreign key constraints, and numeric precision for financial ledgers, preventing dirty reads or lost updates."</div>
         </div>
 
         <div class="qa-card">
@@ -512,13 +798,26 @@
         </div>
 
         <div class="qa-card">
-            <div class="qa-q">Q4: How did you ensure responsive mobile screen fitting without horizontal scroll?</div>
+            <div class="qa-q">Q4: How did you solve the mobile screen fitting issue without horizontal scroll?</div>
             <div class="qa-a"><strong>Answer:</strong> "We applied strict global viewport bounds: <code>html, body { width: 100%; max-width: 100vw; overflow-x: hidden; }</code>. Wide multi-column tables are wrapped in <code>.table-responsive</code> containers with <code>overflow-x: auto</code> and touch momentum scrolling. Media queries at 768px and 480px dynamically convert multi-column grids into single-column responsive layouts."</div>
         </div>
 
         <div class="qa-card">
             <div class="qa-q">Q5: How does the 3D Digital Twin work under the hood?</div>
             <div class="qa-a"><strong>Answer:</strong> "The 3D Digital Twin uses the Three.js library over WebGL. It sets up a scene, camera, ambient and directional lights, and renders procedural 3D box geometries for towers and parking lots. User click interactions are detected using <code>THREE.Raycaster</code>, which projects a ray from the camera through the mouse coordinates to identify clicked building meshes."</div>
+        </div>
+
+        <!-- 2-MINUTE VIVA PITCH SCRIPT -->
+        <h2 class="section-title">4. 2-Minute Presentation Pitch Script (To speak in front of teachers)</h2>
+        <div class="qa-card" style="background: #f8fafc; border-left: 4px solid var(--primary);">
+            <p><strong>"Respected Teachers &amp; Examiners,</strong></p>
+            <p>We present <strong>NexSociety</strong>, an autonomous Smart Community &amp; Gated Security Management Platform.</p>
+            <p>Our system integrates three core stakeholders onto a unified cloud ecosystem:</p>
+            <p>1. <strong>Security Terminal:</strong> Enables 1-tap rapid gate passes for delivery partners (Zomato/Swiggy), visitor registration, and OTP passcode boom barrier authorization.</p>
+            <p>2. <strong>Resident Portal:</strong> Allows self-service 6-digit guest pass creation, maintenance dues tracking, helpdesk ticketing, and simulated gate intercom.</p>
+            <p>3. <strong>Admin Command Desk:</strong> Provides executive oversight of flat occupancy (80% occupied across 120 units), collection tracking, and broadcast notices.</p>
+            <p>4. <strong>3D Digital Twin:</strong> Built with Three.js (WebGL), allowing interactive raycasting inspection of society towers.</p>
+            <p>The backend is powered by Node.js, Express, and PostgreSQL, backed by a resilient dual-mode architecture connected to Firebase Cloud."</p>
         </div>
 
         <footer class="doc-footer">
